@@ -26,7 +26,7 @@ This mod is different to...
 ## Links
 
 * **Forge Docu**: https://mcforge.readthedocs.io/en/1.16.x/
-* **Modding with Forge 1.16**: https://www.youtube.com/playlist?list=PLiFAb_ju1TahVZ1uOer7T3m_17crt15kp
+* **Modding with Forge 1.8**: https://www.youtube.com/playlist?list=PLiFAb_ju1TahVZ1uOer7T3m_17crt15kp
 * **Modding with Forge 1.11**: https://www.youtube.com/playlist?list=PLGProEDTdBjjNQrr1G4Nv3oqqQ14hZtYV
 
 
