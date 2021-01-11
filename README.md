@@ -23,6 +23,12 @@ This mod is different to...
 
 * 0.0.x Enyo
 
+## Coordinates
+
+`x` increments towards `east` and decrements towards `west`  
+`y` increments towards `up` and decrements towards `down`  
+`z` increments towards `south` and decrements towards `north`  
+
 ## Tools
 
 * **Loot-Table Generator**: https://misode.github.io/loot-table/

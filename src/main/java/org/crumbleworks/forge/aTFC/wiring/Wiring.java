@@ -35,9 +35,7 @@ public abstract class Wiring {
         Set<Class<? extends Wireable>> subTypes = reflections
                 .getSubTypesOf(Wireable.class);
 
-        // TODO [LOW] add Interface & mechanism to mark and detect DEVELOPMENT
-        // wireables, stuff that doesn't need to be included in the published
-        // jar but is only relevant for dev
+        // TODO https://github.com/CrumbleWorks/aTFC/issues/2
         
         // we need to trigger classloading for our subclasses (that define
         // only static stuff...)
