@@ -14,7 +14,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = '0.0.1-Enyo'
-group = 'org.crumbleworks.forge.aTFC' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'org.crumbleworks.forge.aTFC'
 archivesBaseName = 'aTFC'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
@@ -44,7 +44,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                atfc {
                     source sourceSets.main
                 }
             }
@@ -60,7 +60,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                atfc {
                     source sourceSets.main
                 }
             }
@@ -76,10 +76,13 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'atfc',
+                 '--all',
+                 '--output', file('src/generated/resources/'),
+                 '--existing', file('src/main/resources/')
 
             mods {
-                examplemod {
+                atfc {
                     source sourceSets.main
                 }
             }
@@ -113,7 +116,10 @@ dependencies {
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
+    
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+	compile 'org.slf4j:slf4j-api:1.7.25'
+    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.0'
 }
 
 // Properly link sources & javadoc for eclipse
@@ -128,10 +134,14 @@ eclipse {
 jar {
     manifest {
         attributes([
-            "Project": project.name,
-            "Version": "${version}",
-            "GitHub": "https://github.com/CrumbleWorks/aTFC",
-            "Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Specification-Title": "atfc",
+            "Specification-Vendor": "Crumbleworks",
+            "Specification-Version": "1",            
+            "Implementation-Title": project.name,
+            "Implementation-Version": "${version}",
+            "Implementation-Vencor": "Crumbleworks",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            "GitHub": "https://github.com/CrumbleWorks/aTFC"
         ])
     }
 }
@@ -139,6 +149,7 @@ jar {
 // Example configuration to allow publishing using the maven-publish task
 // This is the preferred method to reobfuscate your jar file
 jar.finalizedBy('reobfJar')
+
 // However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
 //publish.dependsOn('reobfJar')
 
