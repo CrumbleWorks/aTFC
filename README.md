@@ -19,6 +19,10 @@ This mod is different to...
 
 # Development
 
+## Versioning
+
+* 0.0.x Enyo
+
 ## Links
 
 * **Forge Docu**: https://mcforge.readthedocs.io/en/1.16.x/
