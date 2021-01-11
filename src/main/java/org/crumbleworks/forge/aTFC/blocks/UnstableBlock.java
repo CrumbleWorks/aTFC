@@ -43,11 +43,23 @@ public abstract class UnstableBlock extends FallingBlock {
     }
 
     private BlockPos determineFallDirection(ServerWorld worldIn, BlockPos pos, Random rand) {
-        //FIXME
+        //FIXME >> get inspired by piston logik?
+        
+        //1. usefinde welli richtige überhaupt schiebbar sind (HET LUFT DETE)
+        
+        //2. usefinde ob i dere richtig platz isch zum abegheie
+        
+        //3. ???
+        
+        //4. PROFITS
+        
         return pos;
     }
 
     private boolean isBlockSupported(ServerWorld worldIn, BlockPos pos) {
+        // Block is supported, no falling possible
+        // TODO https://github.com/CrumbleWorks/aTFC/issues/3
+        
         // Needs to have a block below at all times
         if(worldIn.isAirBlock(pos.down())) {
             return false;
@@ -62,8 +74,6 @@ public abstract class UnstableBlock extends FallingBlock {
         if(supportedSides >= 2) {
             return false;
         }
-
-        // TODO https://github.com/CrumbleWorks/aTFC/issues/3
 
         return true;
     }
