@@ -2,13 +2,12 @@ package org.crumbleworks.forge.aTFC;
 
 import java.util.stream.Collectors;
 
+import org.crumbleworks.forge.aTFC.wiring.Wiring;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -25,10 +24,13 @@ public class Main {
 
     public static final String MOD_ID = "atfc";
 
-    // Directly reference a log4j logger.
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public Main() {
+        LOGGER.info("SETTING UP SHIT");
+        Wiring.wireUp();
+        LOGGER.warn("DID IT");
+
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus()
                 .addListener(this::setup);
@@ -81,19 +83,5 @@ public class Main {
     public void onServerStarting(FMLServerStartingEvent event) {
         // do something when the server starts
         LOGGER.info("HELLO from server starting");
-    }
-
-    // You can use EventBusSubscriber to automatically subscribe events on the
-    // contained class (this is subscribing to the MOD
-    // Event bus for receiving Registry Events)
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
-
-        @SubscribeEvent
-        public static void onBlocksRegistry(
-                final RegistryEvent.Register<Block> blockRegistryEvent) {
-            // register a new block here
-            LOGGER.info("HELLO from Register Block");
-        }
     }
 }

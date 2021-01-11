@@ -23,9 +23,20 @@ This mod is different to...
 
 * 0.0.x Enyo
 
+## Tools
+
+* **Loot-Table Generator**: https://misode.github.io/loot-table/
+
+## File-Formats
+
+* **blockstates**: https://minecraft.gamepedia.com/Model
+* **loot-tables**: https://minecraft.gamepedia.com/Loot_table
+* **resource-packs**: https://minecraft.gamepedia.com/Resource_Pack
+
 ## Links
 
 * **Forge Docu**: https://mcforge.readthedocs.io/en/1.16.x/
+* **Cadiboo Forge 1.15.1 Tutorials**: https://cadiboo.github.io/tutorials/1.15.1/forge/
 * **Modding with Forge 1.16.4**: https://youtube.com/playlist?list=PLaevjqy3Xufavi5mWXvWnGmwRylL-QZy7
 * **Modding with Forge 1.16.x**: https://youtube.com/playlist?list=PLGProEDTdBjghW5IZsiWno6e9QAkHChyQ
 * **Modding with Forge 1.11**: https://www.youtube.com/playlist?list=PLGProEDTdBjjNQrr1G4Nv3oqqQ14hZtYV
