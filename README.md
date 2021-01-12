@@ -32,6 +32,7 @@ This mod is different to...
 ## Tools
 
 * **Loot-Table Generator**: https://misode.github.io/loot-table/
+* **SRG-Names Lookup**: https://mcp.thiakil.com/
 
 ## File-Formats
 
