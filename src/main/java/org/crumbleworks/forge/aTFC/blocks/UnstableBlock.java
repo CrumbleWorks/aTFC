@@ -10,8 +10,11 @@ import org.crumbleworks.forge.aTFC.entities.UnstableBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityType;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 
@@ -46,7 +49,7 @@ public abstract class UnstableBlock extends FallingBlock {
         }
     }
 
-    private BlockPos determineFallDirection(ServerWorld worldIn, BlockPos pos,
+    private BlockPos determineFallDirection(World worldIn, BlockPos pos,
             Random rand) {
         // Always drop down if possible
         if(!isBlockSolid(worldIn, pos.down())) {
@@ -83,12 +86,16 @@ public abstract class UnstableBlock extends FallingBlock {
         return pos;
     }
 
-    private boolean canFallTowards(ServerWorld worldIn, BlockPos pos) {
-        return !isBlockSolid(worldIn, pos)
+    private boolean canFallTowards(World worldIn, BlockPos pos) {
+        AxisAlignedBB bb = new AxisAlignedBB(pos);
+        return !isBlockSolid(worldIn, pos) && worldIn
+                .getEntitiesWithinAABB(EntityType.FALLING_BLOCK, bb, (e) -> {
+                    return true;
+                }).isEmpty()
                 && !isBlockSolid(worldIn, pos.down());
     }
 
-    private boolean isSupportingBlock(ServerWorld worldIn, BlockPos pos) {
+    private boolean isSupportingBlock(World worldIn, BlockPos pos) {
         BlockState state = worldIn.getBlockState(pos);
         Material material = state.getMaterial();
         // Water is able to lend support to blocks (making sure coasts don't
@@ -98,12 +105,12 @@ public abstract class UnstableBlock extends FallingBlock {
                 && !material.isReplaceable();
     }
 
-    private boolean isBlockSolid(ServerWorld worldIn, BlockPos pos) {
+    private boolean isBlockSolid(World worldIn, BlockPos pos) {
         return !worldIn.isAirBlock(pos)
                 && !canFallThrough(worldIn.getBlockState(pos));
     }
 
-    private boolean isBlockSupported(ServerWorld worldIn, BlockPos pos) {
+    private boolean isBlockSupported(World worldIn, BlockPos pos) {
         // Block is supported, no falling possible
         // TODO https://github.com/CrumbleWorks/aTFC/issues/3
 
