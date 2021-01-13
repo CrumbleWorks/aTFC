@@ -3,6 +3,7 @@ package org.crumbleworks.forge.aTFC;
 import java.util.stream.Collectors;
 
 import org.crumbleworks.forge.aTFC.wiring.Wiring;
+import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,6 +24,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class Main {
 
     public static final String MOD_ID = "atfc";
+    public static final Reflections reflections = new Reflections(
+            "org.crumbleworks.forge.aTFC");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
