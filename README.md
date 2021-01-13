@@ -34,11 +34,13 @@ This mod is different to...
 * **Loot-Table Generator**: https://misode.github.io/loot-table/
 * **SRG-Names Lookup**: https://mcp.thiakil.com/
 
-## File-Formats
+## Formats
 
 * **blockstates**: https://minecraft.gamepedia.com/Model
 * **loot-tables**: https://minecraft.gamepedia.com/Loot_table
 * **resource-packs**: https://minecraft.gamepedia.com/Resource_Pack
+
+* **RenderTypes**: https://greyminecraftcoder.blogspot.com/2020/04/block-rendering-1144.html
 
 ## Links
 
@@ -48,6 +50,8 @@ This mod is different to...
 * **Modding with Forge 1.16.x**: https://youtube.com/playlist?list=PLGProEDTdBjghW5IZsiWno6e9QAkHChyQ
 * **Modding with Forge 1.11**: https://www.youtube.com/playlist?list=PLGProEDTdBjjNQrr1G4Nv3oqqQ14hZtYV
 * **Modding with Forge 1.8**: https://www.youtube.com/playlist?list=PLiFAb_ju1TahVZ1uOer7T3m_17crt15kp
+
+* **Modding for 1.14.4+**: https://greyminecraftcoder.blogspot.com/p/list-of-topics-1144.html
 
 **Texturing**:
 - Multi-Texturing: https://mcmodhelp.fandom.com/wiki/Multi-Texturing_Blocks
