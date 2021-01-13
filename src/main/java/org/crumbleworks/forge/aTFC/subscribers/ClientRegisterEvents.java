@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.blocks.BiomeAndRockBasedBlockColor;
 import org.crumbleworks.forge.aTFC.blocks.Tintable;
+import org.crumbleworks.forge.aTFC.wiring.Dirt;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
@@ -37,6 +38,6 @@ public final class ClientRegisterEvents {
     @SubscribeEvent
     public static void registerColorer(ColorHandlerEvent.Block event) {
         event.getBlockColors().register(new BiomeAndRockBasedBlockColor(),
-                blocks);
+                new Block[] { Dirt.DIRT_BLOCK.get() }); //FIXME we need to get array of blocks dynamically, this is wrong
     }
 }
