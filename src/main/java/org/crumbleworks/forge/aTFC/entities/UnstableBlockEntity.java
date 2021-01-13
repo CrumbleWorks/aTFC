@@ -80,8 +80,8 @@ public class UnstableBlockEntity extends FallingBlockEntity {
                 BlockPos blockpos = this.getPosition();
 
                 // THIS IS CHANGED
-                if(isThisOrNeighbouringBlockOriginal(blockpos, block)) {} else
-                    if(!this.world.isRemote) {
+                if(isThisOrNeighbouringBlockOriginal(blockpos, block)) {}
+                else if(!this.world.isRemote) {
                         this.remove();
                         return;
                     }
