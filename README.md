@@ -51,6 +51,13 @@ This mod is different to...
 * **Modding with Forge 1.11**: https://www.youtube.com/playlist?list=PLGProEDTdBjjNQrr1G4Nv3oqqQ14hZtYV
 * **Modding with Forge 1.8**: https://www.youtube.com/playlist?list=PLiFAb_ju1TahVZ1uOer7T3m_17crt15kp
 
+**Texturing**:
+- Multi-Texturing: https://mcmodhelp.fandom.com/wiki/Multi-Texturing_Blocks
+
+**Modelling**:
+- Blockmodels: https://mcmodhelp.fandom.com/wiki/Multi-Texturing_Blocks
+- MrCrayfish Model Creator: https://mrcrayfish.com/tools.php?id=mc
+
 
 
 [1]: https://plus.terrafirmacraft.com/

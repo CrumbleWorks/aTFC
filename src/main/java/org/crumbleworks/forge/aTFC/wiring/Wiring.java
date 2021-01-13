@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.reflections.Reflections;
+import org.crumbleworks.forge.aTFC.Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,13 +30,11 @@ public abstract class Wiring {
     }
 
     public static final void wireUp() {
-        Reflections reflections = new Reflections(
-                "org.crumbleworks.forge.aTFC");
-        Set<Class<? extends Wireable>> subTypes = reflections
+        Set<Class<? extends Wireable>> subTypes = Main.reflections
                 .getSubTypesOf(Wireable.class);
 
         // TODO https://github.com/CrumbleWorks/aTFC/issues/2
-        
+
         // we need to trigger classloading for our subclasses (that define
         // only static stuff...)
         for(Class<? extends Wireable> subType : subTypes) {
