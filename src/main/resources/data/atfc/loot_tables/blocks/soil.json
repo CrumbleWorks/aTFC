@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "atfc:dirt"
+          "name": "atfc:soil"
         }
       ]
     }

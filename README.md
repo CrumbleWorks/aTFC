@@ -23,7 +23,10 @@ This mod is different to...
 
 1. run `gradlew build`
 2. run `gradlew runData` to generate json files (models, blockstates, ...)
-3. run `gradlew runClient` or use the `runClient.launch` config in eclipse to start the game
+3. run `gradlew build`
+4. run `gradlew runClient` or use the `runClient.launch` config in eclipse to start the game
+
+After the first build you only have to run steps 2, 3 and 4. If no generators were touched, step 4. is enough.
 
 ## Versioning
 
