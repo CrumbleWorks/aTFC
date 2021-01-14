@@ -12,14 +12,14 @@ import net.minecraft.data.DataGenerator;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class TranslationsSchwizerdütsch extends Translations {
+public class TranslationsSchwizerdeutsch extends Translations {
 
     /**
      * @param gen
      * @param modid
      * @param locale
      */
-    public TranslationsSchwizerdütsch(DataGenerator gen) {
+    public TranslationsSchwizerdeutsch(DataGenerator gen) {
         super(gen, "de_ch");
     }
 
