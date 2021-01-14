@@ -22,3 +22,7 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Upload Mod-Jar
+      uses: actions/upload-artifact@v2.2.2
+      with:
+        path: build/libs/aTFC-0.0.1-Enyo.jar
