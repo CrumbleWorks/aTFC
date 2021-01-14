@@ -5,7 +5,7 @@ name: Build aTFC
 
 on:
   push:
-    branches: '*'
+    branches: '**'
   pull_request:
     branches: [ master, develop ]
 
