@@ -29,7 +29,8 @@ public class Soil implements Wireable {
 
     @Override
     public void generateBlockStates(BlockStates bs) {
-        //FIXME
+        bs.getVariantBuilder(SOIL_BLOCK.get())
+          .partialState()
     }
     
     @Override
