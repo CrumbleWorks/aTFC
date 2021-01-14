@@ -26,14 +26,6 @@ public class Soil implements Wireable {
                     new Item.Properties().group(ItemGroups.BLOCKS)));
 
     @Override
-    public void generateBlockStates(BlockStates bs) {
-        bs.getVariantBuilder(SOIL_BLOCK.get())
-                .partialState().modelForState()
-                .modelFile(bs.models().getExistingFile(bs.modLoc(name)))
-                .addModel();
-    }
-
-    @Override
     public void generateBlockModels(BlockModels bm) {
         bm.createGrassCoverableBlock(name, bm.mcLoc("block/dirt"));
     }
@@ -41,6 +33,15 @@ public class Soil implements Wireable {
     @Override
     public void generateItemModels(ItemModels im) {
         im.createBlockItem(name);
+    }
+
+    @Override
+    public void generateBlockStates(BlockStates bs) {
+        bs.getVariantBuilder(SOIL_BLOCK.get())
+                .partialState().modelForState()
+                .modelFile(bs.models()
+                        .getExistingFile(bs.modLoc("block/" + name)))
+                .addModel();
     }
 
     @Override
