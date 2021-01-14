@@ -23,11 +23,12 @@ public final class ModEvents {
 
     @SubscribeEvent
     public static void registerDatagenerators(GatherDataEvent event) {
-        event.getGenerator().addProvider(new BlockStates(event.getGenerator(),
-                event.getExistingFileHelper()));
         event.getGenerator().addProvider(new BlockModels(event.getGenerator(),
                 event.getExistingFileHelper()));
         event.getGenerator().addProvider(new ItemModels(event.getGenerator(),
+                event.getExistingFileHelper()));
+
+        event.getGenerator().addProvider(new BlockStates(event.getGenerator(),
                 event.getExistingFileHelper()));
 
         event.getGenerator()

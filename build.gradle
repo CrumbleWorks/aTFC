@@ -196,7 +196,7 @@ task deleteGeneratedFiles(type: Delete) {
 jar.finalizedBy('reobfJar')
 
 task buildData(type: GradleBuild) {
-    tasks = ['build', 'runData']
+    tasks = ['build', 'runData', 'build']
 }
 
 // However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing

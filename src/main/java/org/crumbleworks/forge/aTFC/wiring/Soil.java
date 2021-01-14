@@ -10,8 +10,6 @@ import org.crumbleworks.forge.aTFC.itemgroups.ItemGroups;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.model.Models;
 import net.minecraftforge.fml.RegistryObject;
 
 /**
@@ -30,9 +28,11 @@ public class Soil implements Wireable {
     @Override
     public void generateBlockStates(BlockStates bs) {
         bs.getVariantBuilder(SOIL_BLOCK.get())
-          .partialState()
+                .partialState().modelForState()
+                .modelFile(bs.models().getExistingFile(bs.modLoc(name)))
+                .addModel();
     }
-    
+
     @Override
     public void generateBlockModels(BlockModels bm) {
         bm.createGrassCoverableBlock(name, bm.mcLoc("block/dirt"));
@@ -42,12 +42,12 @@ public class Soil implements Wireable {
     public void generateItemModels(ItemModels im) {
         im.createBlockItem(name);
     }
-    
+
     @Override
     public void englishTranslations(Translations tr) {
         tr.add(SOIL_BLOCK.get(), "Soil");
     }
-    
+
     @Override
     public void swissTranslations(Translations tr) {
         tr.add(SOIL_BLOCK.get(), "Erd\u00e4");

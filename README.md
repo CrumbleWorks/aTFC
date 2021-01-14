@@ -28,6 +28,11 @@ This mod is different to...
 
 After the first build you only have to run steps 2, 3 and 4. If no generators were touched, step 4. is enough.
 
+**OR**
+
+1. run `gradlew buildData` to generate json files (models, blockstates, ...) and build, etc.
+4. run `gradlew runClient` or use the `runClient.launch` config in eclipse to start the game
+
 ## Versioning
 
 * 0.0.x Enyo

@@ -28,13 +28,11 @@ public interface Wireable {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister
             .create(ForgeRegistries.ITEMS, Main.MOD_ID);
 
+    void generateBlockModels(BlockModels bm);
+    void generateItemModels(ItemModels im);
+    
     void generateBlockStates(BlockStates bs);
 
-    void generateBlockModels(BlockModels bm);
-
-    void generateItemModels(ItemModels im);
-
     void englishTranslations(Translations tren);
-
     void swissTranslations(Translations trch);
 }
