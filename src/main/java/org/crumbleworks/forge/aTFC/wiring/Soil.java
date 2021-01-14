@@ -6,9 +6,9 @@ import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
 import org.crumbleworks.forge.aTFC.itemgroups.ItemGroups;
+import org.crumbleworks.forge.aTFC.items.TintableBlockItem;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 
@@ -22,7 +22,7 @@ public class Soil implements Wireable {
     public static final RegistryObject<Block> SOIL_BLOCK = BLOCKS
             .register(name, () -> new SoilBlock());
     public static final RegistryObject<Item> SOIL_ITEM = ITEMS
-            .register(name, () -> new BlockItem(SOIL_BLOCK.get(),
+            .register(name, () -> new TintableBlockItem(SOIL_BLOCK.get(),
                     new Item.Properties().group(ItemGroups.BLOCKS)));
 
     @Override
