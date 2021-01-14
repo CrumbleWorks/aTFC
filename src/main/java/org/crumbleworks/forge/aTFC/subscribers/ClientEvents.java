@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.Util;
+import org.crumbleworks.forge.aTFC.blocks.Multilayered;
 import org.crumbleworks.forge.aTFC.blocks.Tintable;
 import org.crumbleworks.forge.aTFC.dataGeneration.DynamicPainter;
 
@@ -29,7 +30,7 @@ public final class ClientEvents {
 
     @SubscribeEvent
     public static void registerTranslucency(FMLClientSetupEvent event) {
-        Set<Block> blocks = Util.getBlocks(Tintable.class);
+        Set<Block> blocks = Util.getBlocks(Multilayered.class);
         for(Block block : blocks) {
             RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
         }

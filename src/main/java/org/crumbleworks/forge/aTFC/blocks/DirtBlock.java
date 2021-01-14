@@ -9,7 +9,8 @@ import net.minecraft.block.material.MaterialColor;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class DirtBlock extends UnstableBlock implements Tintable {
+public class DirtBlock extends UnstableBlock
+        implements Tintable, Multilayered {
 
     public DirtBlock() {
         super(AbstractBlock.Properties
