@@ -15,7 +15,7 @@ This mod is different to...
 ## Contributors
 
 * [Michael "dot_Sp0T" Stocker](https://github.com/dotSp0T)
-* [Patrick "McDonnough" Bächli](https://github.com/McDonnough)
+* [Patrick "McDonnough" BÃ¤chli](https://github.com/McDonnough)
 
 # Development
 
@@ -35,7 +35,7 @@ After the first build you only have to run steps 2, 3 and 4. If no generators we
 
 ### Some blocks don't load properly?
 
-Delete the `src/generated` directory
+Delete the `src/generated` directory or run `gradlew deleteGeneratedFiles`
 
 ## Versioning
 
