@@ -29,7 +29,7 @@ public abstract class Wiring {
         registries.add(Wireable.ITEMS);
     }
 
-    public static final void wireUp() {
+    public static final Set<Wireable> wireUp() {
         Set<Class<? extends Wireable>> subTypes = Main.reflections
                 .getSubTypesOf(Wireable.class);
 
@@ -37,9 +37,10 @@ public abstract class Wiring {
 
         // we need to trigger classloading for our subclasses (that define
         // only static stuff...)
+        Set<Wireable> wireables = new HashSet<>();
         for(Class<? extends Wireable> subType : subTypes) {
             try {
-                subType.getConstructor().newInstance();
+                wireables.add(subType.getConstructor().newInstance());
             } catch(InstantiationException | IllegalAccessException
                     | IllegalArgumentException | InvocationTargetException
                     | NoSuchMethodException | SecurityException e) {
@@ -50,5 +51,7 @@ public abstract class Wiring {
         for(DeferredRegister<?> r : registries) {
             r.register(FMLJavaModLoadingContext.get().getModEventBus());
         }
+
+        return wireables;
     }
 }

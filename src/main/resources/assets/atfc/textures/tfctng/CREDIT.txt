@@ -1,0 +1,14 @@
+All credit for the textures in this directory-substructure goes to the TFC-TNG
+team: https://github.com/TerraFirmaCraft/TerraFirmaCraft
+
+All files in this directory-substructure are being used under CC-BY-SA-4.0
+(see LICENSE.txt in this directory) as detailed in the README.md file under
+https://github.com/TerraFirmaCraft/TerraFirmaCraft/blob/1.12.x/README.md as of
+2021-01-14.
+
+The files and directory-structure are being copied and used as is, no changes
+have been made as of 2021-01-14.
+
+The license can also be found on the Creative Commons website, under:
+ - https://creativecommons.org/licenses/by-sa/4.0/
+ - https://creativecommons.org/licenses/by-sa/4.0/legalcode
