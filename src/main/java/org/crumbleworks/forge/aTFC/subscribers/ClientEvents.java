@@ -4,8 +4,8 @@ import java.util.Set;
 
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.Util;
-import org.crumbleworks.forge.aTFC.blocks.BiomeAndRockBasedBlockColor;
 import org.crumbleworks.forge.aTFC.blocks.Tintable;
+import org.crumbleworks.forge.aTFC.dataGeneration.DynamicPainter;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;
@@ -38,7 +38,7 @@ public final class ClientEvents {
     @SubscribeEvent
     public static void registerColorer(ColorHandlerEvent.Block event) {
         Set<Block> blocks = Util.getBlocks(Tintable.class);
-        event.getBlockColors().register(new BiomeAndRockBasedBlockColor(),
+        event.getBlockColors().register(new DynamicPainter(),
                 blocks.toArray(new Block[blocks.size()]));
     }
 }
