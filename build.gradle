@@ -199,6 +199,10 @@ task buildData(type: GradleBuild) {
     tasks = ['build', 'runData', 'build', 'cleanEclipse', 'eclipse']
 }
 
+task deleteGeneratedFiles(type: Delete) {
+    delete 'src/generated'
+}
+
 // However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
 //publish.dependsOn('reobfJar')
 publishing {
