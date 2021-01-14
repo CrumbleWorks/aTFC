@@ -30,8 +30,8 @@ public class BlockModels extends BlockModelProvider {
         getBuilder("dirt")
             .parent(getExistingFile(mcLoc("block/block")))
             .texture("all", mcLoc("block/dirt"))
-            .texture("overlay_top", modLoc("block/tfc/overlays/grass_top"))
-            .texture("overlay_side", modLoc("block/tfc/overlays/grass_side"))
+            .texture("overlay_top", modLoc("tfctng/blocks/grass_top"))
+            .texture("overlay_side", modLoc("tfctng/blocks/grass_side"))
             .element().from(0, 0, 0).to(16, 16, 16)
             .allFaces((d, fb) -> {
                 fb.uvs(0, 0, 16, 16)
