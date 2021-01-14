@@ -155,7 +155,7 @@ jar {
 jar.finalizedBy('reobfJar')
 
 task buildData(type: GradleBuild) {
-    tasks = ['build', 'runData', 'build', 'cleanEclipse', 'eclipse']
+    tasks = ['deleteGeneratedFiles', 'build', 'runData', 'build', 'cleanEclipse', 'eclipse']
 }
 
 task deleteGeneratedFiles(type: Delete) {

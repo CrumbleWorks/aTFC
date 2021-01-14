@@ -4,6 +4,7 @@ import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
+import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.TranslationsSchwizerdeutsch;
 import org.crumbleworks.forge.aTFC.dataGeneration.TranslationsUSEnglish;
 
@@ -35,5 +36,8 @@ public final class ModEvents {
                 .addProvider(new TranslationsUSEnglish(event.getGenerator()));
         event.getGenerator().addProvider(
                 new TranslationsSchwizerdeutsch(event.getGenerator()));
+
+        event.getGenerator()
+                .addProvider(new LootTables(event.getGenerator()));
     }
 }
