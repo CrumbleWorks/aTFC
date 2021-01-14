@@ -19,6 +19,12 @@ This mod is different to...
 
 # Development
 
+## How to build & run
+
+1. run `gradlew build`
+2. run `gradlew runData` to generate json files (models, blockstates, ...)
+3. run `gradlew runClient` or use the `runClient.launch` config in eclipse to start the game
+
 ## Versioning
 
 * 0.0.x Enyo
