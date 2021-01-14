@@ -11,6 +11,7 @@ import org.crumbleworks.forge.aTFC.dataGeneration.DynamicPainter;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -41,5 +42,12 @@ public final class ClientEvents {
         Set<Block> blocks = Util.getBlocks(Tintable.class);
         event.getBlockColors().register(new DynamicPainter(),
                 blocks.toArray(new Block[blocks.size()]));
+    }
+    
+    @SubscribeEvent
+    public static void registerColorer(ColorHandlerEvent.Item event) {
+        Set<Item> items = Util.getItems(Tintable.class);
+        event.getItemColors().register(new DynamicPainter(),
+                items.toArray(new Item[items.size()]));
     }
 }
