@@ -33,6 +33,10 @@ After the first build you only have to run steps 2, 3 and 4. If no generators we
 1. run `gradlew buildData` to generate json files (models, blockstates, ...) and build, etc.
 4. run `gradlew runClient` or use the `runClient.launch` config in eclipse to start the game
 
+### Some blocks don't load properly?
+
+Delete the `src/generated` directory
+
 ## Versioning
 
 * 0.0.x Enyo
