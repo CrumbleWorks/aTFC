@@ -9,10 +9,10 @@ import net.minecraft.block.material.MaterialColor;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class DirtBlock extends UnstableBlock
+public class SoilBlock extends UnstableBlock
         implements Tintable, Multilayered {
 
-    public DirtBlock() {
+    public SoilBlock() {
         super(AbstractBlock.Properties
                 .create(Material.EARTH, MaterialColor.DIRT)
                 .hardnessAndResistance(0.5F)

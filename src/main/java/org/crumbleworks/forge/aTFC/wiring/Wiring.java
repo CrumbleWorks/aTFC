@@ -13,7 +13,7 @@ import net.minecraftforge.registries.DeferredRegister;
 
 /**
  * Extending classes should each be built around 1 single subject, e.g.
- * {@link Dirt} registers blocks, items, etc. in regards to dirt.
+ * {@link Soil} registers blocks, items, etc. in regards to dirt.
  *
  * @author Michael Stocker
  * @since CURRENT_VERSION
