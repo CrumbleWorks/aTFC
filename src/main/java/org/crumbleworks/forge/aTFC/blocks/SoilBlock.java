@@ -16,7 +16,6 @@ public class SoilBlock extends UnstableBlock
         super(AbstractBlock.Properties
                 .create(Material.EARTH, MaterialColor.DIRT)
                 .hardnessAndResistance(0.5F)
-                .sound(SoundType.GROUND)
-                );
+                .sound(SoundType.GROUND));
     }
 }

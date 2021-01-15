@@ -38,6 +38,7 @@ public class BlockModels extends BlockModelProvider {
     public void createGrassCoverableBlock(String name, ResourceLocation mainTex) {
         getBuilder(name)
             .parent(getExistingFile(mcLoc("block/block")))
+            .texture("particle", mainTex)
             .texture("all", mainTex)
             .texture("overlay_top", modLoc("tfctng/blocks/grass_top"))
             .texture("overlay_side", modLoc("tfctng/blocks/grass_side"))
