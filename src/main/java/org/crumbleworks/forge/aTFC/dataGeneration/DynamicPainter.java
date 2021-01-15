@@ -1,5 +1,7 @@
 package org.crumbleworks.forge.aTFC.dataGeneration;
 
+import org.crumbleworks.forge.aTFC.content.Colors;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
@@ -16,6 +18,7 @@ import net.minecraft.world.IBlockDisplayReader;
  */
 public class DynamicPainter implements IBlockColor, IItemColor {
 
+    public static final int TINT_DIGGING_PARTICLE = 0;
     public static final int TINT_GREENERY = 1;
     public static final int TINT_SOIL = 2;
 
@@ -26,14 +29,14 @@ public class DynamicPainter implements IBlockColor, IItemColor {
         // placeholder we set now
 
         if(arg3 == TINT_GREENERY) {
-            return 0x00FF00;
+            return Colors.NASTY_GREEN;
         }
 
-        if(arg3 == TINT_SOIL) {
-            return 0xFFA500;
+        if(arg3 == TINT_SOIL || arg3 == TINT_DIGGING_PARTICLE) {
+            return Colors.WEIRD_BROWN;
         }
 
-        return 0xFF69B4;
+        return Colors.WHITE;
     }
 
     @Override
@@ -42,13 +45,13 @@ public class DynamicPainter implements IBlockColor, IItemColor {
         // placeholder we set now
 
         if(p_getColor_2_ == TINT_GREENERY) {
-            return 0x00FF00;
+            return Colors.NASTY_GREEN;
         }
 
         if(p_getColor_2_ == TINT_SOIL) {
-            return 0xFFA500;
+            return Colors.WEIRD_BROWN;
         }
 
-        return 0xFF69B4;
+        return Colors.WHITE;
     }
 }
