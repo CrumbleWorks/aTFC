@@ -1,4 +1,4 @@
-package org.crumbleworks.forge.aTFC.blocks;
+package org.crumbleworks.forge.aTFC.content.blocks;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.SoundType;

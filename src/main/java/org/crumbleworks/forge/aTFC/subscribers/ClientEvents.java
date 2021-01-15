@@ -4,8 +4,8 @@ import java.util.Set;
 
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.Util;
-import org.crumbleworks.forge.aTFC.blocks.Multilayered;
-import org.crumbleworks.forge.aTFC.blocks.Tintable;
+import org.crumbleworks.forge.aTFC.content.blocks.Multilayered;
+import org.crumbleworks.forge.aTFC.content.blocks.Tintable;
 import org.crumbleworks.forge.aTFC.dataGeneration.DynamicPainter;
 
 import net.minecraft.block.Block;

@@ -1,6 +1,6 @@
-package org.crumbleworks.forge.aTFC.items;
+package org.crumbleworks.forge.aTFC.content.items;
 
-import org.crumbleworks.forge.aTFC.blocks.Tintable;
+import org.crumbleworks.forge.aTFC.content.blocks.Tintable;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;

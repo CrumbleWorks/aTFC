@@ -1,13 +1,13 @@
 package org.crumbleworks.forge.aTFC.wiring;
 
-import org.crumbleworks.forge.aTFC.blocks.SoilBlock;
+import org.crumbleworks.forge.aTFC.content.blocks.SoilBlock;
+import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
+import org.crumbleworks.forge.aTFC.content.items.TintableBlockItem;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
-import org.crumbleworks.forge.aTFC.itemgroups.ItemGroups;
-import org.crumbleworks.forge.aTFC.items.TintableBlockItem;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -32,7 +32,7 @@ public class Soil implements Wireable {
 
     @Override
     public void generateBlockModels(BlockModels bm) {
-        bm.createGrassCoverableBlock(name, bm.mcLoc("block/dirt"));
+        bm.createGrassCoverableBlock(name, bm.modLoc("block/" + name));
     }
 
     @Override

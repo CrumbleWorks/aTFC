@@ -26,11 +26,11 @@ public class DynamicPainter implements IBlockColor, IItemColor {
         // placeholder we set now
 
         if(arg3 == TINT_GREENERY) {
-            return 0xB2EF9B;
+            return 0x00FF00;
         }
 
         if(arg3 == TINT_SOIL) {
-            return 0xB3BFB8;
+            return 0xFFA500;
         }
 
         return 0xFF69B4;
@@ -42,11 +42,11 @@ public class DynamicPainter implements IBlockColor, IItemColor {
         // placeholder we set now
 
         if(p_getColor_2_ == TINT_GREENERY) {
-            return 0xB2EF9B;
+            return 0x00FF00;
         }
 
         if(p_getColor_2_ == TINT_SOIL) {
-            return 0xB3BFB8;
+            return 0xFFA500;
         }
 
         return 0xFF69B4;

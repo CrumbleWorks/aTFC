@@ -1,4 +1,4 @@
-package org.crumbleworks.forge.aTFC.itemgroups;
+package org.crumbleworks.forge.aTFC.content.itemgroups;
 
 import java.util.function.Supplier;
 

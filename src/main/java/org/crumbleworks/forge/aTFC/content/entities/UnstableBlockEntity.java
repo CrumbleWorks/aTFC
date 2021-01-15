@@ -1,4 +1,4 @@
-package org.crumbleworks.forge.aTFC.entities;
+package org.crumbleworks.forge.aTFC.content.entities;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

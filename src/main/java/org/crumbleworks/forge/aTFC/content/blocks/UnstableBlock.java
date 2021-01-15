@@ -1,11 +1,11 @@
-package org.crumbleworks.forge.aTFC.blocks;
+package org.crumbleworks.forge.aTFC.content.blocks;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import org.crumbleworks.forge.aTFC.entities.UnstableBlockEntity;
+import org.crumbleworks.forge.aTFC.content.entities.UnstableBlockEntity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FallingBlock;
