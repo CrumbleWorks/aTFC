@@ -1,24 +1,15 @@
 package org.crumbleworks.forge.aTFC.wiring;
 
 
-import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
+import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
-
-import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.loot.LootParameterSet;
-import net.minecraft.loot.LootTable;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -44,7 +35,7 @@ public interface Wireable {
     
     void generateBlockStates(BlockStates bs);
     
-    List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> generateLootTables();
+    void generateLootTables(LootTables lt);
 
     void englishTranslations(Translations tren);
     void swissTranslations(Translations trch);
