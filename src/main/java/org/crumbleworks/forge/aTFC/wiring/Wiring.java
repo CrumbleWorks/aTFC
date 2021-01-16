@@ -1,6 +1,7 @@
 package org.crumbleworks.forge.aTFC.wiring;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,6 +40,10 @@ public abstract class Wiring {
         // only static stuff...)
         Set<Wireable> wireables = new HashSet<>();
         for(Class<? extends Wireable> subType : subTypes) {
+            if(subType.isInterface() || Modifier.isAbstract(subType.getModifiers())) {
+                continue;
+            }
+            
             try {
                 wireables.add(subType.getConstructor().newInstance());
             } catch(InstantiationException | IllegalAccessException
