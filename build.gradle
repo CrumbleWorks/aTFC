@@ -150,6 +150,9 @@ jar {
     }
 }
 
+processResources {
+    exclude '.cache'
+}
 
 // Custom Tasks
 task buildData(type: GradleBuild) {
