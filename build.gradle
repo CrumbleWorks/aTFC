@@ -77,6 +77,10 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
+            // This doesn't make too much sense, but is necessary to keep CI-builds from stopping just because the data generator feels
+            // like it needs to crash in order to let one know that it has done what it's supposed to do
+            forceExit false
+
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
             args '--mod', 'atfc',
                  '--all',
