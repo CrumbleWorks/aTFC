@@ -26,3 +26,4 @@ forge*changelog.txt
 
 # Custom
 logs
+src/generated/
