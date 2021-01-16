@@ -76,6 +76,10 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
+            // This doesn't make too much sense, but is necessary to keep CI-builds from stopping just because the data generator feels
+            // like it needs to crash in order to let one know that it has done what it's supposed to do
+            forceExit false
+
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
             args '--mod', 'atfc',
                  '--all',
@@ -149,13 +153,31 @@ jar {
     }
 }
 
+processResources {
+    exclude '.cache'
+}
+
+// Custom Tasks
+task buildData(type: GradleBuild) {
+    group 'atfc'
+    description 'Runs a build and the data generator of Forge.'
+
+    tasks = ['deleteGeneratedFiles', 'build', 'runData', 'build', 'cleanEclipse', 'eclipse']
+}
+
+task deleteGeneratedFiles(type: Delete) {
+    group 'atfc'
+    description 'Deletes generated files.'
+
+    delete 'src/generated'
+}
+
 // Example configuration to allow publishing using the maven-publish task
 // This is the preferred method to reobfuscate your jar file
 jar.finalizedBy('reobfJar')
 
 // However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
 //publish.dependsOn('reobfJar')
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
