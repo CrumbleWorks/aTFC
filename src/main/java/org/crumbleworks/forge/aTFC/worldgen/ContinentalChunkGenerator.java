@@ -69,11 +69,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  */
 public class ContinentalChunkGenerator extends ChunkGenerator {
     
-   public static final Codec<ContinentalChunkGenerator> field_236079_d_ = RecordCodecBuilder.create((p_236091_0_) -> {
+   public static final Codec<ContinentalChunkGenerator> CODEC = RecordCodecBuilder.create((p_236091_0_) -> {
       return p_236091_0_.group(BiomeProvider.CODEC.fieldOf("biome_source").forGetter((p_236096_0_) -> {
          return p_236096_0_.biomeProvider;
       }), Codec.LONG.fieldOf("seed").stable().forGetter((p_236093_0_) -> {
-         return p_236093_0_.field_236084_w_;
+         return p_236093_0_.seed;
       }), DimensionSettings.field_236098_b_.fieldOf("settings").forGetter((p_236090_0_) -> {
          return p_236090_0_.dimSettingsSupplier;
       })).apply(p_236091_0_, p_236091_0_.stable(ContinentalChunkGenerator::new));
@@ -86,7 +86,6 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
             }
          }
       }
-
    });
    private static final float[] field_236081_j_ = Util.make(new float[25], (p_236092_0_) -> {
       for(int i = -2; i <= 2; ++i) {
@@ -95,16 +94,18 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
             p_236092_0_[i + 2 + (j + 2) * 5] = f;
          }
       }
-
    });
    
    private static final BlockState AIR = Blocks.AIR.getDefaultState();
+   
    private final int verticalNoiseGranularity;
    private final int horizontalNoiseGranularity;
    private final int noiseSizeX;
    private final int noiseSizeY;
    private final int noiseSizeZ;
+   
    protected final SharedSeedRandom randomSeed;
+   
    private final OctavesNoiseGenerator field_222568_o;
    private final OctavesNoiseGenerator field_222569_p;
    private final OctavesNoiseGenerator field_222570_q;
@@ -112,11 +113,12 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
    private final OctavesNoiseGenerator field_236082_u_;
    @Nullable
    private final SimplexNoiseGenerator field_236083_v_;
+   
    protected final BlockState defaultBlock;
    protected final BlockState defaultFluid;
-   private final long field_236084_w_;
+   private final long seed;
+   
    protected final Supplier<DimensionSettings> dimSettingsSupplier;
-   private final int field_236085_x_;
 
    public ContinentalChunkGenerator(BiomeProvider biomeProvider, long seed, Supplier<DimensionSettings> dimSettingsSupplier) {
       this(biomeProvider, biomeProvider, seed, dimSettingsSupplier);
@@ -124,19 +126,23 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
 
    private ContinentalChunkGenerator(BiomeProvider biomeProviderLeft, BiomeProvider biomeProviderRight, long seed, Supplier<DimensionSettings> dimSettingsSupplier) {
       super(biomeProviderLeft, biomeProviderRight, dimSettingsSupplier.get().getStructures(), seed);
-      field_236084_w_ = seed;
+      this.seed = seed;
+      
       DimensionSettings dimensionsettings = dimSettingsSupplier.get();
       this.dimSettingsSupplier = dimSettingsSupplier;
       NoiseSettings noisesettings = dimensionsettings.getNoise();
-      field_236085_x_ = noisesettings.func_236169_a_();
       verticalNoiseGranularity = noisesettings.func_236175_f_() * 4;
       horizontalNoiseGranularity = noisesettings.func_236174_e_() * 4;
+      
       defaultBlock = dimensionsettings.getDefaultBlock();
       defaultFluid = dimensionsettings.getDefaultFluid();
+      
       noiseSizeX = 16 / horizontalNoiseGranularity;
       noiseSizeY = noisesettings.func_236169_a_() / verticalNoiseGranularity;
       noiseSizeZ = 16 / horizontalNoiseGranularity;
+      
       randomSeed = new SharedSeedRandom(seed);
+      
       field_222568_o = new OctavesNoiseGenerator(randomSeed, IntStream.rangeClosed(-15, 0));
       field_222569_p = new OctavesNoiseGenerator(randomSeed, IntStream.rangeClosed(-15, 0));
       field_222570_q = new OctavesNoiseGenerator(randomSeed, IntStream.rangeClosed(-7, 0));
@@ -153,24 +159,45 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
 
    }
 
+   @Override
    protected Codec<? extends ChunkGenerator> func_230347_a_() {
-      return field_236079_d_;
+      return CODEC;
    }
 
    @OnlyIn(Dist.CLIENT)
+   @Override
    public ChunkGenerator func_230349_a_(long p_230349_1_) {
       return new ContinentalChunkGenerator(biomeProvider.getBiomeProvider(p_230349_1_), p_230349_1_, dimSettingsSupplier);
    }
 
-   public boolean func_236088_a_(long p_236088_1_, RegistryKey<DimensionSettings> p_236088_3_) {
-      return field_236084_w_ == p_236088_1_ && dimSettingsSupplier.get().func_242744_a(p_236088_3_);
+   @Override
+   public int getMaxBuildHeight() {
+      return ContinentalWorld.BUILD_LEVEL;
+   }
+
+   @Override
+   public int getSeaLevel() {
+       return ContinentalWorld.SEA_LEVEL;
+   }
+   
+   @Override
+    public int getGroundHeight() {
+       return ContinentalWorld.GROUND_LEVEL;
+    }
+
+   @Override
+   public int getHeight(int x, int z, Heightmap.Type heightmapType) {
+      return func_236087_a_(x, z, (BlockState[])null, heightmapType.getHeightLimitPredicate());
+   }
+
+   public boolean func_236088_a_(long seed, RegistryKey<DimensionSettings> dimSettings) {
+      return this.seed == seed && dimSettingsSupplier.get().func_242744_a(dimSettings);
    }
 
    private double func_222552_a(int p_222552_1_, int p_222552_2_, int p_222552_3_, double p_222552_4_, double p_222552_6_, double p_222552_8_, double p_222552_10_) {
       double d0 = 0.0D;
       double d1 = 0.0D;
       double d2 = 0.0D;
-      boolean flag = true;
       double d3 = 1.0D;
 
       for(int i = 0; i < 16; ++i) {
@@ -222,7 +249,6 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
          float f = 0.0F;
          float f1 = 0.0F;
          float f2 = 0.0F;
-         int i = 2;
          int j = getSeaLevel();
          float f3 = biomeProvider.getNoiseBiome(noiseX, j, noiseZ).getDepth();
 
@@ -310,10 +336,7 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
       return d2 < 0.0D ? d2 * 0.009486607142857142D : Math.min(d2, 1.0D) * 0.006640625D;
    }
 
-   public int getHeight(int x, int z, Heightmap.Type heightmapType) {
-      return func_236087_a_(x, z, (BlockState[])null, heightmapType.getHeightLimitPredicate());
-   }
-
+   @Override
    public IBlockReader func_230348_a_(int p_230348_1_, int p_230348_2_) {
       BlockState[] ablockstate = new BlockState[noiseSizeY * verticalNoiseGranularity];
       func_236087_a_(p_230348_1_, p_230348_2_, ablockstate, (Predicate<BlockState>)null);
@@ -357,6 +380,10 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
       return 0;
    }
 
+   //FIXME replace or even remove?
+   /*
+    * SEALEVEL & STONE
+    */
    protected BlockState func_236086_a_(double p_236086_1_, int p_236086_3_) {
       BlockState blockstate;
       if (p_236086_1_ > 0.0D) {
@@ -371,43 +398,45 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
    }
 
    /**
-    * Generate the SURFACE part of a chunk
+    * GENERATE CHUNK SURFACE
     */
-   public void generateSurface(WorldGenRegion p_225551_1_, IChunk p_225551_2_) {
-      ChunkPos chunkpos = p_225551_2_.getPos();
-      int i = chunkpos.x;
-      int j = chunkpos.z;
-      SharedSeedRandom sharedseedrandom = new SharedSeedRandom();
-      sharedseedrandom.setBaseChunkSeed(i, j);
-      ChunkPos chunkpos1 = p_225551_2_.getPos();
-      int k = chunkpos1.getXStart();
-      int l = chunkpos1.getZStart();
-      double d0 = 0.0625D;
-      BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+   @Override
+   public void generateSurface(WorldGenRegion worldGenRegion, IChunk chunk) {
+       SharedSeedRandom sharedseedrandom = new SharedSeedRandom();
+       
+//      ChunkPos chunkpos = chunk.getPos();
+//      int i = chunkpos.x;
+//      int j = chunkpos.z;
+//      sharedseedrandom.setBaseChunkSeed(i, j);
+//      ChunkPos chunkpos1 = chunk.getPos();
+//      int k = chunkpos1.getXStart();
+//      int l = chunkpos1.getZStart();
+//      BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+//
+//      for(int i1 = 0; i1 < 16; ++i1) {
+//         for(int j1 = 0; j1 < 16; ++j1) {
+//            int k1 = k + i1;
+//            int l1 = l + j1;
+//            int i2 = chunk.getTopBlockY(Heightmap.Type.WORLD_SURFACE_WG, i1, j1) + 1;
+//            double d1 = surfaceDepthNoise.noiseAt((double)k1 * 0.0625D, (double)l1 * 0.0625D, 0.0625D, (double)i1 * 0.0625D) * 15.0D;
+//            worldGenRegion.getBiome(blockpos$mutable.setPos(k + i1, i2, l + j1)).buildSurface(sharedseedrandom, chunk, k1, l1, i2, d1, defaultBlock, defaultFluid, getSeaLevel(), worldGenRegion.getSeed());
+//         }
+//      }
 
-      for(int i1 = 0; i1 < 16; ++i1) {
-         for(int j1 = 0; j1 < 16; ++j1) {
-            int k1 = k + i1;
-            int l1 = l + j1;
-            int i2 = p_225551_2_.getTopBlockY(Heightmap.Type.WORLD_SURFACE_WG, i1, j1) + 1;
-            double d1 = surfaceDepthNoise.noiseAt((double)k1 * 0.0625D, (double)l1 * 0.0625D, 0.0625D, (double)i1 * 0.0625D) * 15.0D;
-            p_225551_1_.getBiome(blockpos$mutable.setPos(k + i1, i2, l + j1)).buildSurface(sharedseedrandom, p_225551_2_, k1, l1, i2, d1, defaultBlock, defaultFluid, getSeaLevel(), p_225551_1_.getSeed());
-         }
-      }
-
-      makeBedrock(p_225551_2_, sharedseedrandom);
+      makeBedrock(chunk, sharedseedrandom);
    }
 
    private void makeBedrock(IChunk chunkIn, Random rand) {
       BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
       int i = chunkIn.getPos().getXStart();
       int j = chunkIn.getPos().getZStart();
+      
       DimensionSettings dimensionsettings = dimSettingsSupplier.get();
       int k = dimensionsettings.func_236118_f_();
-      int l = field_236085_x_ - 1 - dimensionsettings.func_236117_e_();
-      int i1 = 5;
-      boolean flag = l + 4 >= 0 && l < field_236085_x_;
-      boolean flag1 = k + 4 >= 0 && k < field_236085_x_;
+      int l = getMaxBuildHeight() - 1 - dimensionsettings.func_236117_e_();
+      
+      boolean flag = l + 4 >= 0 && l < getMaxBuildHeight();
+      boolean flag1 = k + 4 >= 0 && k < getMaxBuildHeight();
       if (flag || flag1) {
          for(BlockPos blockpos : BlockPos.getAllInBoxMutable(i, 0, j, i + 15, 0, j + 15)) {
             if (flag) {
@@ -430,17 +459,21 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
       }
    }
 
-   public void func_230352_b_(IWorld p_230352_1_, StructureManager p_230352_2_, IChunk p_230352_3_) {
+   /*
+    * GENERATE STRUCTURES ???
+    */
+   @Override
+   public void func_230352_b_(IWorld world, StructureManager structureManager, IChunk chunk) {
       ObjectList<StructurePiece> objectlist = new ObjectArrayList<>(10);
       ObjectList<JigsawJunction> objectlist1 = new ObjectArrayList<>(32);
-      ChunkPos chunkpos = p_230352_3_.getPos();
+      ChunkPos chunkpos = chunk.getPos();
       int i = chunkpos.x;
       int j = chunkpos.z;
       int k = i << 4;
       int l = j << 4;
 
       for(Structure<?> structure : Structure.field_236384_t_) {
-         p_230352_2_.func_235011_a_(SectionPos.from(chunkpos, 0), structure).forEach((p_236089_5_) -> {
+         structureManager.func_235011_a_(SectionPos.from(chunkpos, 0), structure).forEach((p_236089_5_) -> {
             for(StructurePiece structurepiece1 : p_236089_5_.getComponents()) {
                if (structurepiece1.func_214810_a(chunkpos, 12)) {
                   if (structurepiece1 instanceof AbstractVillagePiece) {
@@ -474,7 +507,7 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
          adouble[1][i5] = new double[noiseSizeY + 1];
       }
 
-      ChunkPrimer chunkprimer = (ChunkPrimer)p_230352_3_;
+      ChunkPrimer chunkprimer = (ChunkPrimer)chunk;
       Heightmap heightmap = chunkprimer.getHeightmap(Heightmap.Type.OCEAN_FLOOR_WG);
       Heightmap heightmap1 = chunkprimer.getHeightmap(Heightmap.Type.WORLD_SURFACE_WG);
       BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
@@ -602,47 +635,40 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
       return d4 * d3;
    }
 
-   public int getMaxBuildHeight() {
-      return field_236085_x_;
-   }
-
-   public int getSeaLevel() {
-      //return dimSettingsSupplier.get().func_236119_g_();
-       return ContinentalWorld.SEALEVEL;
-   }
-
-   public List<MobSpawnInfo.Spawners> func_230353_a_(Biome p_230353_1_, StructureManager p_230353_2_, EntityClassification p_230353_3_, BlockPos p_230353_4_) {
-      List<MobSpawnInfo.Spawners> spawns = net.minecraftforge.common.world.StructureSpawnManager.getStructureSpawns(p_230353_2_, p_230353_3_, p_230353_4_);
+   @Override
+   public List<MobSpawnInfo.Spawners> func_230353_a_(Biome biome, StructureManager structureManager, EntityClassification entityClass, BlockPos pos) {
+      List<MobSpawnInfo.Spawners> spawns = net.minecraftforge.common.world.StructureSpawnManager.getStructureSpawns(structureManager, entityClass, pos);
       if (spawns != null) return spawns;
       if (false) {//Forge: We handle these hardcoded cases above in StructureSpawnManager#getStructureSpawns, but allow for insideOnly to be changed and allow for creatures to be spawned in ones other than just the witch hut
-      if (p_230353_2_.getStructureStart(p_230353_4_, true, Structure.SWAMP_HUT).isValid()) {
-         if (p_230353_3_ == EntityClassification.MONSTER) {
+      if (structureManager.getStructureStart(pos, true, Structure.SWAMP_HUT).isValid()) {
+         if (entityClass == EntityClassification.MONSTER) {
             return Structure.SWAMP_HUT.getSpawnList();
          }
 
-         if (p_230353_3_ == EntityClassification.CREATURE) {
+         if (entityClass == EntityClassification.CREATURE) {
             return Structure.SWAMP_HUT.getCreatureSpawnList();
          }
       }
 
-      if (p_230353_3_ == EntityClassification.MONSTER) {
-         if (p_230353_2_.getStructureStart(p_230353_4_, false, Structure.PILLAGER_OUTPOST).isValid()) {
+      if (entityClass == EntityClassification.MONSTER) {
+         if (structureManager.getStructureStart(pos, false, Structure.PILLAGER_OUTPOST).isValid()) {
             return Structure.PILLAGER_OUTPOST.getSpawnList();
          }
 
-         if (p_230353_2_.getStructureStart(p_230353_4_, false, Structure.MONUMENT).isValid()) {
+         if (structureManager.getStructureStart(pos, false, Structure.MONUMENT).isValid()) {
             return Structure.MONUMENT.getSpawnList();
          }
 
-         if (p_230353_2_.getStructureStart(p_230353_4_, true, Structure.FORTRESS).isValid()) {
+         if (structureManager.getStructureStart(pos, true, Structure.FORTRESS).isValid()) {
             return Structure.FORTRESS.getSpawnList();
          }
       }
       }
 
-      return super.func_230353_a_(p_230353_1_, p_230353_2_, p_230353_3_, p_230353_4_);
+      return super.func_230353_a_(biome, structureManager, entityClass, pos);
    }
 
+   @Override
    public void func_230354_a_(WorldGenRegion p_230354_1_) {
       if (!dimSettingsSupplier.get().func_236120_h_()) {
          int i = p_230354_1_.getMainChunkX();
