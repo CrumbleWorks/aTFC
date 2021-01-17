@@ -138,7 +138,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
 
     // embed dependencies are copied over into the mod-jar built by the assemble task
-	embed 'org.slf4j:slf4j-api:1.7.25'
+    embed 'org.slf4j:slf4j-api:1.7.25'
     embed 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.0'
     
     embed 'org.reflections:reflections:0.9.12'
