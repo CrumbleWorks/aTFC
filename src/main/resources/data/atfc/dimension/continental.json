@@ -1,0 +1,9 @@
+{
+  "type": "atfc:continental",
+  "generator": {
+    "type": "minecraft:noise",
+    "seed": 105359803,
+    "biome_source": { },
+    "settings": "atfc:continental"
+  }
+}

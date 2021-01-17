@@ -16,11 +16,11 @@ import net.minecraft.world.gen.DimensionSettings;
 public class ContinentalWorld {
     public static final String IDENTIFIER = "continental";
     
+    public static final int SEALEVEL = 145;
+    
     public static ChunkGenerator createChunkGenerator(Registry<Biome> biomes, Registry<DimensionSettings> dimensionSettings, long seed, String settings) {
-//        return DimensionGeneratorSettings.func_242750_a(biomes, dimensionSettings, seed);
-        
         BiomeProvider bp = new OverworldBiomeProvider(seed, false, false, biomes);
-        return new ContinentalChunkGenerator(bp, bp, dimensionSettings.getOrThrow(DimensionSettings.field_242734_c).getStructures(), seed);
+        return new ContinentalChunkGenerator(bp, seed, () -> {return dimensionSettings.getOrThrow(DimensionSettings.field_242734_c);});
     }
     
     public static void continentalConfigGui() {
