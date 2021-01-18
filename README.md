@@ -15,7 +15,7 @@ This mod is different to...
 ## Contributors
 
 * [Michael "dot_Sp0T" Stocker](https://github.com/dotSp0T)
-* [Patrick "McDonnough" BÃ¤chli](https://github.com/McDonnough)
+* [Patrick "McDonnough" Bächli](https://github.com/McDonnough)
 
 # Development
 
@@ -79,6 +79,9 @@ Delete the `src/generated` directory or run `gradlew deleteGeneratedFiles`
 **Modelling**:
 - Blockmodels: https://mcmodhelp.fandom.com/wiki/Multi-Texturing_Blocks
 - MrCrayfish Model Creator: https://mrcrayfish.com/tools.php?id=mc
+
+**Mod Samples**:
+- https://github.com/TheGreyGhost/MinecraftByExample
 
 
 

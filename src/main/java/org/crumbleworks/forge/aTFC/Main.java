@@ -8,7 +8,6 @@ import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.minecraftforge.common.ForgeConfig;
 import net.minecraftforge.fml.common.Mod;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -17,8 +16,7 @@ public class Main {
 
     public static final String MOD_ID = "atfc";
 
-    public static final Reflections reflections = new Reflections(
-            "org.crumbleworks.forge.aTFC");
+    public static final Reflections reflections = new Reflections();
     public static Set<Wireable> wireables;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
