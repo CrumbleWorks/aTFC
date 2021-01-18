@@ -26,6 +26,7 @@ jobs:
         timeout_minutes: 15
         max_attempts: 5
         retry_on: error
+        retry_wait_seconds: 60
     - name: Assmble mod-jar
       run: ./gradlew assemble
     - name: Upload mod-jar
