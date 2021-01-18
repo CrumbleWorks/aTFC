@@ -20,7 +20,11 @@ jobs:
     - name: Run build
       run: ./gradlew build
     - name: Run Forge data generator
-      run: ./gradlew runData
+      uses: nick-invision/retry@v2.4.0
+      with:
+        command: ./gradlew runData
+        max_attempts: 3
+        retry_on: error
     - name: Assmble mod-jar
       run: ./gradlew assemble
     - name: Upload mod-jar
