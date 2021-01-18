@@ -20,7 +20,7 @@ import net.minecraftforge.client.ICloudRenderHandler;
 
 
 /**
- * Responsible for rendering clouds at a proper altitude. The code in this class is mostly copied from the Minecraft sources.z
+ * Responsible for rendering clouds at a proper altitude. The code in this class is mostly copied from the Minecraft sources.
  *
  * @author Michael Stocker
  * @since CURRENT_VERSION
