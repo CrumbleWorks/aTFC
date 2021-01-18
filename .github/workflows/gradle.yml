@@ -24,7 +24,7 @@ jobs:
       with:
         command: ./gradlew runData
         timeout_seconds: 90
-        max_attempts: 3
+        max_attempts: 5
         retry_on: error
     - name: Assmble mod-jar
       run: ./gradlew assemble
