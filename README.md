@@ -32,6 +32,7 @@ This mod is different to...
 ## Tools
 
 * **Loot-Table Generator**: https://misode.github.io/loot-table/
+* **Dimension Generator**: https://misode.github.io/dimension/
 * **SRG-Names Lookup**: https://mcp.thiakil.com/
 
 ## File-Formats
@@ -42,6 +43,7 @@ This mod is different to...
 
 ## Links
 
+* **Unofficial Forge Wiki**: https://forge.gemwire.uk/wiki/
 * **Forge Docu**: https://mcforge.readthedocs.io/en/1.16.x/
 * **Cadiboo Forge 1.15.1 Tutorials**: https://cadiboo.github.io/tutorials/1.15.1/forge/
 * **Modding with Forge 1.16.4**: https://youtube.com/playlist?list=PLaevjqy3Xufavi5mWXvWnGmwRylL-QZy7
