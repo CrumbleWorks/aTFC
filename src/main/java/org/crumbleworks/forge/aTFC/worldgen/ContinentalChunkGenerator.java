@@ -6,8 +6,8 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
-import org.crumbleworks.forge.aTFC.content.BSP;
-import org.crumbleworks.forge.aTFC.content.BSP.GrassCoverage;
+import org.crumbleworks.forge.aTFC.content.blocks.BSP;
+import org.crumbleworks.forge.aTFC.content.blocks.BSP.GrassCoverage;
 import org.crumbleworks.forge.aTFC.wiring.Soil;
 
 import com.mojang.serialization.Codec;
@@ -16,7 +16,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;

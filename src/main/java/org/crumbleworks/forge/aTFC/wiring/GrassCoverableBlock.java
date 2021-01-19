@@ -1,7 +1,7 @@
 package org.crumbleworks.forge.aTFC.wiring;
 
-import org.crumbleworks.forge.aTFC.content.BSP;
-import org.crumbleworks.forge.aTFC.content.BSP.GrassCoverage;
+import org.crumbleworks.forge.aTFC.content.blocks.BSP;
+import org.crumbleworks.forge.aTFC.content.blocks.BSP.GrassCoverage;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
 import org.crumbleworks.forge.aTFC.dataGeneration.DynamicPainter;

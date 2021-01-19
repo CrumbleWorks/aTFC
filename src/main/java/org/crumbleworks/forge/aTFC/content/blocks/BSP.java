@@ -1,5 +1,6 @@
-package org.crumbleworks.forge.aTFC.content;
+package org.crumbleworks.forge.aTFC.content.blocks;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.Property;
@@ -7,16 +8,15 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 
 /**
- * Holds all Properties used in the mode, as well as nice groups for different
- * behaviourtypes (e.g. grass coverage).
+ * Marker interface for blocks that change their {@link BlockState} based on
+ * custom {@link Property Properties}.
  * <p>
- * This class is called <code>BSP</code> so our code can be a bit more
- * concise, it stands for: <code>(aTFC)BlockStateProperties</code>.
+ * Also serves as a collector for all our custom mod properties.
  *
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class BSP {
+public interface BSP {
 
     public static enum GrassCoverage implements IStringSerializable {
 
@@ -33,8 +33,4 @@ public class BSP {
             .create("facing", Direction.Plane.HORIZONTAL);
     public static final EnumProperty<GrassCoverage> COVERAGE = EnumProperty
             .create("coverage", GrassCoverage.class);
-
-    public static final Property<?>[] PROPSET_GRASS_COVERABLE = {
-            BSP.FACING,
-            BSP.COVERAGE };
 }
