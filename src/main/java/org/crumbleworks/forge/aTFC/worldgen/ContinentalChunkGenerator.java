@@ -198,8 +198,14 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
     @Override
     public void generateSurface(WorldGenRegion worldGenRegion, IChunk chunk) {
         SharedSeedRandom sharedseedrandom = new SharedSeedRandom();
-        makeBedrockLayer(chunk, sharedseedrandom);
-
+        layerBedrock(chunk, sharedseedrandom);
+        layerSoil(chunk, sharedseedrandom);
+    }
+    
+    /**
+     * Puts a soil layer on top of everything, thickness depends on biome and height.
+     */
+    private void layerSoil(IChunk chunk, Random rand) {
         int xStart = chunk.getPos().getXStart();
         int zStart = chunk.getPos().getZStart();
 
@@ -209,8 +215,27 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
 
         for(BlockPos pos : BlockPos.getAllInBoxMutable(xStart, 2, zStart,
                 xStart + 15, 2, zStart + 15)) {
-            chunk.setBlockState(pos, Soil.SOIL_BLOCK.get().getDefaultState()
-                    .with(BSP.COVERAGE, GrassCoverage.TOP), false);
+            if(rand.nextInt(5) < 2) {
+                chunk.setBlockState(pos, Soil.SOIL_BLOCK.get().getDefaultState(), false);
+            } else {
+                chunk.setBlockState(pos, Soil.SOIL_BLOCK.get().getDefaultState().with(BSP.COVERAGE, GrassCoverage.TOP), false);
+            }
+        }
+    }
+
+    /**
+     * Creates a 2 blocks high layer of bedrock at the bottom of the world
+     */
+    private void layerBedrock(IChunk chunk, Random rand) {
+        int xStart = chunk.getPos().getXStart();
+        int zStart = chunk.getPos().getZStart();
+        for(BlockPos pos : BlockPos.getAllInBoxMutable(xStart, 0, zStart,
+                xStart + 15, 1, zStart + 15)) {
+
+            // FIXME make layer at y=1 random, so it looks a bit less
+            // artificial
+            chunk.setBlockState(pos, Blocks.BEDROCK.getDefaultState(),
+                    false);
         }
     }
 
@@ -292,25 +317,5 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
             boolean p_235956_5_) {
         // more stronghold stuff
         return null;
-    }
-
-    /*
-     * INTERNALS
-     */
-
-    /**
-     * Creates a 2 blocks high layer of bedrock at the bottom of the world
-     */
-    private void makeBedrockLayer(IChunk chunkIn, Random rand) {
-        int xStart = chunkIn.getPos().getXStart();
-        int zStart = chunkIn.getPos().getZStart();
-        for(BlockPos pos : BlockPos.getAllInBoxMutable(xStart, 0, zStart,
-                xStart + 15, 1, zStart + 15)) {
-
-            // FIXME make layer at y=1 random, so it looks a bit less
-            // artificial
-            chunkIn.setBlockState(pos, Blocks.BEDROCK.getDefaultState(),
-                    false);
-        }
     }
 }
