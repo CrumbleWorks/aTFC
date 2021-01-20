@@ -108,6 +108,14 @@ Delete the `src/generated` directory or run `gradlew deleteGeneratedFiles`
 **Mod Samples**:
 - https://github.com/TheGreyGhost/MinecraftByExample
 
+### Umlauts
+Ä \u00c4  
+ä \u00e4  
+Ö \u00d6  
+ö \u00f6  
+Ü \u00dc  
+ü \u00fc  
+ß (sz) \u00df  
 
 
 [1]: https://plus.terrafirmacraft.com/

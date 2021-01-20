@@ -1,6 +1,6 @@
 package org.crumbleworks.forge.aTFC.wiring.blocks;
 
-import org.crumbleworks.forge.aTFC.content.blocks.ClaysoilBlock;
+import org.crumbleworks.forge.aTFC.content.blocks.ClaySoilBlock;
 import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.content.items.TintableBlockItem;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
@@ -22,7 +22,7 @@ import net.minecraftforge.fml.RegistryObject;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class Claysoil extends GrassCoverableBlock {
+public class ClaySoil extends GrassCoverableBlock {
 
     private static final String name = "claysoil";
 
@@ -30,13 +30,13 @@ public class Claysoil extends GrassCoverableBlock {
     private static final int maxClayAmount = 3;
 
     public static final RegistryObject<Block> CLAYSOIL_BLOCK = BLOCKS
-            .register(name, () -> new ClaysoilBlock());
+            .register(name, () -> new ClaySoilBlock());
     public static final RegistryObject<Item> CLAYSOIL_ITEM = ITEMS.register(
             name,
             () -> new TintableBlockItem(CLAYSOIL_BLOCK.get(),
                     new Item.Properties().group(ItemGroups.BLOCKS)));
 
-    public Claysoil() {
+    public ClaySoil() {
         super(name, CLAYSOIL_BLOCK);
     }
 

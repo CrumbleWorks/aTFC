@@ -11,19 +11,21 @@ import net.minecraft.block.material.MaterialColor;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.ToolType;
 
 /**
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class ClaysoilBlock extends TintableBlock
+public class ClaySoilBlock extends TintableBlock
         implements Multilayered, GrassCoverable {
 
-    public ClaysoilBlock() {
+    public ClaySoilBlock() {
         super(AbstractBlock.Properties
                 .create(Material.CLAY, MaterialColor.CLAY)
                 .hardnessAndResistance(0.6F)
-                .sound(SoundType.GROUND));
+                .sound(SoundType.GROUND)
+                .harvestTool(ToolType.SHOVEL));
 
         setDefaultState(stateContainer.getBaseState().with(COVERAGE,
                 GrassCoverage.NONE));
