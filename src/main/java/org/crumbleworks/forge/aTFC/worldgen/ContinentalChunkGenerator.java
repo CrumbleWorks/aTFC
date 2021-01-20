@@ -8,7 +8,7 @@ import javax.annotation.Nullable;
 
 import org.crumbleworks.forge.aTFC.content.blocks.BSP;
 import org.crumbleworks.forge.aTFC.content.blocks.BSP.GrassCoverage;
-import org.crumbleworks.forge.aTFC.wiring.Soil;
+import org.crumbleworks.forge.aTFC.wiring.blocks.Soil;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
