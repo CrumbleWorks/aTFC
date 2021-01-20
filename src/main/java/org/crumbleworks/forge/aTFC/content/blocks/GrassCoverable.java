@@ -40,19 +40,20 @@ public interface GrassCoverable extends BSP {
         BlockState defaultState = state.getBlock().getDefaultState();
         int sunlight = world.getLightFor(LightType.SKY, pos.up());
 
-        // Enough sun for propagation?
-        if(MINIMUM_LIGHTLEVEL_FOR_GRASSKEEPING > sunlight) {
-            
-            // Turn the block back to nograss?
-            if(MINIMUM_LIGHTLEVEL_FOR_GRASSGROWING > sunlight
-                    && state != defaultState) {
+        // Don't spread grass from non-grown blocks
+        if(state == defaultState) {
+            return;
+        }
+
+        // Check if we have enough 'power' for spreading
+        if(MINIMUM_LIGHTLEVEL_FOR_GRASSGROWING > sunlight) {
+            if(MINIMUM_LIGHTLEVEL_FOR_GRASSKEEPING > sunlight) {
                 world.setBlockState(pos, state.getBlock().getDefaultState());
             }
 
             return;
         }
 
-        // try spreading
         BlockPos upPosA = pos.up().north().west();
         BlockPos upPosB = pos.up().south().east();
         Stream<BlockPos> upStream = StreamSupport.stream(
@@ -71,68 +72,130 @@ public interface GrassCoverable extends BSP {
 
         List<BlockPos> targets = Stream
                 .concat(upStream, Stream.concat(midStream, downStream))
-                //check block above our targetblock; because that's what minecraft expects from you
+                .filter(b -> GrassCoverable.class
+                        .isInstance(world.getBlockState(b).getBlock()))
+                // check block above our targetblock; because that's what
+                // minecraft expects from you
                 .filter(b -> world.canSeeSky(b.up()))
-                .filter(b -> GrassCoverable.class.isInstance(world.getBlockState(b).getBlock()))
                 .collect(Collectors.toList());
         if(targets.isEmpty()) {
             return;
         }
 
         Collections.shuffle(targets);
-
         spreadGrass(world, targets.get(0));
 
-        // see if we can adjust state for better coverage
         spreadGrass(world, pos);
     }
-    
+
     static void spreadGrass(ServerWorld world, BlockPos pos) {
-        //FIXME check for all blockstate combos
         BlockState state = world.getBlockState(pos);
-        if(!(state.getBlock() instanceof GrassCoverable)) {
-            return; //fail
+
+        if(! (state.getBlock() instanceof GrassCoverable)) {
+            return; // fail
         }
-        
+
+        // At first grass needs to get a hold, so it only grows on top
+        BlockState defaultState = state.getBlock().getDefaultState();
+        if(state == defaultState) {
+            world.setBlockState(pos, state.with(COVERAGE, GrassCoverage.TOP));
+            return;
+        }
+
         List<Direction> surroundingBlocks = new ArrayList<>();
-        if(!world.isAirBlock(pos.north())) surroundingBlocks.add(Direction.NORTH);
-        if(!world.isAirBlock(pos.east())) surroundingBlocks.add(Direction.EAST);
-        if(!world.isAirBlock(pos.south())) surroundingBlocks.add(Direction.SOUTH);
-        if(!world.isAirBlock(pos.west())) surroundingBlocks.add(Direction.WEST);
-        
+        if(!allowsCoverage(world, pos.north())) {
+            surroundingBlocks.add(Direction.NORTH);
+        }
+        if(!allowsCoverage(world, pos.east())) {
+            surroundingBlocks.add(Direction.EAST);
+        }
+        if(!allowsCoverage(world, pos.south())) {
+            surroundingBlocks.add(Direction.SOUTH);
+        }
+        if(!allowsCoverage(world, pos.west())) {
+            surroundingBlocks.add(Direction.WEST);
+        }
+
         switch(surroundingBlocks.size()) {
             case 0:
-                world.setBlockState(pos, state.with(COVERAGE, GrassCoverage.HALO));
+                world.setBlockState(pos,
+                        state.with(COVERAGE, GrassCoverage.HALO));
                 return;
             case 1:
-                world.setBlockState(pos, state.with(COVERAGE, GrassCoverage.USHAPE).with(FACING, surroundingBlocks.get(0).getOpposite()));
+                world.setBlockState(pos,
+                        state.with(COVERAGE, GrassCoverage.USHAPE).with(
+                                FACING,
+                                surroundingBlocks.get(0).getOpposite()));
                 return;
             case 2:
-                //CORNER OR OPPOSITE
-                List<Direction> leftoverBlocks = Lists.newArrayList(Direction.NORTH, Direction.SOUTH);
+                List<Direction> leftoverBlocks = Lists
+                        .newArrayList(Direction.NORTH, Direction.SOUTH);
                 leftoverBlocks.retainAll(surroundingBlocks);
-                
+
                 switch(leftoverBlocks.size()) {
                     case 0:
-                        world.setBlockState(pos, state.with(COVERAGE, GrassCoverage.OPPOSITES).with(FACING, Direction.WEST));
+                        world.setBlockState(pos,
+                                state.with(COVERAGE, GrassCoverage.OPPOSITES)
+                                        .with(FACING, Direction.WEST));
                         return;
                     case 1:
-                        //FIXME need to handle each corner
-                        world.setBlockState(pos, state.with(COVERAGE, GrassCoverage.CORNER).with(FACING, surroundingBlocks.get(0)));
+                        if(surroundingBlocks.contains(Direction.NORTH)
+                                && surroundingBlocks
+                                        .contains(Direction.EAST)) {
+                            world.setBlockState(pos,
+                                    state.with(COVERAGE, GrassCoverage.CORNER)
+                                            .with(FACING, Direction.EAST));
+                            return;
+                        }
+                        if(surroundingBlocks.contains(Direction.EAST)
+                                && surroundingBlocks
+                                        .contains(Direction.SOUTH)) {
+                            world.setBlockState(pos,
+                                    state.with(COVERAGE, GrassCoverage.CORNER)
+                                            .with(FACING, Direction.SOUTH));
+                            return;
+                        }
+                        if(surroundingBlocks.contains(Direction.SOUTH)
+                                && surroundingBlocks
+                                        .contains(Direction.WEST)) {
+                            world.setBlockState(pos,
+                                    state.with(COVERAGE, GrassCoverage.CORNER)
+                                            .with(FACING, Direction.WEST));
+                            return;
+                        }
+                        if(surroundingBlocks.contains(Direction.WEST)
+                                && surroundingBlocks
+                                        .contains(Direction.NORTH)) {
+                            world.setBlockState(pos,
+                                    state.with(COVERAGE, GrassCoverage.CORNER)
+                                            .with(FACING, Direction.NORTH));
+                            return;
+                        }
                         return;
                     case 2:
-                        world.setBlockState(pos, state.with(COVERAGE, GrassCoverage.OPPOSITES).with(FACING, Direction.NORTH));
+                        world.setBlockState(pos,
+                                state.with(COVERAGE, GrassCoverage.OPPOSITES)
+                                        .with(FACING, Direction.NORTH));
                         return;
                 }
                 return;
             case 3:
-                List<Direction> horizontalAll = Lists.newArrayList(Direction.Plane.HORIZONTAL);
+                List<Direction> horizontalAll = Lists
+                        .newArrayList(Direction.Plane.HORIZONTAL);
                 horizontalAll.removeAll(surroundingBlocks);
-                world.setBlockState(pos, state.with(COVERAGE, GrassCoverage.SIDE).with(FACING, horizontalAll.get(0)));
+                world.setBlockState(pos,
+                        state.with(COVERAGE, GrassCoverage.SIDE).with(FACING,
+                                horizontalAll.get(0)));
                 return;
             case 4:
-                world.setBlockState(pos, state.with(COVERAGE, GrassCoverage.TOP));
+                world.setBlockState(pos,
+                        state.with(COVERAGE, GrassCoverage.TOP));
                 return;
         }
+    }
+
+    static boolean allowsCoverage(ServerWorld world, BlockPos pos) {
+        return world.isAirBlock(pos) && world.getBlockState(pos.down())
+                .getBlock() instanceof GrassCoverable;
     }
 }
