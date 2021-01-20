@@ -19,6 +19,24 @@ This mod is different to...
 
 # Development
 
+## How to build & run
+
+1. run `gradlew build`
+2. run `gradlew runData` to generate json files (models, blockstates, ...)
+3. run `gradlew build`
+4. run `gradlew runClient` or use the `runClient.launch` config in eclipse to start the game
+
+After the first build you only have to run steps 2, 3 and 4. If no generators were touched, step 4. is enough.
+
+**OR**
+
+1. run `gradlew buildData` to generate json files (models, blockstates, ...) and build, etc.
+4. run `gradlew runClient` or use the `runClient.launch` config in eclipse to start the game
+
+### Some blocks don't load properly?
+
+Delete the `src/generated` directory or run `gradlew deleteGeneratedFiles`
+
 ## Versioning
 
 * 0.0.x Enyo
@@ -35,11 +53,13 @@ This mod is different to...
 * **Dimension Generator**: https://misode.github.io/dimension/
 * **SRG-Names Lookup**: https://mcp.thiakil.com/
 
-## File-Formats
+## Formats
 
 * **blockstates**: https://minecraft.gamepedia.com/Model
 * **loot-tables**: https://minecraft.gamepedia.com/Loot_table
 * **resource-packs**: https://minecraft.gamepedia.com/Resource_Pack
+
+* **RenderTypes**: https://greyminecraftcoder.blogspot.com/2020/04/block-rendering-1144.html
 
 ## Links
 
@@ -50,6 +70,18 @@ This mod is different to...
 * **Modding with Forge 1.16.x**: https://youtube.com/playlist?list=PLGProEDTdBjghW5IZsiWno6e9QAkHChyQ
 * **Modding with Forge 1.11**: https://www.youtube.com/playlist?list=PLGProEDTdBjjNQrr1G4Nv3oqqQ14hZtYV
 * **Modding with Forge 1.8**: https://www.youtube.com/playlist?list=PLiFAb_ju1TahVZ1uOer7T3m_17crt15kp
+
+* **Modding for 1.14.4+**: https://greyminecraftcoder.blogspot.com/p/list-of-topics-1144.html
+
+**Texturing**:
+- Multi-Texturing: https://mcmodhelp.fandom.com/wiki/Multi-Texturing_Blocks
+
+**Modelling**:
+- Blockmodels: https://mcmodhelp.fandom.com/wiki/Multi-Texturing_Blocks
+- MrCrayfish Model Creator: https://mrcrayfish.com/tools.php?id=mc
+
+**Mod Samples**:
+- https://github.com/TheGreyGhost/MinecraftByExample
 
 
 

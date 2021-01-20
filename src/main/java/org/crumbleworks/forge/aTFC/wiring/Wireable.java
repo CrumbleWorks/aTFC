@@ -1,6 +1,12 @@
 package org.crumbleworks.forge.aTFC.wiring;
 
+
 import org.crumbleworks.forge.aTFC.Main;
+import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
+import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
+import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
+import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
+import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -23,4 +29,14 @@ public interface Wireable {
             .create(ForgeRegistries.BLOCKS, Main.MOD_ID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister
             .create(ForgeRegistries.ITEMS, Main.MOD_ID);
+
+    void generateBlockModels(BlockModels bm);
+    void generateItemModels(ItemModels im);
+    
+    void generateBlockStates(BlockStates bs);
+    
+    void generateLootTables(LootTables lt);
+
+    void englishTranslations(Translations tren);
+    void swissTranslations(Translations trch);
 }
