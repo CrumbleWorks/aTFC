@@ -16,8 +16,7 @@ public class Main {
 
     public static final String MOD_ID = "atfc";
 
-    public static final Reflections reflections = new Reflections(
-            "org.crumbleworks.forge.aTFC");
+    public static final Reflections reflections = new Reflections();
     public static Set<Wireable> wireables;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
