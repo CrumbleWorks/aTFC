@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.crumbleworks.forge.aTFC.Main;
+import org.crumbleworks.forge.aTFC.wiring.blocks.Soil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

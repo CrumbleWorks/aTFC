@@ -1,6 +1,7 @@
 package org.crumbleworks.forge.aTFC.content.itemgroups;
 
-import org.crumbleworks.forge.aTFC.wiring.Soil;
+import org.crumbleworks.forge.aTFC.wiring.blocks.Soil;
+import org.crumbleworks.forge.aTFC.wiring.items.Clay;
 
 import net.minecraft.item.ItemGroup;
 
@@ -12,4 +13,5 @@ import net.minecraft.item.ItemGroup;
 public class ItemGroups {
 
     public static final ItemGroup BLOCKS = new ModItemGroup("blocks", Soil.SOIL_ITEM);
+    public static final ItemGroup MATERIALS = new ModItemGroup("materials", Clay.CLAY_ITEM);
 }
