@@ -35,6 +35,10 @@ You can get the latest `alpha`-build by...
 
 You can also download builds from any of the other branches, but please do not report bugs for anything else than `develop`.
 
+### Play
+
+Start the modded minecraft instance and, when generating a new world, select the `atfc-continental` worldtype.
+
 ### Report Bugs
 If you happen upon bugs and/or behaviour you think is wrong, please report a bug under the [Issue-Tracker](https://github.com/CrumbleWorks/aTFC/issues). You can also propose new game-features, but please first check if the feature you thought of hasn't already been proposed.
 
