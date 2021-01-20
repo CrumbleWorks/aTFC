@@ -79,9 +79,9 @@ public abstract class GrassCoverableBlock implements Wireable {
                 name + "_grass_corner",
                 mainTex, bm).element().from(0, 0, 0).to(16, 16, 16);
         cornerEb = faceGrassFull(cornerEb, Direction.UP);
-        cornerEb = faceGrassFull(cornerEb, Direction.NORTH);
+        cornerEb = faceGrassRim(cornerEb, Direction.NORTH);
         cornerEb = faceGrassFull(cornerEb, Direction.EAST);
-        cornerEb = faceGrassRim(cornerEb, Direction.SOUTH);
+        cornerEb = faceGrassFull(cornerEb, Direction.SOUTH);
         cornerEb = faceGrassRim(cornerEb, Direction.WEST);
         cornerEb.end();
 
@@ -90,10 +90,10 @@ public abstract class GrassCoverableBlock implements Wireable {
                 name + "_grass_opposites",
                 mainTex, bm).element().from(0, 0, 0).to(16, 16, 16);
         oppositesEb = faceGrassFull(oppositesEb, Direction.UP);
-        oppositesEb = faceGrassFull(oppositesEb, Direction.NORTH);
-        oppositesEb = faceGrassRim(oppositesEb, Direction.EAST);
-        oppositesEb = faceGrassFull(oppositesEb, Direction.SOUTH);
-        oppositesEb = faceGrassRim(oppositesEb, Direction.WEST);
+        oppositesEb = faceGrassRim(oppositesEb, Direction.NORTH);
+        oppositesEb = faceGrassFull(oppositesEb, Direction.EAST);
+        oppositesEb = faceGrassRim(oppositesEb, Direction.SOUTH);
+        oppositesEb = faceGrassFull(oppositesEb, Direction.WEST);
         oppositesEb.end();
 
         // Top and 3 Sides
@@ -103,8 +103,8 @@ public abstract class GrassCoverableBlock implements Wireable {
         ushapeEb = faceGrassFull(ushapeEb, Direction.UP);
         ushapeEb = faceGrassFull(ushapeEb, Direction.NORTH);
         ushapeEb = faceGrassFull(ushapeEb, Direction.EAST);
-        ushapeEb = faceGrassFull(ushapeEb, Direction.SOUTH);
-        ushapeEb = faceGrassRim(ushapeEb, Direction.WEST);
+        ushapeEb = faceGrassRim(ushapeEb, Direction.SOUTH);
+        ushapeEb = faceGrassFull(ushapeEb, Direction.WEST);
         ushapeEb.end();
 
         // Top and All Sides
@@ -180,58 +180,58 @@ public abstract class GrassCoverableBlock implements Wireable {
                 //side
                 .partialState().with(BSP.COVERAGE, GrassCoverage.SIDE).with(BSP.FACING, Direction.NORTH)
                 .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_side")))
-                .rotationX(0).addModel()
+                .rotationY(0).addModel()
                 .partialState().with(BSP.COVERAGE, GrassCoverage.SIDE).with(BSP.FACING, Direction.EAST)
-                .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_top")))
-                .rotationX(90).addModel()
+                .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_side")))
+                .rotationY(90).addModel()
                 .partialState().with(BSP.COVERAGE, GrassCoverage.SIDE).with(BSP.FACING, Direction.SOUTH)
-                .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_top")))
-                .rotationX(180).addModel()
+                .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_side")))
+                .rotationY(180).addModel()
                 .partialState().with(BSP.COVERAGE, GrassCoverage.SIDE).with(BSP.FACING, Direction.WEST)
-                .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_top")))
-                .rotationX(270).addModel()
+                .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_side")))
+                .rotationY(270).addModel()
                 
                 //opposites
                 .partialState().with(BSP.COVERAGE, GrassCoverage.OPPOSITES).with(BSP.FACING, Direction.NORTH)
                 .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_opposites")))
-                .rotationX(0).addModel()
+                .rotationY(0).addModel()
                 .partialState().with(BSP.COVERAGE, GrassCoverage.OPPOSITES).with(BSP.FACING, Direction.EAST)
                 .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_opposites")))
-                .rotationX(90).addModel()
+                .rotationY(90).addModel()
                 .partialState().with(BSP.COVERAGE, GrassCoverage.OPPOSITES).with(BSP.FACING, Direction.SOUTH)
                 .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_opposites")))
-                .rotationX(0).addModel()
+                .rotationY(0).addModel()
                 .partialState().with(BSP.COVERAGE, GrassCoverage.OPPOSITES).with(BSP.FACING, Direction.WEST)
                 .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_opposites")))
-                .rotationX(90).addModel()
+                .rotationY(90).addModel()
                 
                 //corner
                 .partialState().with(BSP.COVERAGE, GrassCoverage.CORNER).with(BSP.FACING, Direction.NORTH)
                 .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_corner")))
-                .rotationX(0).addModel()
+                .rotationY(0).addModel()
                 .partialState().with(BSP.COVERAGE, GrassCoverage.CORNER).with(BSP.FACING, Direction.EAST)
                 .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_corner")))
-                .rotationX(90).addModel()
+                .rotationY(90).addModel()
                 .partialState().with(BSP.COVERAGE, GrassCoverage.CORNER).with(BSP.FACING, Direction.SOUTH)
                 .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_corner")))
-                .rotationX(180).addModel()
+                .rotationY(180).addModel()
                 .partialState().with(BSP.COVERAGE, GrassCoverage.CORNER).with(BSP.FACING, Direction.WEST)
                 .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_corner")))
-                .rotationX(270).addModel()
+                .rotationY(270).addModel()
                 
                 //ushape
                 .partialState().with(BSP.COVERAGE, GrassCoverage.USHAPE).with(BSP.FACING, Direction.NORTH)
                 .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_ushape")))
-                .rotationX(0).addModel()
+                .rotationY(0).addModel()
                 .partialState().with(BSP.COVERAGE, GrassCoverage.USHAPE).with(BSP.FACING, Direction.EAST)
                 .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_ushape")))
-                .rotationX(90).addModel()
+                .rotationY(90).addModel()
                 .partialState().with(BSP.COVERAGE, GrassCoverage.USHAPE).with(BSP.FACING, Direction.SOUTH)
                 .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_ushape")))
-                .rotationX(180).addModel()
+                .rotationY(180).addModel()
                 .partialState().with(BSP.COVERAGE, GrassCoverage.USHAPE).with(BSP.FACING, Direction.WEST)
                 .modelForState().modelFile(bs.models().getExistingFile(bs.blockModel(name + "_grass_ushape")))
-                .rotationX(270).addModel()
+                .rotationY(270).addModel()
                 
                 //halo
                 .partialState().with(BSP.COVERAGE, GrassCoverage.HALO)

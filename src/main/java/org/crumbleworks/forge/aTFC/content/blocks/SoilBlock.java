@@ -33,6 +33,12 @@ public class SoilBlock extends UnstableBlock
     protected void fillStateContainer(Builder<Block, BlockState> builder) {
         builder.add(PROPSET_GRASS_COVERABLE);
     }
+    
+    @Override
+    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos,
+            Random rand) {
+        super.tick(state, worldIn, pos, rand);
+    }
 
     @Override
     public boolean ticksRandomly(BlockState state) {
@@ -40,8 +46,7 @@ public class SoilBlock extends UnstableBlock
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld worldIn,
-            BlockPos pos, Random random) {
-
+    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+        tryGrowingGrass(state, worldIn, pos, random);
     }
 }
