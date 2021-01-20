@@ -16,12 +16,13 @@ import net.minecraft.world.server.ServerWorld;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class ClaysoilBlock extends Block implements Tintable, Multilayered, GrassCoverable {
+public class ClaysoilBlock extends TintableBlock
+        implements Multilayered, GrassCoverable {
 
     public ClaysoilBlock() {
         super(AbstractBlock.Properties
                 .create(Material.CLAY, MaterialColor.CLAY)
-                .hardnessAndResistance(0.5F)
+                .hardnessAndResistance(0.6F)
                 .sound(SoundType.GROUND));
 
         setDefaultState(stateContainer.getBaseState().with(COVERAGE,

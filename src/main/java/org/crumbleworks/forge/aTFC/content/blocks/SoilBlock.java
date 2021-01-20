@@ -16,8 +16,8 @@ import net.minecraft.world.server.ServerWorld;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class SoilBlock extends UnstableBlock
-        implements Tintable, Multilayered, GrassCoverable {
+public class SoilBlock extends UnstableTintableBlock
+        implements Multilayered, GrassCoverable {
 
     public SoilBlock() {
         super(AbstractBlock.Properties

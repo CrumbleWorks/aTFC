@@ -128,18 +128,8 @@ public abstract class GrassCoverableBlock implements Wireable {
     private BlockModelBuilder innerBlockDefinition(String name,
             ResourceLocation mainTex, ResourceLocation secTex,
             BlockModels bm) {
-        BlockModelBuilder mbm = bm.getBuilder(name)
-                .parent(bm.getExistingFile(bm.mcLoc("block/block")))
-                .texture("particle", mainTex)
-                .texture("all", mainTex)
-                .element().from(0, 0, 0).to(16, 16, 16)
-                .allFaces((d, fb) -> {
-                    fb.uvs(0, 0, 16, 16)
-                            .texture("#all")
-                            .cullface(d)
-                            .tintindex(DynamicPainter.TINT_SOIL)
-                            .end();
-                }).end();
+        BlockModelBuilder mbm = bm.simpleBlock(name, mainTex,
+                DynamicPainter.TINT_SOIL);
 
         if(secTex != null) {
             mbm.texture("sec", secTex)
