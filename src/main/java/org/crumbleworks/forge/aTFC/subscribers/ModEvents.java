@@ -1,6 +1,7 @@
 package org.crumbleworks.forge.aTFC.subscribers;
 
 import org.crumbleworks.forge.aTFC.Main;
+import org.crumbleworks.forge.aTFC.content.entities.animals.EurasianCootEntity;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockTags;
@@ -10,11 +11,14 @@ import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.TranslationsSchwizerdeutsch;
 import org.crumbleworks.forge.aTFC.dataGeneration.TranslationsUSEnglish;
+import org.crumbleworks.forge.aTFC.wiring.Animals;
 
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 
 /**
@@ -51,4 +55,13 @@ public final class ModEvents {
         event.getGenerator()
                 .addProvider(new LootTables(event.getGenerator()));
     }
+
+    @SubscribeEvent
+    public static void registerAttributeMaps(FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            GlobalEntityTypeAttributes.put(Animals.EURASIAN_COOT_ENTITY.get(),
+                    EurasianCootEntity.getCustomAttributes().create());
+        });
+    }
+
 }

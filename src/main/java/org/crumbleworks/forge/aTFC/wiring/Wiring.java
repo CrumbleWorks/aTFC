@@ -3,6 +3,7 @@ package org.crumbleworks.forge.aTFC.wiring;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.crumbleworks.forge.aTFC.Main;
@@ -25,9 +26,10 @@ public abstract class Wiring {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(Wiring.class);
 
-    private static final Set<DeferredRegister<?>> registries = new HashSet<>();
+    private static final Set<DeferredRegister<?>> registries = new LinkedHashSet<>();
     static {
         registries.add(Wireable.BLOCKS);
+        registries.add(Wireable.ENTITIES);
         registries.add(Wireable.ITEMS);
     }
 
@@ -41,10 +43,11 @@ public abstract class Wiring {
         // only static stuff...)
         Set<Wireable> wireables = new HashSet<>();
         for(Class<? extends Wireable> subType : subTypes) {
-            if(subType.isInterface() || Modifier.isAbstract(subType.getModifiers())) {
+            if(subType.isInterface()
+                    || Modifier.isAbstract(subType.getModifiers())) {
                 continue;
             }
-            
+
             try {
                 wireables.add(subType.getConstructor().newInstance());
             } catch(InstantiationException | IllegalAccessException
