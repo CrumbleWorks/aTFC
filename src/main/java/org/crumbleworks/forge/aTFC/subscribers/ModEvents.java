@@ -3,11 +3,16 @@ package org.crumbleworks.forge.aTFC.subscribers;
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
+import org.crumbleworks.forge.aTFC.dataGeneration.BlockTags;
+import org.crumbleworks.forge.aTFC.dataGeneration.EntityTypeTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
+import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
+import org.crumbleworks.forge.aTFC.dataGeneration.Recipes;
 import org.crumbleworks.forge.aTFC.dataGeneration.TranslationsSchwizerdeutsch;
 import org.crumbleworks.forge.aTFC.dataGeneration.TranslationsUSEnglish;
 
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -37,7 +42,17 @@ public final class ModEvents {
         event.getGenerator().addProvider(
                 new TranslationsSchwizerdeutsch(event.getGenerator()));
 
+        event.getGenerator().addProvider(new BlockTags(event.getGenerator(),
+                Registry.BLOCK, event.getExistingFileHelper()));
+        event.getGenerator().addProvider(new ItemTags(event.getGenerator(),
+                Registry.ITEM, event.getExistingFileHelper()));
+        event.getGenerator()
+                .addProvider(new EntityTypeTags(event.getGenerator(),
+                        Registry.ENTITY_TYPE, event.getExistingFileHelper()));
+
         event.getGenerator()
                 .addProvider(new LootTables(event.getGenerator()));
+
+        event.getGenerator().addProvider(new Recipes(event.getGenerator()));
     }
 }

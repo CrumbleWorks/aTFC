@@ -45,4 +45,9 @@ public class BlockStates extends BlockStateProvider {
     public ResourceLocation blockModel(String name) {
         return modLoc("block/" + name);
     }
+    
+    @Override
+    public String getName() {
+        return Main.MOD_ID + " " + super.getName();
+    }
 }

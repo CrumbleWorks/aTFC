@@ -22,4 +22,9 @@ public abstract class Translations extends LanguageProvider {
     public Translations(DataGenerator gen, String locale) {
         super(gen, Main.MOD_ID, locale);
     }
+    
+    @Override
+    public String getName() {
+        return Main.MOD_ID + " " + super.getName();
+    }
 }

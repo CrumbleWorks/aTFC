@@ -1,5 +1,6 @@
 package org.crumbleworks.forge.aTFC.wiring.blocks;
 
+import org.crumbleworks.forge.aTFC.content.Materials;
 import org.crumbleworks.forge.aTFC.content.blocks.UnstableTintableBlock;
 import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.content.items.TintableBlockItem;
@@ -14,8 +15,6 @@ import org.crumbleworks.forge.aTFC.wiring.Wireable;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.Item;
 import net.minecraft.loot.ConstantRange;
 import net.minecraft.loot.ItemLootEntry;
@@ -35,7 +34,7 @@ public class Sand implements Wireable {
     public static final RegistryObject<Block> SAND_BLOCK = BLOCKS
             .register(name,
                     () -> new UnstableTintableBlock(AbstractBlock.Properties
-                            .create(Material.SAND, MaterialColor.SAND)
+                            .create(Materials.SAND)
                             .hardnessAndResistance(0.5F)
                             .sound(SoundType.SAND)
                             .harvestTool(ToolType.SHOVEL)));

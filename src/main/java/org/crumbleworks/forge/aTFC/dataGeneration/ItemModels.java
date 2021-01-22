@@ -35,4 +35,9 @@ public class ItemModels extends ItemModelProvider {
     public void createBlockItem(String name) {
         getBuilder(name).parent(getExistingFile(modLoc("block/" + name)));
     }
+    
+    @Override
+    public String getName() {
+        return Main.MOD_ID + " " + super.getName();
+    }
 }

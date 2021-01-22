@@ -53,4 +53,9 @@ public class BlockModels extends BlockModelProvider {
                 }).end();
         return bmb;
     }
+    
+    @Override
+    public String getName() {
+        return Main.MOD_ID + " " + super.getName();
+    }
 }

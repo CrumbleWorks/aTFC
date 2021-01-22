@@ -17,13 +17,13 @@ import net.minecraftforge.common.ToolType;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class SoilBlock extends UnstableTintableBlock
-        implements Multilayered, GrassCoverable {
+public class PeatBlock extends Block
+        implements Tintable, Multilayered, GrassCoverable {
 
-    public SoilBlock() {
+    public PeatBlock() {
         super(AbstractBlock.Properties
-                .create(Materials.SOIL)
-                .hardnessAndResistance(0.5F)
+                .create(Materials.PEAT)
+                .hardnessAndResistance(0.6F)
                 .sound(SoundType.GROUND)
                 .harvestTool(ToolType.SHOVEL));
 

@@ -1,11 +1,14 @@
 package org.crumbleworks.forge.aTFC.wiring;
 
+import org.crumbleworks.forge.aTFC.content.Tags;
 import org.crumbleworks.forge.aTFC.content.blocks.BSP;
 import org.crumbleworks.forge.aTFC.content.blocks.BSP.GrassCoverage;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
+import org.crumbleworks.forge.aTFC.dataGeneration.BlockTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.DynamicPainter;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
+import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 
 import net.minecraft.block.Block;
 import net.minecraft.util.Direction;
@@ -35,6 +38,14 @@ public abstract class GrassCoverableBlock implements Wireable {
     protected ResourceLocation secondaryTexture(BlockModels bm) {
         return null;
     }
+    
+    @Override
+    public void registerForBlockTags(BlockTags bt) {
+        bt.blockTagBuilder(Tags.Blocks.GRASS_COVERABLES).add(block.get());
+    }
+    
+    @Override
+    public void registerForItemTags(ItemTags it) {}
 
     @Override
     public void generateBlockModels(BlockModels bm) {

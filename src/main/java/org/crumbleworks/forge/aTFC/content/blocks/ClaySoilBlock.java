@@ -2,12 +2,12 @@ package org.crumbleworks.forge.aTFC.content.blocks;
 
 import java.util.Random;
 
+import org.crumbleworks.forge.aTFC.content.Materials;
+
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
@@ -17,12 +17,12 @@ import net.minecraftforge.common.ToolType;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class ClaySoilBlock extends TintableBlock
-        implements Multilayered, GrassCoverable {
+public class ClaySoilBlock extends Block
+        implements Tintable, Multilayered, GrassCoverable {
 
     public ClaySoilBlock() {
         super(AbstractBlock.Properties
-                .create(Material.CLAY, MaterialColor.CLAY)
+                .create(Materials.CLAY_SOIL)
                 .hardnessAndResistance(0.6F)
                 .sound(SoundType.GROUND)
                 .harvestTool(ToolType.SHOVEL));

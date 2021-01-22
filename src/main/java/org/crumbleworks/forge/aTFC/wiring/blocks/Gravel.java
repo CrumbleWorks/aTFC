@@ -1,5 +1,7 @@
 package org.crumbleworks.forge.aTFC.wiring.blocks;
 
+import org.crumbleworks.forge.aTFC.content.Materials;
+import org.crumbleworks.forge.aTFC.content.Tags;
 import org.crumbleworks.forge.aTFC.content.blocks.UnstableTintableBlock;
 import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.content.items.TintableBlockItem;
@@ -16,8 +18,6 @@ import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.Item;
 import net.minecraft.loot.ConstantRange;
 import net.minecraft.loot.ItemLootEntry;
@@ -41,7 +41,7 @@ public class Gravel implements Wireable {
     public static final RegistryObject<Block> GRAVEL_BLOCK = BLOCKS
             .register(name,
                     () -> new UnstableTintableBlock(AbstractBlock.Properties
-                            .create(Material.ROCK, MaterialColor.STONE)
+                            .create(Materials.GRAVEL)
                             .hardnessAndResistance(0.6F)
                             .sound(SoundType.GROUND)
                             .harvestTool(ToolType.SHOVEL)));
@@ -78,7 +78,8 @@ public class Gravel implements Wireable {
                                 .builder(Flint.FLINT_ITEM.get())
                                 .weight(flintWeight)
                                 .acceptCondition(MatchTool.builder(
-                                        ItemPredicate.Builder.create())))));
+                                        ItemPredicate.Builder.create()
+                                                .tag(Tags.Items.SHOVELS))))));
     }
 
     @Override
