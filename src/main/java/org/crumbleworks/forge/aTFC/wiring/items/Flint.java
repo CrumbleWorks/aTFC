@@ -3,7 +3,9 @@ package org.crumbleworks.forge.aTFC.wiring.items;
 import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
+import org.crumbleworks.forge.aTFC.dataGeneration.BlockTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
+import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
 import org.crumbleworks.forge.aTFC.wiring.Wireable;
@@ -48,4 +50,10 @@ public class Flint implements Wireable {
     public void swissTranslations(Translations tr) {
         tr.add(FLINT_ITEM.get(), "F\\u00fc\\u00fcrstei");
     }
+    
+    @Override
+    public void registerForBlockTags(BlockTags bt) {}
+    
+    @Override
+    public void registerForItemTags(ItemTags it) {}
 }

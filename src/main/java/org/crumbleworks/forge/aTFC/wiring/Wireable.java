@@ -4,7 +4,9 @@ package org.crumbleworks.forge.aTFC.wiring;
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
+import org.crumbleworks.forge.aTFC.dataGeneration.BlockTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
+import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
 
@@ -39,4 +41,7 @@ public interface Wireable {
 
     void englishTranslations(Translations tren);
     void swissTranslations(Translations trch);
+    
+    void registerForBlockTags(BlockTags bt);
+    void registerForItemTags(ItemTags it);
 }

@@ -100,6 +100,7 @@ Delete the `src/generated` directory or run `gradlew deleteGeneratedFiles`
 
 **Texturing**:
 - Multi-Texturing: https://mcmodhelp.fandom.com/wiki/Multi-Texturing_Blocks
+- Map/Material-Colors: https://minecraft.gamepedia.com/Map_item_format#Map_colors
 
 **Modelling**:
 - Blockmodels: https://mcmodhelp.fandom.com/wiki/Multi-Texturing_Blocks
