@@ -1,12 +1,9 @@
-package org.crumbleworks.forge.aTFC.wiring;
+package org.crumbleworks.forge.aTFC.wiring.animals;
 
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.content.entities.animals.EurasianCootEntity;
-import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
-import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
-import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
-import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
+import org.crumbleworks.forge.aTFC.wiring.Wireable;
 
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -29,18 +26,6 @@ public class Animals implements Wireable {
     // () -> new SpawnEggItem(EURASIAN_COOT_ENTITY.get(),
     // 0x090909, 0xC93434,
     // new Item.Properties().group(ItemGroup.MISC)));
-
-    @Override
-    public void generateBlockModels(BlockModels bm) {}
-
-    @Override
-    public void generateItemModels(ItemModels im) {}
-
-    @Override
-    public void generateBlockStates(BlockStates bs) {}
-
-    @Override
-    public void generateLootTables(LootTables lt) {}
 
     @Override
     public void englishTranslations(Translations tren) {

@@ -8,7 +8,7 @@ import org.crumbleworks.forge.aTFC.client.renderer.entity.EurasianCootRenderer;
 import org.crumbleworks.forge.aTFC.content.blocks.Multilayered;
 import org.crumbleworks.forge.aTFC.content.blocks.Tintable;
 import org.crumbleworks.forge.aTFC.dataGeneration.DynamicPainter;
-import org.crumbleworks.forge.aTFC.wiring.Animals;
+import org.crumbleworks.forge.aTFC.wiring.animals.Animals;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;

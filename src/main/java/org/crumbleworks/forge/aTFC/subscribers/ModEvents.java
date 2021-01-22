@@ -11,7 +11,7 @@ import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.TranslationsSchwizerdeutsch;
 import org.crumbleworks.forge.aTFC.dataGeneration.TranslationsUSEnglish;
-import org.crumbleworks.forge.aTFC.wiring.Animals;
+import org.crumbleworks.forge.aTFC.wiring.animals.Animals;
 
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.util.registry.Registry;
