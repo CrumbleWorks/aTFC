@@ -98,6 +98,8 @@ Delete the `src/generated` directory or run `gradlew deleteGeneratedFiles`
 
 * **Modding for 1.14.4+**: https://greyminecraftcoder.blogspot.com/p/list-of-topics-1144.html
 
+* **Working example of a custom mob in 1.16.4**: https://forums.minecraftforge.net/topic/96010-1164-i-cant-create-a-mob-please-help/
+
 **Texturing**:
 - Multi-Texturing: https://mcmodhelp.fandom.com/wiki/Multi-Texturing_Blocks
 - Map/Material-Colors: https://minecraft.gamepedia.com/Map_item_format#Map_colors
