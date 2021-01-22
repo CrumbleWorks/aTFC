@@ -89,4 +89,9 @@ public class LootTables extends LootTableProvider {
                     lootTableBuilder);
         }, LootParameterSets.GIFT));
     }
+    
+    @Override
+    public String getName() {
+        return Main.MOD_ID + " " + super.getName();
+    }
 }

@@ -48,6 +48,6 @@ public class BlockTags extends TagsProvider<Block> {
      * Gets a name for this provider, to use in logging.
      */
     public String getName() {
-       return "aTFC Block Tags";
+       return Main.MOD_ID + " Block Tags";
     }
 }

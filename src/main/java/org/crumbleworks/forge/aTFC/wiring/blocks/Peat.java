@@ -1,5 +1,7 @@
 package org.crumbleworks.forge.aTFC.wiring.blocks;
 
+import java.util.function.Consumer;
+
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.content.Tags;
 import org.crumbleworks.forge.aTFC.content.blocks.PeatBlock;
@@ -7,11 +9,13 @@ import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
+import org.crumbleworks.forge.aTFC.dataGeneration.Recipes;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
 import org.crumbleworks.forge.aTFC.wiring.GrassCoverableBlock;
 
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.block.Block;
+import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.loot.AlternativesLootEntry;
@@ -41,6 +45,8 @@ public class Peat extends GrassCoverableBlock {
     private static final int maxPeatClods = 7;
     private static final int minPeatAmountWithShovel = 3;
     private static final int maxPeatAmountWithShovel = 5;
+
+    private static final int peatClodsPerBrick = 2;
 
     public static final RegistryObject<Block> PEAT_BLOCK = BLOCKS
             .register(name_peat_block,
@@ -140,5 +146,20 @@ public class Peat extends GrassCoverableBlock {
         tr.add(PEAT_CLOD_ITEM.get(), "Torf Chlump\00e4");
         tr.add(FRESH_PEAT_ITEM.get(), "Fr\00fcsch\00e4 Torf");
         tr.add(DRIED_PEAT_ITEM.get(), "Tr\00f6chn\00e4t\00e4 Torf");
+    }
+
+    @Override
+    public void registerRecipes(Recipes re,
+            Consumer<IFinishedRecipe> consumer) {
+        re.shapelessRecipe(FRESH_PEAT_ITEM.get())
+                .addIngredient(PEAT_CLOD_ITEM.get(), peatClodsPerBrick)
+                .addCriterion("has_peat_clod",
+                        re.triggerWhenHasItem(PEAT_CLOD_ITEM.get()))
+                .build(consumer);
+        re.shapelessRecipe(PEAT_CLOD_ITEM.get(), peatClodsPerBrick)
+                .addIngredient(FRESH_PEAT_ITEM.get())
+                .addCriterion("has_fresh_peat",
+                        re.triggerWhenHasItem(FRESH_PEAT_ITEM.get()))
+                .build(consumer);
     }
 }

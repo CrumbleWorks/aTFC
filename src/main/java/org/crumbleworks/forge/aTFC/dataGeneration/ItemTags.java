@@ -48,6 +48,6 @@ public class ItemTags extends TagsProvider<Item> {
      * Gets a name for this provider, to use in logging.
      */
     public String getName() {
-       return "aTFC Item Tags";
+       return Main.MOD_ID + " Item Tags";
     }
 }

@@ -8,6 +8,7 @@ import org.crumbleworks.forge.aTFC.dataGeneration.EntityTypeTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
+import org.crumbleworks.forge.aTFC.dataGeneration.Recipes;
 import org.crumbleworks.forge.aTFC.dataGeneration.TranslationsSchwizerdeutsch;
 import org.crumbleworks.forge.aTFC.dataGeneration.TranslationsUSEnglish;
 
@@ -45,10 +46,13 @@ public final class ModEvents {
                 Registry.BLOCK, event.getExistingFileHelper()));
         event.getGenerator().addProvider(new ItemTags(event.getGenerator(),
                 Registry.ITEM, event.getExistingFileHelper()));
-        event.getGenerator().addProvider(new EntityTypeTags(event.getGenerator(),
-                Registry.ENTITY_TYPE, event.getExistingFileHelper()));
+        event.getGenerator()
+                .addProvider(new EntityTypeTags(event.getGenerator(),
+                        Registry.ENTITY_TYPE, event.getExistingFileHelper()));
 
         event.getGenerator()
                 .addProvider(new LootTables(event.getGenerator()));
+
+        event.getGenerator().addProvider(new Recipes(event.getGenerator()));
     }
 }

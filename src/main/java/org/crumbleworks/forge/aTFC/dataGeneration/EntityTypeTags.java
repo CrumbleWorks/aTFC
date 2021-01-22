@@ -53,6 +53,6 @@ public class EntityTypeTags extends TagsProvider<EntityType<?>> {
      * Gets a name for this provider, to use in logging.
      */
     public String getName() {
-        return "aTFC Entity Type Tags";
+        return Main.MOD_ID + " Entity Type Tags";
     }
 }
