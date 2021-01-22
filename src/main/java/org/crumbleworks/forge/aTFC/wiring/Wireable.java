@@ -5,6 +5,7 @@ import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockTags;
+import org.crumbleworks.forge.aTFC.dataGeneration.EntityTypeTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
@@ -32,16 +33,17 @@ public interface Wireable {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister
             .create(ForgeRegistries.ITEMS, Main.MOD_ID);
 
-    void generateBlockModels(BlockModels bm);
-    void generateItemModels(ItemModels im);
+    default void generateBlockModels(BlockModels bm) {}
+    default void generateItemModels(ItemModels im) {}
     
-    void generateBlockStates(BlockStates bs);
+    default void generateBlockStates(BlockStates bs) {}
     
-    void generateLootTables(LootTables lt);
+    default void generateLootTables(LootTables lt) {}
 
-    void englishTranslations(Translations tren);
-    void swissTranslations(Translations trch);
+    default void englishTranslations(Translations tren) {}
+    default void swissTranslations(Translations trch) {}
     
-    void registerForBlockTags(BlockTags bt);
-    void registerForItemTags(ItemTags it);
+    default void registerForBlockTags(BlockTags bt) {}
+    default void registerForItemTags(ItemTags it) {}
+    default void registerForEntityTypeTags(EntityTypeTags et) {}
 }

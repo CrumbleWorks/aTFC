@@ -6,10 +6,8 @@ import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.content.items.TintableBlockItem;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
-import org.crumbleworks.forge.aTFC.dataGeneration.BlockTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.DynamicPainter;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
-import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
 import org.crumbleworks.forge.aTFC.wiring.Wireable;
@@ -79,10 +77,4 @@ public class Sand implements Wireable {
     public void swissTranslations(Translations tr) {
         tr.add(SAND_BLOCK.get(), "Sand");
     }
-    
-    @Override
-    public void registerForBlockTags(BlockTags bt) {}
-    
-    @Override
-    public void registerForItemTags(ItemTags it) {}
 }
