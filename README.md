@@ -9,20 +9,23 @@ Because we didn't like how [TFC-TNG][2] dropped the food mechanics from the orig
 The term *aTFC* stands for *another* TFC, because this is yet another rewrite of the most amazing Minecraft mod that was ever made. Our goal is to recreate the original TFC mod, running on the newest Minecraft version (1.16.4), as well as introduce changes we enjoyed by both [TFC+][1] and [TFC-TNG][2].
 
 This mod is different to...
+
 * [TFC+][1]: as it is not based on the original code for Minecraft 1.7.10
 * [TFC-TNG][2] as it is not dropping the food mechanics
 
 ### Contributors
 
 * [Michael "dot_Sp0T" Stocker](https://github.com/dotSp0T)
-* [Patrick "McDonnough" Bächli](https://github.com/McDonnough)
+* [Patrick "McDonnough" BÃ¤chli](https://github.com/McDonnough)
 
 ## Testers
 
 ### Install Forge
-You will need `Minecraft Forge - MC 1.16.4` to play the mod: http://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.16.4.html
+
+You will need `Minecraft Forge - MC 1.16.4` to play the mod: <http://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.16.4.html>
 
 ### Latest ALPHA Builds
+
 You can get the latest `alpha`-build by...
 
 1. selecting the `develop` branch on the top-left and then click on the green checkmark:  
@@ -40,6 +43,7 @@ You can also download builds from any of the other branches, but please do not r
 Start the modded minecraft instance and, when generating a new world, select the `atfc-continental` worldtype.
 
 ### Report Bugs
+
 If you happen upon bugs and/or behaviour you think is wrong, please report a bug under the [Issue-Tracker](https://github.com/CrumbleWorks/aTFC/issues). You can also propose new game-features, but please first check if the feature you thought of hasn't already been proposed.
 
 ## Development
@@ -74,52 +78,55 @@ Delete the `src/generated` directory or run `gradlew deleteGeneratedFiles`
 
 ### Tools
 
-* **Loot-Table Generator**: https://misode.github.io/loot-table/
-* **Dimension Generator**: https://misode.github.io/dimension/
-* **SRG-Names Lookup**: https://mcp.thiakil.com/
+* **Loot-Table Generator**: <https://misode.github.io/loot-table/>
+* **Dimension Generator**: <https://misode.github.io/dimension/>
+* **SRG-Names Lookup**: <https://mcp.thiakil.com/>
 
 ### Formats
 
-* **blockstates**: https://minecraft.gamepedia.com/Model
-* **loot-tables**: https://minecraft.gamepedia.com/Loot_table
-* **resource-packs**: https://minecraft.gamepedia.com/Resource_Pack
+* **blockstates**: <https://minecraft.gamepedia.com/Model>
+* **loot-tables**: <https://minecraft.gamepedia.com/Loot_table>
+* **resource-packs**: <https://minecraft.gamepedia.com/Resource_Pack>
 
-* **RenderTypes**: https://greyminecraftcoder.blogspot.com/2020/04/block-rendering-1144.html
+* **RenderTypes**: <https://greyminecraftcoder.blogspot.com/2020/04/block-rendering-1144.html>
 
 ### Links
 
-* **Unofficial Forge Wiki**: https://forge.gemwire.uk/wiki/
-* **Forge Docu**: https://mcforge.readthedocs.io/en/1.16.x/
-* **Cadiboo Forge 1.15.1 Tutorials**: https://cadiboo.github.io/tutorials/1.15.1/forge/
-* **Modding with Forge 1.16.4**: https://youtube.com/playlist?list=PLaevjqy3Xufavi5mWXvWnGmwRylL-QZy7
-* **Modding with Forge 1.16.x**: https://youtube.com/playlist?list=PLGProEDTdBjghW5IZsiWno6e9QAkHChyQ
-* **Modding with Forge 1.11**: https://www.youtube.com/playlist?list=PLGProEDTdBjjNQrr1G4Nv3oqqQ14hZtYV
-* **Modding with Forge 1.8**: https://www.youtube.com/playlist?list=PLiFAb_ju1TahVZ1uOer7T3m_17crt15kp
+* **Unofficial Forge Wiki**: <https://forge.gemwire.uk/wiki/>
+* **Forge Docu**: <https://mcforge.readthedocs.io/en/1.16.x/>
+* **Cadiboo Forge 1.15.1 Tutorials**: <https://cadiboo.github.io/tutorials/1.15.1/forge/>
+* **Modding with Forge 1.16.4**: <https://youtube.com/playlist?list=PLaevjqy3Xufavi5mWXvWnGmwRylL-QZy7>
+* **Modding with Forge 1.16.x**: <https://youtube.com/playlist?list=PLGProEDTdBjghW5IZsiWno6e9QAkHChyQ>
+* **Modding with Forge 1.11**: <https://www.youtube.com/playlist?list=PLGProEDTdBjjNQrr1G4Nv3oqqQ14hZtYV>
+* **Modding with Forge 1.8**: <https://www.youtube.com/playlist?list=PLiFAb_ju1TahVZ1uOer7T3m_17crt15kp>
 
-* **Modding for 1.14.4+**: https://greyminecraftcoder.blogspot.com/p/list-of-topics-1144.html
+* **Modding for 1.14.4+**: <https://greyminecraftcoder.blogspot.com/p/list-of-topics-1144.html>
 
-* **Working example of a custom mob in 1.16.4**: https://forums.minecraftforge.net/topic/96010-1164-i-cant-create-a-mob-please-help/
+* **Working example of a custom mob in 1.16.4**: <https://forums.minecraftforge.net/topic/96010-1164-i-cant-create-a-mob-please-help/>
 
 **Texturing**:
-- Multi-Texturing: https://mcmodhelp.fandom.com/wiki/Multi-Texturing_Blocks
-- Map/Material-Colors: https://minecraft.gamepedia.com/Map_item_format#Map_colors
+
+* Multi-Texturing: <https://mcmodhelp.fandom.com/wiki/Multi-Texturing_Blocks>
+* Map/Material-Colors: <https://minecraft.gamepedia.com/Map_item_format#Map_colors>
 
 **Modelling**:
-- Blockmodels: https://mcmodhelp.fandom.com/wiki/Multi-Texturing_Blocks
-- MrCrayfish Model Creator: https://mrcrayfish.com/tools.php?id=mc
+
+* Blockmodels: <https://mcmodhelp.fandom.com/wiki/Multi-Texturing_Blocks>
+* MrCrayfish Model Creator: <https://mrcrayfish.com/tools.php?id=mc>
 
 **Mod Samples**:
-- https://github.com/TheGreyGhost/MinecraftByExample
+
+* <https://github.com/TheGreyGhost/MinecraftByExample>
 
 ### Umlauts
-Ä \u00c4  
-ä \u00e4  
-Ö \u00d6  
-ö \u00f6  
-Ü \u00dc  
-ü \u00fc  
-ß (sz) \u00df  
 
+Ã„ \u00c4  
+Ã¤ \u00e4  
+Ã– \u00d6  
+Ã¶ \u00f6  
+Ãœ \u00dc  
+Ã¼ \u00fc  
+ÃŸ (sz) \u00df  
 
 [1]: https://plus.terrafirmacraft.com/
 [2]: https://tng.terrafirmacraft.com/Main_Page
