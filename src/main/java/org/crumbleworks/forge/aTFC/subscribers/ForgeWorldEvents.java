@@ -2,7 +2,7 @@ package org.crumbleworks.forge.aTFC.subscribers;
 
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.worldgen.ContinentalCloudRenderHandler;
-import org.crumbleworks.forge.aTFC.worldgen.ContinentalWorld;
+import org.crumbleworks.forge.aTFC.worldgen.ContinentalWorldType;
 
 import net.minecraft.client.world.ClientWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -30,6 +30,6 @@ public class ForgeWorldEvents {
         
         ((ClientWorld)event.getWorld())
         .field_239131_x_
-        .setCloudRenderHandler(new ContinentalCloudRenderHandler(ContinentalWorld.CLOUD_LEVEL));
+        .setCloudRenderHandler(new ContinentalCloudRenderHandler(ContinentalWorldType.CLOUD_LEVEL));
     }
 }

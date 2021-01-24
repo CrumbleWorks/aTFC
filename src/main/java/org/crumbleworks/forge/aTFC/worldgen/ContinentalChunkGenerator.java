@@ -142,17 +142,17 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
 
     @Override
     public int getMaxBuildHeight() {
-        return ContinentalWorld.BUILD_LEVEL;
+        return ContinentalWorldType.BUILD_LEVEL;
     }
 
     @Override
     public int getSeaLevel() {
-        return ContinentalWorld.SEA_LEVEL;
+        return ContinentalWorldType.SEA_LEVEL;
     }
 
     @Override
     public int getGroundHeight() {
-        return ContinentalWorld.GROUND_LEVEL;
+        return ContinentalWorldType.GROUND_LEVEL;
     }
 
     @Override
