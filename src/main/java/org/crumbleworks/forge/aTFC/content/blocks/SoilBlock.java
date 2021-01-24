@@ -8,8 +8,10 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
+import net.minecraft.entity.Entity;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 
@@ -45,5 +47,16 @@ public class SoilBlock extends UnstableTintableBlock
     public void randomTick(BlockState state, ServerWorld worldIn,
             BlockPos pos, Random random) {
         tryGrowingGrass(state, worldIn, pos, random);
+    }
+
+    @Override
+    public SoundType getSoundType(BlockState state, IWorldReader world,
+            BlockPos pos, Entity entity) {
+        //if grass grows on the block
+        if(state != this.getBlock().getDefaultState()) {
+            return SoundType.PLANT;
+        }
+
+        return super.getSoundType(state, world, pos, entity);
     }
 }

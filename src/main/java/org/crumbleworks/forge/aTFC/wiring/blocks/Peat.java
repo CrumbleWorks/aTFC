@@ -59,7 +59,7 @@ public class Peat extends GrassCoverableBlock {
                     () -> new BogBlock(AbstractBlock.Properties
                             .create(Materials.PEAT)
                             .hardnessAndResistance(0.6F)
-                            .sound(SoundType.GROUND)
+                            .sound(SoundType.SOUL_SAND)
                             .harvestTool(ToolType.SHOVEL)));
     public static final RegistryObject<Item> PEAT_ITEM = ITEMS.register(
             name_peat_block, () -> new BlockItem(PEAT_BLOCK.get(),

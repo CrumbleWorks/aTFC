@@ -41,11 +41,15 @@ public class GrasscoverableBlock extends Block
             BlockPos pos, Random random) {
         tryGrowingGrass(state, worldIn, pos, random);
     }
-    
+
     @Override
-        public SoundType getSoundType(BlockState state, IWorldReader world,
-                BlockPos pos, Entity entity) {
-            // TODO Auto-generated method stub
-            return super.getSoundType(state, world, pos, entity);
+    public SoundType getSoundType(BlockState state, IWorldReader world,
+            BlockPos pos, Entity entity) {
+        //if grass grows on the block
+        if(state != this.getBlock().getDefaultState()) {
+            return SoundType.PLANT;
         }
+
+        return super.getSoundType(state, world, pos, entity);
+    }
 }
