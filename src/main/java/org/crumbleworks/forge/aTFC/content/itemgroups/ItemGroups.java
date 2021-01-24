@@ -12,6 +12,7 @@ import net.minecraft.item.ItemGroup;
  */
 public class ItemGroups {
 
+    //Register Translations in MiscellaneousTranslations.java
     public static final ItemGroup BLOCKS = new ModItemGroup("blocks", Soil.SOIL_ITEM);
     public static final ItemGroup MATERIALS = new ModItemGroup("materials", Clay.CLAY_ITEM);
 }

@@ -8,7 +8,6 @@ import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
-import org.crumbleworks.forge.aTFC.wiring.GrassCoverableBlock;
 import org.crumbleworks.forge.aTFC.wiring.items.Clay;
 
 import net.minecraft.block.Block;

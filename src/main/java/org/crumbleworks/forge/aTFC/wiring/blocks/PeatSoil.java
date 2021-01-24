@@ -7,7 +7,6 @@ import org.crumbleworks.forge.aTFC.content.items.TintableBlockItem;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
-import org.crumbleworks.forge.aTFC.wiring.GrassCoverableBlock;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -37,7 +36,7 @@ public class PeatSoil extends GrassCoverableBlock {
                     () -> new BogBlock(AbstractBlock.Properties
                             .create(Materials.PEAT)
                             .hardnessAndResistance(0.6F)
-                            .sound(SoundType.SOUL_SAND)
+                            .sound(SoundType.SOUL_SOIL)
                             .harvestTool(ToolType.SHOVEL)));
     public static final RegistryObject<Item> PEATSOIL_ITEM = ITEMS.register(
             name, () -> new TintableBlockItem(PEATSOIL_BLOCK.get(),

@@ -1,4 +1,4 @@
-package org.crumbleworks.forge.aTFC.wiring;
+package org.crumbleworks.forge.aTFC.wiring.blocks;
 
 import org.crumbleworks.forge.aTFC.content.Tags;
 import org.crumbleworks.forge.aTFC.content.blocks.BSP;
@@ -9,6 +9,7 @@ import org.crumbleworks.forge.aTFC.dataGeneration.BlockTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.DynamicPainter;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
+import org.crumbleworks.forge.aTFC.wiring.Wireable;
 
 import net.minecraft.block.Block;
 import net.minecraft.util.Direction;

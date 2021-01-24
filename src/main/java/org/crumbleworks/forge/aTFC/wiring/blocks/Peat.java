@@ -14,7 +14,6 @@ import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Recipes;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
-import org.crumbleworks.forge.aTFC.wiring.GrassCoverableBlock;
 
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.block.AbstractBlock;
