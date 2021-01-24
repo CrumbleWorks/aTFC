@@ -66,6 +66,15 @@ public class EurasianCoot implements Wireable {
                 .parent(im.getExistingFile(im.mcLoc("item/generated")))
                 .texture("layer0", im.modLoc("item/eurasian_coot_feather"));
     }
+
+    @Override
+    public void generateLootTables(LootTables lt) {
+        lt.addEntity(name_eurasian_coot, LootTable.builder()
+                .addLootPool(LootPool.builder().name(name_eurasian_coot)
+                        .rolls(ConstantRange.of(1)).addEntry(ItemLootEntry
+                                .builder(EURASIAN_COOT_FEATHER_ITEM.get()))));
+    }
+
     @Override
     public void englishTranslations(Translations tren) {
         tren.add(EURASIAN_COOT_ENTITY.get(), "Eurasian Coot");
