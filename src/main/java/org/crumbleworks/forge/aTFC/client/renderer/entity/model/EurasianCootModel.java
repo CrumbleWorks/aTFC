@@ -12,8 +12,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class EurasianCootModel<T extends Entity> extends AgeableModel<T> {
 
-    private final ModelRenderer body;
     private final ModelRenderer head;
+    private final ModelRenderer body;
     private final ModelRenderer leftWing;
     private final ModelRenderer rightWing;
     private final ModelRenderer leftLeg;
@@ -23,21 +23,20 @@ public class EurasianCootModel<T extends Entity> extends AgeableModel<T> {
         textureWidth = 32;
         textureHeight = 32;
 
-        body = new ModelRenderer(this);
-        body.setRotationPoint(0.0F, 18.0F, 1.0F);
-        body.setTextureOffset(0, 0).addBox(-3.0F, -2.0F, -3.0F, 6.0F, 4.0F,
-                7.0F, 0.0F, false);
-        body.setTextureOffset(0, 5).addBox(-0.5F, -3.0F, 3.0F, 1.0F, 1.0F,
-                1.0F, 0.0F, false);
-
         head = new ModelRenderer(this);
-        head.setRotationPoint(0.0F, -2.0F, -3.0F);
-        body.addChild(head);
+        head.setRotationPoint(0.0F, 16.0F, -2.0F);
         head.setTextureOffset(0, 11).addBox(-2.0F, -2.0F, -2.0F, 4.0F, 4.0F,
                 3.0F, 0.0F, false);
         head.setTextureOffset(0, 1).addBox(-0.5F, -1.0F, -4.0F, 1.0F, 1.0F,
                 2.0F, 0.0F, false);
         head.setTextureOffset(11, 11).addBox(-0.5F, -2.0F, -3.0F, 1.0F, 1.0F,
+                1.0F, 0.0F, false);
+
+        body = new ModelRenderer(this);
+        body.setRotationPoint(0.0F, 18.0F, 1.0F);
+        body.setTextureOffset(0, 0).addBox(-3.0F, -2.0F, -3.0F, 6.0F, 4.0F,
+                7.0F, 0.0F, false);
+        body.setTextureOffset(0, 5).addBox(-0.5F, -3.0F, 3.0F, 1.0F, 1.0F,
                 1.0F, 0.0F, false);
 
         leftWing = new ModelRenderer(this);
@@ -78,7 +77,7 @@ public class EurasianCootModel<T extends Entity> extends AgeableModel<T> {
 
     @Override
     protected Iterable<ModelRenderer> getBodyParts() {
-        return ImmutableList.of(body, leftWing, rightWing, leftLeg, rightLeg);
+        return ImmutableList.of(body, leftLeg, rightLeg);
     }
 
     @Override
