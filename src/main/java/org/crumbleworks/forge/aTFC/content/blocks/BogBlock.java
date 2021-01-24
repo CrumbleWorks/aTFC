@@ -22,22 +22,27 @@ public class BogBlock extends GrasscoverableBlock {
         super(properties);
     }
 
-    static VoxelShape SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D);
+    static VoxelShape SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D,
+            12.0D, 16.0D);
 
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-       return SHAPE;
+    public VoxelShape getCollisionShape(BlockState state,
+            IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return SHAPE;
     }
 
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader reader, BlockPos pos) {
-       return VoxelShapes.fullCube();
+    public VoxelShape getCollisionShape(BlockState state, IBlockReader reader,
+            BlockPos pos) {
+        return VoxelShapes.fullCube();
     }
 
-    public VoxelShape getRayTraceShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
-       return VoxelShapes.fullCube();
+    public VoxelShape getRayTraceShape(BlockState state, IBlockReader reader,
+            BlockPos pos, ISelectionContext context) {
+        return VoxelShapes.fullCube();
     }
-    
+
     @Override
-    public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+    public void onEntityCollision(BlockState state, World worldIn,
+            BlockPos pos, Entity entityIn) {
         Vector3d mot = entityIn.getMotion();
         entityIn.setMotion(mot.x * 0.95D, mot.y * 0.75D, mot.z * 0.95D);
     }
