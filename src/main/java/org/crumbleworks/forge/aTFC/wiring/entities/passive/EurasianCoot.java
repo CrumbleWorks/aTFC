@@ -1,4 +1,4 @@
-package org.crumbleworks.forge.aTFC.wiring.animals;
+package org.crumbleworks.forge.aTFC.wiring.entities.passive;
 
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.content.Tags;
@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.RegistryObject;
 
-public class Animals implements Wireable {
+public class EurasianCoot implements Wireable {
 
     public static final RegistryObject<EntityType<EurasianCootEntity>> EURASIAN_COOT_ENTITY = Wireable.ENTITIES
             .register("eurasian_coot", () -> EntityType.Builder

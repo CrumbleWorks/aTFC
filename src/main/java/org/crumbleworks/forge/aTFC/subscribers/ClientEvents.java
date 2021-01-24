@@ -8,7 +8,7 @@ import org.crumbleworks.forge.aTFC.client.renderer.entity.EurasianCootRenderer;
 import org.crumbleworks.forge.aTFC.content.blocks.Multilayered;
 import org.crumbleworks.forge.aTFC.content.blocks.Tintable;
 import org.crumbleworks.forge.aTFC.dataGeneration.DynamicPainter;
-import org.crumbleworks.forge.aTFC.wiring.animals.Animals;
+import org.crumbleworks.forge.aTFC.wiring.entities.passive.EurasianCoot;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;
@@ -43,7 +43,7 @@ public final class ClientEvents {
     @SubscribeEvent
     public static void registerEntityRenderers(FMLClientSetupEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(
-                Animals.EURASIAN_COOT_ENTITY.get(),
+                EurasianCoot.EURASIAN_COOT_ENTITY.get(),
                 EurasianCootRenderer::new);
     }
 

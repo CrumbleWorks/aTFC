@@ -1,7 +1,7 @@
 package org.crumbleworks.forge.aTFC.content.entities.passive;
 
 import org.crumbleworks.forge.aTFC.content.entities.goals.WaterSeekingRandomWalkingGoal;
-import org.crumbleworks.forge.aTFC.wiring.animals.Animals;
+import org.crumbleworks.forge.aTFC.wiring.entities.passive.EurasianCoot;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AgeableEntity;
@@ -95,17 +95,17 @@ public class EurasianCootEntity extends AnimalEntity {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return Animals.EURASIAN_COOT_SOUND_AMBIENT.get();
+        return EurasianCoot.EURASIAN_COOT_SOUND_AMBIENT.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return Animals.EURASIAN_COOT_SOUND_HURT.get();
+        return EurasianCoot.EURASIAN_COOT_SOUND_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return Animals.EURASIAN_COOT_SOUND_DEATH.get();
+        return EurasianCoot.EURASIAN_COOT_SOUND_DEATH.get();
     }
 
     // Copied from ChickenEntity
@@ -117,7 +117,7 @@ public class EurasianCootEntity extends AnimalEntity {
     @Override
     public AgeableEntity func_241840_a(ServerWorld serverWorld,
             AgeableEntity ageableEntity) {
-        return Animals.EURASIAN_COOT_ENTITY.get().create(serverWorld);
+        return EurasianCoot.EURASIAN_COOT_ENTITY.get().create(serverWorld);
     }
 
 }

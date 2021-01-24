@@ -11,7 +11,7 @@ import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.TranslationsSchwizerdeutsch;
 import org.crumbleworks.forge.aTFC.dataGeneration.TranslationsUSEnglish;
-import org.crumbleworks.forge.aTFC.wiring.animals.Animals;
+import org.crumbleworks.forge.aTFC.wiring.entities.passive.EurasianCoot;
 
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.util.registry.Registry;
@@ -59,7 +59,7 @@ public final class ModEvents {
     @SubscribeEvent
     public static void registerAttributeMaps(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            GlobalEntityTypeAttributes.put(Animals.EURASIAN_COOT_ENTITY.get(),
+            GlobalEntityTypeAttributes.put(EurasianCoot.EURASIAN_COOT_ENTITY.get(),
                     EurasianCootEntity.getAttributes().create());
         });
     }
