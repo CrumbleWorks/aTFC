@@ -5,8 +5,11 @@ import java.util.Random;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.SoundType;
+import net.minecraft.entity.Entity;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.server.ServerWorld;
 
 /**
@@ -38,4 +41,11 @@ public class GrasscoverableBlock extends Block
             BlockPos pos, Random random) {
         tryGrowingGrass(state, worldIn, pos, random);
     }
+    
+    @Override
+        public SoundType getSoundType(BlockState state, IWorldReader world,
+                BlockPos pos, Entity entity) {
+            // TODO Auto-generated method stub
+            return super.getSoundType(state, world, pos, entity);
+        }
 }

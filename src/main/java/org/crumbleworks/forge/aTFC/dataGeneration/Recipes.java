@@ -118,12 +118,12 @@ public class Recipes extends RecipeProvider {
         return RecipeProvider.hasItem(item);
     }
 
-    public InventoryChangeTrigger.Instance triggerWhenHasAnyItemOf(
+    public InventoryChangeTrigger.Instance triggerWhenHasAnyOf(
             ITag<Item> tag) {
         return RecipeProvider.hasItem(tag);
     }
 
-    public InventoryChangeTrigger.Instance triggerWhenHasAnyItemOf(
+    public InventoryChangeTrigger.Instance triggerWhenHasAnyIn(
             ItemPredicate... predicate) {
         return RecipeProvider.hasItem(predicate);
     }

@@ -8,7 +8,9 @@ import org.crumbleworks.forge.aTFC.content.Tags;
 import org.crumbleworks.forge.aTFC.content.blocks.BogBlock;
 import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
+import org.crumbleworks.forge.aTFC.dataGeneration.BlockTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
+import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Recipes;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
@@ -155,7 +157,7 @@ public class Peat extends GrassCoverableBlock {
         tr.add(FRESH_PEAT_ITEM.get(), "Fr\00fcsch\00e4 Torf");
         tr.add(DRIED_PEAT_ITEM.get(), "Tr\00f6chn\00e4t\00e4 Torf");
     }
-
+    
     @Override
     public void registerRecipes(Recipes re,
             Consumer<IFinishedRecipe> consumer) {

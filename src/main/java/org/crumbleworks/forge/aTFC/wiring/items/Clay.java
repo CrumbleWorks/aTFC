@@ -1,7 +1,9 @@
 package org.crumbleworks.forge.aTFC.wiring.items;
 
+import org.crumbleworks.forge.aTFC.content.Tags;
 import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
+import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
 import org.crumbleworks.forge.aTFC.wiring.Wireable;
 
@@ -35,5 +37,10 @@ public class Clay implements Wireable {
     @Override
     public void swissTranslations(Translations tr) {
         tr.add(CLAY_ITEM.get(), "Lehmb\u00f6lleli");
+    }
+    
+    @Override
+    public void registerForItemTags(ItemTags it) {
+        it.itemTagBuilder(Tags.Items.CLAY_BALL).add(CLAY_ITEM.get());
     }
 }

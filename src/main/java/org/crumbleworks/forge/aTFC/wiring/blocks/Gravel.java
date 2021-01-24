@@ -9,6 +9,7 @@ import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
 import org.crumbleworks.forge.aTFC.dataGeneration.DynamicPainter;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
+import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
 import org.crumbleworks.forge.aTFC.wiring.Wireable;
@@ -90,5 +91,10 @@ public class Gravel implements Wireable {
     @Override
     public void swissTranslations(Translations tr) {
         tr.add(GRAVEL_BLOCK.get(), "Gravel");
+    }
+
+    @Override
+    public void registerForItemTags(ItemTags it) {
+        it.itemTagBuilder(Tags.Items.GRAVEL).add(GRAVEL_ITEM.get());
     }
 }
