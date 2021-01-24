@@ -6,7 +6,6 @@ import org.crumbleworks.forge.aTFC.content.entities.animals.EurasianCootEntity;
 
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
@@ -32,7 +31,7 @@ public class EurasianCootRenderer
     /**
      * Defines what float the third param in setRotationAngles of ModelBase is
      */
-    protected float handleRotationFloat(ChickenEntity livingBase,
+    protected float handleRotationFloat(EurasianCootEntity livingBase,
             float partialTicks) {
         float f = MathHelper.lerp(partialTicks, livingBase.oFlap,
                 livingBase.wingRotation);
