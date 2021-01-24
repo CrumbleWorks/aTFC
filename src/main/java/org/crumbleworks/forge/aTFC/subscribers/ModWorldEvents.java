@@ -3,8 +3,6 @@ package org.crumbleworks.forge.aTFC.subscribers;
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.worldgen.ContinentalWorld;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.world.ForgeWorldType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

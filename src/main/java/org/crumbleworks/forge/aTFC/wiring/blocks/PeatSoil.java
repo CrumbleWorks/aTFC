@@ -1,23 +1,22 @@
 package org.crumbleworks.forge.aTFC.wiring.blocks;
 
 import org.crumbleworks.forge.aTFC.content.Materials;
-import org.crumbleworks.forge.aTFC.content.blocks.GrasscoverableBlock;
+import org.crumbleworks.forge.aTFC.content.blocks.BogBlock;
 import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.content.items.TintableBlockItem;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
 import org.crumbleworks.forge.aTFC.wiring.GrassCoverableBlock;
-import org.crumbleworks.forge.aTFC.wiring.items.Clay;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.item.Item;
+import net.minecraft.loot.ConstantRange;
 import net.minecraft.loot.ItemLootEntry;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.RandomValueRange;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
@@ -26,26 +25,26 @@ import net.minecraftforge.fml.RegistryObject;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class ClaySoil extends GrassCoverableBlock {
+public class PeatSoil extends GrassCoverableBlock {
 
-    private static final String name = "claysoil";
+    private static final String name = "peatsoil";
 
-    private static final int minClayAmount = 1;
-    private static final int maxClayAmount = 3;
+    private static final int soilWeight = 3;
+    private static final int peatClodWeight = 1;
 
-    public static final RegistryObject<Block> CLAYSOIL_BLOCK = BLOCKS
+    public static final RegistryObject<Block> PEATSOIL_BLOCK = BLOCKS
             .register(name,
-                    () -> new GrasscoverableBlock(AbstractBlock.Properties
-                            .create(Materials.CLAY_SOIL)
+                    () -> new BogBlock(AbstractBlock.Properties
+                            .create(Materials.PEAT)
                             .hardnessAndResistance(0.6F)
                             .sound(SoundType.GROUND)
                             .harvestTool(ToolType.SHOVEL)));
-    public static final RegistryObject<Item> CLAYSOIL_ITEM = ITEMS.register(
-            name, () -> new TintableBlockItem(CLAYSOIL_BLOCK.get(),
+    public static final RegistryObject<Item> PEATSOIL_ITEM = ITEMS.register(
+            name, () -> new TintableBlockItem(PEATSOIL_BLOCK.get(),
                     new Item.Properties().group(ItemGroups.BLOCKS)));
 
-    public ClaySoil() {
-        super(name, CLAYSOIL_BLOCK);
+    public PeatSoil() {
+        super(name, PEATSOIL_BLOCK);
     }
 
     @Override
@@ -55,7 +54,7 @@ public class ClaySoil extends GrassCoverableBlock {
 
     @Override
     protected ResourceLocation secondaryTexture(BlockModels bm) {
-        return bm.modLoc("block/overlays/clay");
+        return bm.modLoc("block/overlays/peat");
     }
 
     @Override
@@ -63,19 +62,21 @@ public class ClaySoil extends GrassCoverableBlock {
         lt.addBlock(name,
                 LootTable.builder().addLootPool(LootPool.builder()
                         .name(name)
-                        .rolls(RandomValueRange.of(minClayAmount,
-                                maxClayAmount))
+                        .rolls(ConstantRange.of(1))
+                        .addEntry(ItemLootEntry.builder(Soil.SOIL_ITEM.get())
+                                .weight(soilWeight))
                         .addEntry(ItemLootEntry
-                                .builder(Clay.CLAY_ITEM.get()))));
+                                .builder(Peat.PEAT_CLOD_ITEM.get())
+                                .weight(peatClodWeight))));
     }
 
     @Override
     public void englishTranslations(Translations tr) {
-        tr.add(CLAYSOIL_BLOCK.get(), "Clay");
+        tr.add(PEATSOIL_BLOCK.get(), "Bog Soil");
     }
 
     @Override
     public void swissTranslations(Translations tr) {
-        tr.add(CLAYSOIL_BLOCK.get(), "Lehmerd\u00e4");
+        tr.add(PEATSOIL_BLOCK.get(), "Brucherd\u00e4");
     }
 }

@@ -35,8 +35,12 @@ public class BlockModels extends BlockModelProvider {
         }
     }
     
+    public BlockModelBuilder simpleBlock(String name, ResourceLocation tex) {
+        return simpleBlock(name, tex, Integer.MAX_VALUE);
+    }
+    
     /**
-     * Setting <code>tintindex</code> to <code>0</code> will not register a tintindex. 
+     * Setting <code>tintindex</code> to {@link Integer#MAX_VALUE} will not register a tintindex. 
      */
     public BlockModelBuilder simpleBlock(String name, ResourceLocation tex, int tintindex) {
         BlockModelBuilder bmb = getBuilder(name)

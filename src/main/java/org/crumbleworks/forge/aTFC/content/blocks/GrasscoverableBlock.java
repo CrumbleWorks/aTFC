@@ -2,30 +2,22 @@ package org.crumbleworks.forge.aTFC.content.blocks;
 
 import java.util.Random;
 
-import org.crumbleworks.forge.aTFC.content.Materials;
-
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.ToolType;
 
 /**
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class PeatBlock extends Block
+public class GrasscoverableBlock extends Block
         implements Tintable, Multilayered, GrassCoverable {
 
-    public PeatBlock() {
-        super(AbstractBlock.Properties
-                .create(Materials.PEAT)
-                .hardnessAndResistance(0.6F)
-                .sound(SoundType.GROUND)
-                .harvestTool(ToolType.SHOVEL));
+    public GrasscoverableBlock(AbstractBlock.Properties properties) {
+        super(properties);
 
         setDefaultState(stateContainer.getBaseState().with(COVERAGE,
                 GrassCoverage.NONE));

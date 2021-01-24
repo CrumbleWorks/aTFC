@@ -3,8 +3,9 @@ package org.crumbleworks.forge.aTFC.wiring.blocks;
 import java.util.function.Consumer;
 
 import org.crumbleworks.forge.aTFC.Main;
+import org.crumbleworks.forge.aTFC.content.Materials;
 import org.crumbleworks.forge.aTFC.content.Tags;
-import org.crumbleworks.forge.aTFC.content.blocks.PeatBlock;
+import org.crumbleworks.forge.aTFC.content.blocks.BogBlock;
 import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
@@ -14,7 +15,9 @@ import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
 import org.crumbleworks.forge.aTFC.wiring.GrassCoverableBlock;
 
 import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -28,6 +31,7 @@ import net.minecraft.loot.RandomValueRange;
 import net.minecraft.loot.TableLootEntry;
 import net.minecraft.loot.conditions.MatchTool;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 
 /**
@@ -50,7 +54,11 @@ public class Peat extends GrassCoverableBlock {
 
     public static final RegistryObject<Block> PEAT_BLOCK = BLOCKS
             .register(name_peat_block,
-                    () -> new PeatBlock());
+                    () -> new BogBlock(AbstractBlock.Properties
+                            .create(Materials.PEAT)
+                            .hardnessAndResistance(0.6F)
+                            .sound(SoundType.GROUND)
+                            .harvestTool(ToolType.SHOVEL)));
     public static final RegistryObject<Item> PEAT_ITEM = ITEMS.register(
             name_peat_block, () -> new BlockItem(PEAT_BLOCK.get(),
                     new Item.Properties().group(ItemGroups.BLOCKS)));
@@ -66,12 +74,12 @@ public class Peat extends GrassCoverableBlock {
                     new Item.Properties().group(ItemGroups.MATERIALS)));
 
     public Peat() {
-        super(name_peat_block, PEAT_BLOCK);
+        super(name_peat_block, PEAT_BLOCK, false);
     }
 
     @Override
     protected ResourceLocation primaryTexture(BlockModels bm) {
-        return bm.modLoc("tfctng/blocks/" + name_peat_block);
+        return bm.modLoc("tfctng/blocks/peat");
     }
 
     @Override

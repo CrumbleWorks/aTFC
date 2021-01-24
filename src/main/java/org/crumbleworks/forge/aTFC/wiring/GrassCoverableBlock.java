@@ -27,10 +27,19 @@ public abstract class GrassCoverableBlock implements Wireable {
 
     private final String name;
     private final RegistryObject<Block> block;
+    private final boolean innerTint;
 
     public GrassCoverableBlock(String name, RegistryObject<Block> block) {
         this.name = name;
         this.block = block;
+        this.innerTint = true;
+    }
+
+    public GrassCoverableBlock(String name, RegistryObject<Block> block,
+            boolean noInnerTint) {
+        this.name = name;
+        this.block = block;
+        this.innerTint = noInnerTint;
     }
 
     abstract protected ResourceLocation primaryTexture(BlockModels bm);
@@ -38,14 +47,11 @@ public abstract class GrassCoverableBlock implements Wireable {
     protected ResourceLocation secondaryTexture(BlockModels bm) {
         return null;
     }
-    
+
     @Override
     public void registerForBlockTags(BlockTags bt) {
         bt.blockTagBuilder(Tags.Blocks.GRASS_COVERABLES).add(block.get());
     }
-    
-    @Override
-    public void registerForItemTags(ItemTags it) {}
 
     @Override
     public void generateBlockModels(BlockModels bm) {
@@ -140,7 +146,7 @@ public abstract class GrassCoverableBlock implements Wireable {
             ResourceLocation mainTex, ResourceLocation secTex,
             BlockModels bm) {
         BlockModelBuilder mbm = bm.simpleBlock(name, mainTex,
-                DynamicPainter.TINT_SOIL);
+                innerTint ? DynamicPainter.TINT_SOIL : Integer.MAX_VALUE);
 
         if(secTex != null) {
             mbm.texture("sec", secTex)
