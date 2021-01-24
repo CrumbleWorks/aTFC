@@ -79,7 +79,7 @@ public class Peat extends GrassCoverableBlock {
 
     @Override
     protected ResourceLocation primaryTexture(BlockModels bm) {
-        return bm.modLoc("tfctng/blocks/peat");
+        return bm.modLoc("block/peat");
     }
 
     @Override
