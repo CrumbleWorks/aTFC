@@ -14,6 +14,7 @@ import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -35,8 +36,11 @@ public interface Wireable {
             .create(ForgeRegistries.ITEMS, Main.MOD_ID);
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister
             .create(ForgeRegistries.ENTITIES, Main.MOD_ID);
+    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister
+            .create(ForgeRegistries.SOUND_EVENTS, Main.MOD_ID);
 
     default void generateBlockModels(BlockModels bm) {}
+
     default void generateItemModels(ItemModels im) {}
 
     default void generateBlockStates(BlockStates bs) {}
@@ -44,9 +48,12 @@ public interface Wireable {
     default void generateLootTables(LootTables lt) {}
 
     default void englishTranslations(Translations tren) {}
+
     default void swissTranslations(Translations trch) {}
-    
+
     default void registerForBlockTags(BlockTags bt) {}
+
     default void registerForItemTags(ItemTags it) {}
+
     default void registerForEntityTypeTags(EntityTypeTags et) {}
 }

@@ -1,7 +1,7 @@
 package org.crumbleworks.forge.aTFC.subscribers;
 
 import org.crumbleworks.forge.aTFC.Main;
-import org.crumbleworks.forge.aTFC.content.entities.animals.EurasianCootEntity;
+import org.crumbleworks.forge.aTFC.content.entities.passive.EurasianCootEntity;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockTags;
@@ -60,7 +60,7 @@ public final class ModEvents {
     public static void registerAttributeMaps(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             GlobalEntityTypeAttributes.put(Animals.EURASIAN_COOT_ENTITY.get(),
-                    EurasianCootEntity.getCustomAttributes().create());
+                    EurasianCootEntity.getAttributes().create());
         });
     }
 

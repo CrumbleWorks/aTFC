@@ -31,6 +31,7 @@ public abstract class Wiring {
         registries.add(Wireable.BLOCKS);
         registries.add(Wireable.ENTITIES);
         registries.add(Wireable.ITEMS);
+        registries.add(Wireable.SOUNDS);
     }
 
     public static final Set<Wireable> wireUp() {

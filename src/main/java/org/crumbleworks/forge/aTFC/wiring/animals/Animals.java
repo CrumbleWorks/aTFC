@@ -1,13 +1,16 @@
 package org.crumbleworks.forge.aTFC.wiring.animals;
 
 import org.crumbleworks.forge.aTFC.Main;
-import org.crumbleworks.forge.aTFC.content.entities.animals.EurasianCootEntity;
+import org.crumbleworks.forge.aTFC.content.Tags;
+import org.crumbleworks.forge.aTFC.content.entities.passive.EurasianCootEntity;
+import org.crumbleworks.forge.aTFC.dataGeneration.EntityTypeTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
 import org.crumbleworks.forge.aTFC.wiring.Wireable;
 
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.RegistryObject;
 
 public class Animals implements Wireable {
@@ -20,6 +23,21 @@ public class Animals implements Wireable {
                     .build(new ResourceLocation(Main.MOD_ID, "eurasian_coot")
                             .toString()));
 
+    public static final RegistryObject<SoundEvent> EURASIAN_COOT_SOUND_AMBIENT = Wireable.SOUNDS
+            .register("eurasian_coot.ambient",
+                    () -> new SoundEvent(new ResourceLocation(Main.MOD_ID,
+                            "eurasian_coot.ambient")));
+    public static final RegistryObject<SoundEvent> EURASIAN_COOT_SOUND_HURT = Wireable.SOUNDS
+            .register("eurasian_coot.hurt",
+                    () -> new SoundEvent(new ResourceLocation(Main.MOD_ID,
+                            "eurasian_coot.hurt")));
+    public static final RegistryObject<SoundEvent> EURASIAN_COOT_SOUND_DEATH = Wireable.SOUNDS
+            .register("eurasian_coot.death",
+                    () -> new SoundEvent(new ResourceLocation(Main.MOD_ID,
+                            "eurasian_coot.death")));
+
+    // TODO Doesn't work right now. Forge says the EntityType can't be found
+    // when initialising the spawn egg.
     // public static final RegistryObject<Item> EURASIAN_COOT_SPAWN_EGG_ITEM =
     // Wireable.ITEMS
     // .register("eurasian_coot_spawn_egg",
@@ -30,15 +48,42 @@ public class Animals implements Wireable {
     @Override
     public void englishTranslations(Translations tren) {
         tren.add(EURASIAN_COOT_ENTITY.get(), "Eurasian Coot");
+
         // tren.add(EURASIAN_COOT_SPAWN_EGG_ITEM.get(),
         // "Eurasian Coot Spawn Egg");
+
+        tren.add(subtitleKey(EURASIAN_COOT_SOUND_AMBIENT.get()),
+                "Eurasian Coot chirps");
+        tren.add(subtitleKey(EURASIAN_COOT_SOUND_HURT.get()),
+                "Eurasian Coot hurts");
+        tren.add(subtitleKey(EURASIAN_COOT_SOUND_DEATH.get()),
+                "Eurasian Coot dies");
     }
 
     @Override
     public void swissTranslations(Translations trch) {
         trch.add(EURASIAN_COOT_ENTITY.get(), "Taucherli");
+
         // trch.add(EURASIAN_COOT_SPAWN_EGG_ITEM.get(), "Taucherli Spawn
         // Egg");
+
+        trch.add(subtitleKey(EURASIAN_COOT_SOUND_AMBIENT.get()),
+                "Taucherli zwitscheret");
+        trch.add(subtitleKey(EURASIAN_COOT_SOUND_HURT.get()),
+                "Taucherli het Aua");
+        trch.add(subtitleKey(EURASIAN_COOT_SOUND_DEATH.get()),
+                "Taucherli stirbt");
+    }
+
+    @Override
+    public void registerForEntityTypeTags(EntityTypeTags et) {
+        et.itemTagBuilder(Tags.EntityTypes.POULTRY)
+                .add(EURASIAN_COOT_ENTITY.get());
+    }
+
+    // TODO Besser mache
+    private String subtitleKey(SoundEvent se) {
+        return "subtitles.atfc.entity." + se.getName().getPath();
     }
 
 }

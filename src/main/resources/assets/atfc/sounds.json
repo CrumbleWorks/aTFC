@@ -1,0 +1,14 @@
+{ 
+    "eurasian_coot.ambient": { 
+        "subtitle": "subtitles.atfc.entity.eurasian_coot.ambient",
+        "sounds": ["atfc:entity/eurasian_coot_ambient"]
+    },
+    "eurasian_coot.hurt": { 
+        "subtitle": "subtitles.atfc.entity.eurasian_coot.hurt",
+        "sounds": ["atfc:entity/eurasian_coot_hurt"]
+    },
+    "eurasian_coot.death": { 
+        "subtitle": "subtitles.atfc.entity.eurasian_coot.death",
+        "sounds": ["atfc:entity/eurasian_coot_death"]
+    }
+}

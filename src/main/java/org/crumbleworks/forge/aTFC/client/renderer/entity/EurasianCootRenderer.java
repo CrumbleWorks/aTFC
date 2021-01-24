@@ -2,7 +2,7 @@ package org.crumbleworks.forge.aTFC.client.renderer.entity;
 
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.client.renderer.entity.model.EurasianCootModel;
-import org.crumbleworks.forge.aTFC.content.entities.animals.EurasianCootEntity;
+import org.crumbleworks.forge.aTFC.content.entities.passive.EurasianCootEntity;
 
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
