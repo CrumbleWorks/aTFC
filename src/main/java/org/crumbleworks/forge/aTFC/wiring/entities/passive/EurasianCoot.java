@@ -3,25 +3,36 @@ package org.crumbleworks.forge.aTFC.wiring.entities.passive;
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.content.Tags;
 import org.crumbleworks.forge.aTFC.content.entities.passive.EurasianCootEntity;
+import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.dataGeneration.EntityTypeTags;
+import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
+import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
 import org.crumbleworks.forge.aTFC.wiring.Wireable;
 
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.Item;
+import net.minecraft.loot.ConstantRange;
+import net.minecraft.loot.ItemLootEntry;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.RegistryObject;
 
 public class EurasianCoot implements Wireable {
 
+    private static final String name_eurasian_coot = "eurasian_coot";
+    private static final String name_eurasian_coot_feather_item = "eurasian_coot_feather";
+
     public static final RegistryObject<EntityType<EurasianCootEntity>> EURASIAN_COOT_ENTITY = Wireable.ENTITIES
-            .register("eurasian_coot", () -> EntityType.Builder
+            .register(name_eurasian_coot, () -> EntityType.Builder
                     .<EurasianCootEntity> create(EurasianCootEntity::new,
                             EntityClassification.CREATURE)
                     .size(0.5f, 0.5f)
-                    .build(new ResourceLocation(Main.MOD_ID, "eurasian_coot")
-                            .toString()));
+                    .build(new ResourceLocation(Main.MOD_ID,
+                            name_eurasian_coot).toString()));
 
     public static final RegistryObject<SoundEvent> EURASIAN_COOT_SOUND_AMBIENT = Wireable.SOUNDS
             .register("eurasian_coot.ambient",
@@ -36,6 +47,10 @@ public class EurasianCoot implements Wireable {
                     () -> new SoundEvent(new ResourceLocation(Main.MOD_ID,
                             "eurasian_coot.death")));
 
+    public static final RegistryObject<Item> EURASIAN_COOT_FEATHER_ITEM = Wireable.ITEMS
+            .register(name_eurasian_coot_feather_item, () -> new Item(
+                    new Item.Properties().group(ItemGroups.MATERIALS)));
+
     // TODO Doesn't work right now. Forge says the EntityType can't be found
     // when initialising the spawn egg.
     // public static final RegistryObject<Item> EURASIAN_COOT_SPAWN_EGG_ITEM =
@@ -45,6 +60,12 @@ public class EurasianCoot implements Wireable {
     // 0x090909, 0xC93434,
     // new Item.Properties().group(ItemGroup.MISC)));
 
+    @Override
+    public void generateItemModels(ItemModels im) {
+        im.getBuilder(name_eurasian_coot_feather_item)
+                .parent(im.getExistingFile(im.mcLoc("item/generated")))
+                .texture("layer0", im.modLoc("item/eurasian_coot_feather"));
+    }
     @Override
     public void englishTranslations(Translations tren) {
         tren.add(EURASIAN_COOT_ENTITY.get(), "Eurasian Coot");
@@ -58,6 +79,8 @@ public class EurasianCoot implements Wireable {
                 "Eurasian Coot hurts");
         tren.add(subtitleKey(EURASIAN_COOT_SOUND_DEATH.get()),
                 "Eurasian Coot dies");
+
+        tren.add(EURASIAN_COOT_FEATHER_ITEM.get(), "Eurasian Coot Feather");
     }
 
     @Override
@@ -73,6 +96,8 @@ public class EurasianCoot implements Wireable {
                 "Taucherli het Aua");
         trch.add(subtitleKey(EURASIAN_COOT_SOUND_DEATH.get()),
                 "Taucherli stirbt");
+
+        trch.add(EURASIAN_COOT_FEATHER_ITEM.get(), "Taucherli F\\u00c4dere");
     }
 
     @Override
