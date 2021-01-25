@@ -16,7 +16,7 @@ import net.minecraft.world.server.ServerWorld;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class GrasscoverableBlock extends Block
+public class GrasscoverableBlock extends aTFCBaseBlock
         implements Tintable, Multilayered, GrassCoverable {
 
     public GrasscoverableBlock(AbstractBlock.Properties properties) {
