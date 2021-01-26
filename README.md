@@ -15,7 +15,7 @@ This mod is different to...
 ### Contributors
 
 * [Michael "dot_Sp0T" Stocker](https://github.com/dotSp0T)
-* [Patrick "McDonnough" Bächli](https://github.com/McDonnough)
+* [Patrick "McDonnough" BÃ¤chli](https://github.com/McDonnough)
 
 ## Testers
 
@@ -110,13 +110,13 @@ Delete the `src/generated` directory or run `gradlew deleteGeneratedFiles`
 - https://github.com/TheGreyGhost/MinecraftByExample
 
 ### Umlauts
-Ä \u00c4  
-ä \u00e4  
-Ö \u00d6  
-ö \u00f6  
-Ü \u00dc  
-ü \u00fc  
-ß (sz) \u00df  
+ï¿½ \u00c4  
+ï¿½ \u00e4  
+ï¿½ \u00d6  
+ï¿½ \u00f6  
+ï¿½ \u00dc  
+ï¿½ \u00fc  
+ï¿½ (sz) \u00df  
 
 
 [1]: https://plus.terrafirmacraft.com/

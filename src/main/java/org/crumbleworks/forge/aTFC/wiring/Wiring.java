@@ -10,6 +10,9 @@ import org.crumbleworks.forge.aTFC.wiring.blocks.Soil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 
@@ -41,10 +44,11 @@ public abstract class Wiring {
         // only static stuff...)
         Set<Wireable> wireables = new HashSet<>();
         for(Class<? extends Wireable> subType : subTypes) {
-            if(subType.isInterface() || Modifier.isAbstract(subType.getModifiers())) {
+            if(subType.isInterface()
+                    || Modifier.isAbstract(subType.getModifiers())) {
                 continue;
             }
-            
+
             try {
                 wireables.add(subType.getConstructor().newInstance());
             } catch(InstantiationException | IllegalAccessException
@@ -59,5 +63,20 @@ public abstract class Wiring {
         }
 
         return wireables;
+    }
+
+    // TileEntities refer to the Blocks that they can be attached to, thus
+    // they need to be loaded after the blocks
+    @SubscribeEvent
+    public static void onTileEntityTypeRegistration(
+            final RegistryEvent.Register<TileEntityType<?>> event) {
+        TileEntitiesMappings tem = new TileEntitiesMappings();
+        for(Wireable wireable : Main.wireables) {
+            wireable.registerTileEntities(tem);
+        }
+
+        for(TileEntityType<?> tet : TileEntities.getTETs()) {
+            event.getRegistry().register(tet);
+        }
     }
 }

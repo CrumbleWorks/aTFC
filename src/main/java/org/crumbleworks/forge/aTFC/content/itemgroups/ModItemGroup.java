@@ -19,7 +19,7 @@ public class ModItemGroup extends ItemGroup {
 
     public ModItemGroup(final String identifier,
             final Supplier<Item> iconSupplier) {
-        super(Main.MOD_ID + "." + identifier);
+        super(Main.MOD_ID + "_" + identifier);
         this.iconSupplier = iconSupplier;
     }
 

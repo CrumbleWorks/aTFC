@@ -52,4 +52,6 @@ public interface Wireable {
     default void registerForEntityTypeTags(EntityTypeTags et) {}
     
     default void registerRecipes(Recipes re, Consumer<IFinishedRecipe> consumer) {}
+    
+    default void registerTileEntities(TileEntitiesMappings tm) {}
 }

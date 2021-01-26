@@ -3,6 +3,7 @@ package org.crumbleworks.forge.aTFC.wiring.blocks;
 import org.crumbleworks.forge.aTFC.content.Materials;
 import org.crumbleworks.forge.aTFC.content.Tags;
 import org.crumbleworks.forge.aTFC.content.blocks.UnstableTintableBlock;
+import org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplaceing.WorldItemPlacerTE;
 import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.content.items.TintableBlockItem;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
@@ -12,6 +13,7 @@ import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
+import org.crumbleworks.forge.aTFC.wiring.TileEntitiesMappings;
 import org.crumbleworks.forge.aTFC.wiring.Wireable;
 import org.crumbleworks.forge.aTFC.wiring.items.Flint;
 
@@ -50,6 +52,11 @@ public class Gravel implements Wireable {
             name,
             () -> new TintableBlockItem(GRAVEL_BLOCK.get(),
                     new Item.Properties().group(ItemGroups.BLOCKS)));
+
+    @Override
+    public void registerTileEntities(TileEntitiesMappings tm) {
+        tm.addMapping(WorldItemPlacerTE.class, GRAVEL_BLOCK.get());
+    }
 
     @Override
     public void generateBlockModels(BlockModels bm) {
