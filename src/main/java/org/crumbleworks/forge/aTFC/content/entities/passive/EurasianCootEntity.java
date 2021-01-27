@@ -5,8 +5,10 @@ import org.crumbleworks.forge.aTFC.wiring.entities.passive.EurasianCoot;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.Pose;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.BreedGoal;
@@ -20,6 +22,7 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -44,6 +47,7 @@ public class EurasianCootEntity extends AnimalEntity {
     public EurasianCootEntity(EntityType<? extends EurasianCootEntity> type,
             World worldIn) {
         super(type, worldIn);
+        setPathPriority(PathNodeType.WATER, 0.0f);
     }
 
     @Override
@@ -59,6 +63,9 @@ public class EurasianCootEntity extends AnimalEntity {
         goalSelector.addGoal(6,
                 new LookAtGoal(this, PlayerEntity.class, 6.0F));
         goalSelector.addGoal(7, new LookRandomlyGoal(this));
+
+    protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
+        return isChild() ? sizeIn.height * 0.85F : sizeIn.height * 0.92F;
     }
 
     public static AttributeModifierMap.MutableAttribute getAttributes() {
