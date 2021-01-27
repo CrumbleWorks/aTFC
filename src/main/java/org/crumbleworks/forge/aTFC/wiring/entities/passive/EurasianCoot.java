@@ -102,11 +102,11 @@ public class EurasianCoot implements Wireable {
         trch.add(subtitleKey(EURASIAN_COOT_SOUND_AMBIENT.get()),
                 "Taucherli zwitscheret");
         trch.add(subtitleKey(EURASIAN_COOT_SOUND_HURT.get()),
-                "Taucherli het Aua");
+                "Taucherli nimmt Schade");
         trch.add(subtitleKey(EURASIAN_COOT_SOUND_DEATH.get()),
                 "Taucherli stirbt");
 
-        trch.add(EURASIAN_COOT_FEATHER_ITEM.get(), "Taucherli F\\u00c4dere");
+        trch.add(EURASIAN_COOT_FEATHER_ITEM.get(), "Taucherli F\u00e4dere");
     }
 
     @Override
