@@ -1,5 +1,6 @@
 package org.crumbleworks.forge.aTFC.content.entities.passive;
 
+import org.crumbleworks.forge.aTFC.content.entities.goals.MoveAwayFromPlayerGoal;
 import org.crumbleworks.forge.aTFC.content.entities.goals.WaterSeekingRandomWalkingGoal;
 import org.crumbleworks.forge.aTFC.wiring.entities.passive.EurasianCoot;
 
@@ -52,17 +53,19 @@ public class EurasianCootEntity extends AnimalEntity {
 
     @Override
     protected void registerGoals() {
-        goalSelector.addGoal(0, new SwimGoal(this));
-        goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
-        goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
-        goalSelector.addGoal(3,
+        goalSelector.addGoal(0, new MoveAwayFromPlayerGoal(this, 10d, 1.5d));
+        goalSelector.addGoal(1, new SwimGoal(this));
+        goalSelector.addGoal(2, new PanicGoal(this, 1.4D));
+        goalSelector.addGoal(3, new BreedGoal(this, 1.0D));
+        goalSelector.addGoal(4,
                 new TemptGoal(this, 1.0D, false, TEMPTATION_ITEMS));
-        goalSelector.addGoal(4, new FollowParentGoal(this, 1.1D));
-        goalSelector.addGoal(5,
-                new WaterSeekingRandomWalkingGoal(this, 1.0D));
+        goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         goalSelector.addGoal(6,
+                new WaterSeekingRandomWalkingGoal(this, 1.0D));
+        goalSelector.addGoal(7,
                 new LookAtGoal(this, PlayerEntity.class, 6.0F));
-        goalSelector.addGoal(7, new LookRandomlyGoal(this));
+        goalSelector.addGoal(8, new LookRandomlyGoal(this));
+    }
 
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
         return isChild() ? sizeIn.height * 0.85F : sizeIn.height * 0.92F;
