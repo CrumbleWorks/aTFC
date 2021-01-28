@@ -5,7 +5,7 @@ import java.util.EnumSet;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 
 /**
  * Goal which makes a mob move away from a player if they get too close.
@@ -48,13 +48,15 @@ public class MoveAwayFromPlayerGoal extends Goal {
         PlayerEntity closestPlayer = mob.world.getClosestPlayer(mob,
                 minDistance);
 
-        BlockPos mobPosition = mob.getPosition();
-        BlockPos playerPosition = closestPlayer.getPosition();
+        Vector3d mobPosition = mob.getPositionVec();
+        Vector3d playerPosition = closestPlayer.getPositionVec();
 
-        BlockPos difference = mobPosition.subtract(playerPosition);
-        BlockPos newTarget = mobPosition.add(difference);
-        mob.getNavigator().tryMoveToXYZ(newTarget.getX(), newTarget.getY(),
-                newTarget.getZ(), speed);
+        Vector3d targetPosition = playerPosition.subtract(mobPosition)
+                .normalize().inverse().mul(minDistance, 1.0, minDistance)
+                .add(mobPosition);
+
+        mob.getNavigator().tryMoveToXYZ(targetPosition.getX(),
+                mobPosition.getY(), targetPosition.getZ(), speed);
     }
 
 }
