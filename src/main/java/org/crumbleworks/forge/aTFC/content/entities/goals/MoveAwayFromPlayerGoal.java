@@ -1,5 +1,7 @@
 package org.crumbleworks.forge.aTFC.content.entities.goals;
 
+import java.util.EnumSet;
+
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,6 +34,8 @@ public class MoveAwayFromPlayerGoal extends Goal {
         this.mob = mob;
         this.minDistance = minDistance;
         this.speed = speed;
+
+        setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
     }
 
     @Override

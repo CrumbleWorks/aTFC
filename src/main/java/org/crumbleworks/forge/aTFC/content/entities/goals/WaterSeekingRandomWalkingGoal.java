@@ -1,7 +1,10 @@
 package org.crumbleworks.forge.aTFC.content.entities.goals;
 
+import java.util.EnumSet;
+
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.RandomPositionGenerator;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.util.math.vector.Vector3d;
 
@@ -13,6 +16,7 @@ public class WaterSeekingRandomWalkingGoal extends RandomWalkingGoal {
             double speedIn) {
         super(creatureIn, speedIn);
         probability = 0.001f;
+        setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
     }
 
     @Override
