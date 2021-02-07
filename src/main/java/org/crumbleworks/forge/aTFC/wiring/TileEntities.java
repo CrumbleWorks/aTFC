@@ -5,7 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.crumbleworks.forge.aTFC.Main;
-import org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplaceing.WorldItemPlacerTE;
+import org.crumbleworks.forge.aTFC.content.gamelogic.brickdrying.BrickPlacerTE;
+import org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplaceing.NonBlockPlacementTE;
 
 import net.minecraft.tileentity.TileEntityType;
 
@@ -19,13 +20,18 @@ public class TileEntities {
 
     private static final List<TileEntityType<?>> tileEntityTypes = new ArrayList<>();
 
-    public static final TileEntityType<WorldItemPlacerTE> WORLD_ITEM_PLACER_TE = TileEntityType.Builder
-            .create(WorldItemPlacerTE::new,
-                    TileEntitiesMappings.getMappings(WorldItemPlacerTE.class))
+    public static final TileEntityType<NonBlockPlacementTE> NON_BLOCK_PLACER_TE = TileEntityType.Builder
+            .create(NonBlockPlacementTE::new,
+                    TileEntitiesMappings.getMappings(NonBlockPlacementTE.class))
+            .build(null);
+    public static final TileEntityType<BrickPlacerTE> BRICK_PLACER_TE = TileEntityType.Builder
+            .create(BrickPlacerTE::new,
+                    TileEntitiesMappings.getMappings(BrickPlacerTE.class))
             .build(null);
 
     static {
-        register("world_item_placer_tile", WORLD_ITEM_PLACER_TE);
+        register("non_block_placer_tile", NON_BLOCK_PLACER_TE);
+        register("brick_placer_tile", BRICK_PLACER_TE);
     }
 
     public static List<TileEntityType<?>> getTETs() {

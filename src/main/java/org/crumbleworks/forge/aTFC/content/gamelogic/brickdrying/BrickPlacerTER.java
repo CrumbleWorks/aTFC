@@ -1,4 +1,4 @@
-package org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplaceing;
+package org.crumbleworks.forge.aTFC.content.gamelogic.brickdrying;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
@@ -13,13 +13,13 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class WorldItemPlacerTER extends TileEntityRenderer<WorldItemPlacerTE> {
+public class BrickPlacerTER extends TileEntityRenderer<BrickPlacerTE> {
 
-    public WorldItemPlacerTER(TileEntityRendererDispatcher p_i226006_1_) {
+    public BrickPlacerTER(TileEntityRendererDispatcher p_i226006_1_) {
         super(p_i226006_1_);
     }
 
     @Override
-    public void render(WorldItemPlacerTE arg0, float arg1, MatrixStack arg2, IRenderTypeBuffer arg3, int arg4, int arg5) {
+    public void render(BrickPlacerTE arg0, float arg1, MatrixStack arg2, IRenderTypeBuffer arg3, int arg4, int arg5) {
     }
 }

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplaceing.WorldItemPlacerTE;
+import org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplaceing.NonBlockPlacementTE;
 
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
@@ -35,7 +35,7 @@ public class TileEntitiesMappings {
             return new Block[] {};
         }
 
-        List<Block> blocks = BLOCK_MAPPINGS.get(WorldItemPlacerTE.class);
+        List<Block> blocks = BLOCK_MAPPINGS.get(NonBlockPlacementTE.class);
         return blocks.toArray(new Block[blocks.size()]);
     }
 }

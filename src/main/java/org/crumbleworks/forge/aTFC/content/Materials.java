@@ -12,6 +12,11 @@ import net.minecraft.block.material.PushReaction;
  */
 public class Materials {
 
+    // Used for pure Tileentity blocks and such
+    public static final Material ABSTRACT_BLOCKS = new Material(
+            MaterialColor.AIR, false, false, false, false, false, true,
+            PushReaction.DESTROY);
+
     public static final Material CLAY_SOIL = new Material(MaterialColor.GRASS,
             false, true, true, true, false, false, PushReaction.NORMAL);
     public static final Material GRAVEL = new Material(

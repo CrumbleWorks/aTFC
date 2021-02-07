@@ -2,6 +2,9 @@ package org.crumbleworks.forge.aTFC.wiring.items;
 
 import org.crumbleworks.forge.aTFC.content.Tags;
 import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
+import org.crumbleworks.forge.aTFC.content.items.Bulky.Bulk;
+import org.crumbleworks.forge.aTFC.content.items.Weighty.Weight;
+import org.crumbleworks.forge.aTFC.content.items.aTFCBaseItem;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
@@ -19,7 +22,7 @@ public class Flint implements Wireable {
     private static final String name = "flint";
 
     public static final RegistryObject<Item> FLINT_ITEM = ITEMS.register(name,
-            () -> new Item(
+            () -> new aTFCBaseItem(Bulk.VERY_SMALL, Weight.LIGHT,
                     new Item.Properties().group(ItemGroups.MATERIALS)));
 
     @Override

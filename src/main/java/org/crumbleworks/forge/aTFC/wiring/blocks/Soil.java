@@ -2,14 +2,12 @@ package org.crumbleworks.forge.aTFC.wiring.blocks;
 
 import org.crumbleworks.forge.aTFC.content.Tags;
 import org.crumbleworks.forge.aTFC.content.blocks.SoilBlock;
-import org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplaceing.WorldItemPlacerTE;
 import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.content.items.TintableBlockItem;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
-import org.crumbleworks.forge.aTFC.wiring.TileEntitiesMappings;
 import org.crumbleworks.forge.aTFC.wiring.items.Clay;
 
 import net.minecraft.block.Block;
@@ -40,11 +38,6 @@ public class Soil extends GrassCoverableBlock {
 
     public Soil() {
         super(name, SOIL_BLOCK);
-    }
-
-    @Override
-    public void registerTileEntities(TileEntitiesMappings tm) {
-        tm.addMapping(WorldItemPlacerTE.class, SOIL_BLOCK.get());
     }
 
     @Override

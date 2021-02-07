@@ -6,14 +6,15 @@ import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.content.Materials;
 import org.crumbleworks.forge.aTFC.content.Tags;
 import org.crumbleworks.forge.aTFC.content.blocks.BogBlock;
-import org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplaceing.WorldItemPlacerTE;
 import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
+import org.crumbleworks.forge.aTFC.content.items.Bulky.Bulk;
+import org.crumbleworks.forge.aTFC.content.items.Weighty.Weight;
+import org.crumbleworks.forge.aTFC.content.items.aTFCBaseItem;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Recipes;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
-import org.crumbleworks.forge.aTFC.wiring.TileEntitiesMappings;
 
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.block.AbstractBlock;
@@ -65,22 +66,19 @@ public class Peat extends GrassCoverableBlock {
                     new Item.Properties().group(ItemGroups.BLOCKS)));
 
     public static final RegistryObject<Item> PEAT_CLOD_ITEM = ITEMS.register(
-            name_peat_clod, () -> new Item(
+            name_peat_clod, () -> new aTFCBaseItem(Bulk.SMALL, Weight.LIGHT,
                     new Item.Properties().group(ItemGroups.MATERIALS)));
     public static final RegistryObject<Item> FRESH_PEAT_ITEM = ITEMS.register(
-            name_peat_fresh, () -> new Item(
+            name_peat_fresh,
+            () -> new aTFCBaseItem(Bulk.NORMAL, Weight.MEDIUM,
                     new Item.Properties().group(ItemGroups.MATERIALS)));
     public static final RegistryObject<Item> DRIED_PEAT_ITEM = ITEMS.register(
-            name_peat_dried, () -> new Item(
+            name_peat_dried,
+            () -> new aTFCBaseItem(Bulk.NORMAL, Weight.MEDIUM,
                     new Item.Properties().group(ItemGroups.MATERIALS)));
 
     public Peat() {
         super(name_peat_block, PEAT_BLOCK, false);
-    }
-
-    @Override
-    public void registerTileEntities(TileEntitiesMappings tm) {
-        tm.addMapping(WorldItemPlacerTE.class, PEAT_BLOCK.get());
     }
 
     @Override
