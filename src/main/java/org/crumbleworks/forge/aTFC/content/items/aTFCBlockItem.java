@@ -31,4 +31,9 @@ public class aTFCBlockItem extends BlockItem implements Bulky, Weighty {
     public Weight getWeight() {
         return weight;
     }
+
+    @Override
+    public int getMaxStackSize() {
+        return weight.getStacksize();
+    }
 }

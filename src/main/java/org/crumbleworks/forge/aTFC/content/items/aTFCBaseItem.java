@@ -29,4 +29,9 @@ public class aTFCBaseItem extends Item implements Bulky, Weighty {
     public Weight getWeight() {
         return weight;
     }
+
+    @Override
+    public int getMaxStackSize() {
+        return weight.getStacksize();
+    }
 }

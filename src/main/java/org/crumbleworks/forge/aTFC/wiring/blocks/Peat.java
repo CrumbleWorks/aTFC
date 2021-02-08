@@ -10,6 +10,7 @@ import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.content.items.Bulky.Bulk;
 import org.crumbleworks.forge.aTFC.content.items.Weighty.Weight;
 import org.crumbleworks.forge.aTFC.content.items.aTFCBaseItem;
+import org.crumbleworks.forge.aTFC.content.items.aTFCBlockItem;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
@@ -21,7 +22,6 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.loot.AlternativesLootEntry;
 import net.minecraft.loot.ConstantRange;
@@ -62,7 +62,7 @@ public class Peat extends GrassCoverableBlock {
                             .sound(SoundType.SOUL_SAND)
                             .harvestTool(ToolType.SHOVEL)));
     public static final RegistryObject<Item> PEAT_ITEM = ITEMS.register(
-            name_peat_block, () -> new BlockItem(PEAT_BLOCK.get(),
+            name_peat_block, () -> new aTFCBlockItem(PEAT_BLOCK.get(),
                     new Item.Properties().group(ItemGroups.BLOCKS)));
 
     public static final RegistryObject<Item> PEAT_CLOD_ITEM = ITEMS.register(

@@ -97,6 +97,7 @@ Delete the `src/generated` directory or run `gradlew deleteGeneratedFiles`
 * **Modding with Forge 1.8**: https://www.youtube.com/playlist?list=PLiFAb_ju1TahVZ1uOer7T3m_17crt15kp
 
 * **Modding for 1.14.4+**: https://greyminecraftcoder.blogspot.com/p/list-of-topics-1144.html
+* **Modding for 1.14.x (TileEntities, Containers)**: https://www.youtube.com/watch?v=KdwxCrUYqmo&list=PLyseegEZ84-eMJ2YmFJTTBGectrdThC0a&index=12
 
 **Texturing**:
 - Multi-Texturing: https://mcmodhelp.fandom.com/wiki/Multi-Texturing_Blocks

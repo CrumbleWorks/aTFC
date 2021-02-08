@@ -1,9 +1,12 @@
 package org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplaceing;
 
+import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.wiring.TileEntities;
 
-import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -15,20 +18,38 @@ import net.minecraftforge.items.ItemStackHandler;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class NonBlockPlacementTE extends TileEntity implements ITickableTileEntity {
-    
+public class NonBlockPlacementTE extends TileEntity {
+
+    private static final String STORAGE_KEY = Main.MOD_ID + "_NBP_inv";
+
+    // FIXME make this dependant on the block used to create
+    private final LazyOptional<ItemStackHandler> inventory = LazyOptional
+            .of(() -> new ItemStackHandler(4));
+
     public NonBlockPlacementTE() {
         super(TileEntities.NON_BLOCK_PLACER_TE);
     }
-    
+
     @Override
-    public void tick() {
-        //TODO
+    public CompoundNBT write(CompoundNBT nbt) {
+        super.write(nbt);
+        inventory.ifPresent(
+                handler -> nbt.put(STORAGE_KEY, handler.serializeNBT()));
+        return nbt;
     }
-    
+
+    @Override
+    public void read(BlockState state, CompoundNBT nbt) {
+        super.read(state, nbt);
+        inventory.ifPresent(handler -> handler
+                .deserializeNBT(nbt.getCompound(STORAGE_KEY)));
+    }
+
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap) {
-        // TODO Auto-generated method stub
+        if(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY == cap) {
+            return inventory.cast();
+        }
         return super.getCapability(cap);
     }
 }
