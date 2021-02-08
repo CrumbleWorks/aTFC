@@ -38,7 +38,7 @@ public class NonBlockPlacementBlock extends aTFCBaseBlock {
      *             possible. Implementing/overriding is fine.
      */
     public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.INVISIBLE;
+        return BlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 
     // copy from AirBlock

@@ -8,17 +8,14 @@ import org.crumbleworks.forge.aTFC.content.blocks.Multilayered;
 import org.crumbleworks.forge.aTFC.content.blocks.Tintable;
 import org.crumbleworks.forge.aTFC.dataGeneration.DynamicPainter;
 import org.crumbleworks.forge.aTFC.wiring.TileEntityRenderers;
-import org.crumbleworks.forge.aTFC.wiring.TileEntityRenderers.TERHolder;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -47,18 +44,19 @@ public final class ClientEvents {
         event.getBlockColors().register(new DynamicPainter(),
                 blocks.toArray(new Block[blocks.size()]));
     }
-    
+
     @SubscribeEvent
     public static void registerColorer(ColorHandlerEvent.Item event) {
         Set<Item> items = Util.getItems(Tintable.class);
         event.getItemColors().register(new DynamicPainter(),
                 items.toArray(new Item[items.size()]));
     }
-    
+
     @SubscribeEvent
-    public static void registerTileEntityRenderers(FMLClientSetupEvent event) {
-        for(TERHolder<? extends TileEntity> ter : TileEntityRenderers.getTERs()) {
-            ClientRegistry.bindTileEntityRenderer(ter.getType(), ter.getRenderer());
+    public static void registerTileEntityRenderers(
+            FMLClientSetupEvent event) {
+        for(Runnable r : TileEntityRenderers.getTERRCs()) {
+            r.run();
         }
     }
 }
