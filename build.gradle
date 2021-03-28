@@ -48,6 +48,8 @@ minecraft {
     // These can be tweaked, removed, or duplicated as needed.
     runs {
         client {
+            args '--username', 'Dev####'
+            
             workingDirectory project.file('run')
 
             // Recommended logging data for a userdev environment

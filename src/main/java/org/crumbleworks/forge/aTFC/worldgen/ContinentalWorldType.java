@@ -9,7 +9,6 @@ import net.minecraft.world.Dimension;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
-import net.minecraft.world.biome.provider.OverworldBiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.DimensionSettings;
 import net.minecraft.world.gen.settings.DimensionGeneratorSettings;
@@ -22,13 +21,7 @@ import net.minecraftforge.common.world.ForgeWorldType;
  * @since CURRENT_VERSION
  */
 public class ContinentalWorldType extends ForgeWorldType {
-    /**
-     * @param factory
-     */
-    public ContinentalWorldType() {
-        super(null);
-    }
-
+    
     public static final String IDENTIFIER = "continental";
     
     //TODO raise when transitioning to 1.17
@@ -44,14 +37,18 @@ public class ContinentalWorldType extends ForgeWorldType {
     public static final int ROCK_LAYER_TWO = 80;
     public static final int ROCK_LAYER_THREE = 40;
     
+    public ContinentalWorldType() {
+        super(null);
+    }
+    
     @Override
     public ChunkGenerator createChunkGenerator(Registry<Biome> biomes, Registry<DimensionSettings> dimensionSettings, long seed, String settings) {
-        BiomeProvider bp = new OverworldBiomeProvider(seed, false, false, biomes);
+        BiomeProvider bp = new ContinentalBiomeProvider(seed, biomes);
         return new ContinentalChunkGenerator(bp, seed, () -> dimensionSettings.getOrThrow(DimensionSettings.field_242734_c));
     }
     
     public static SimpleRegistry<Dimension> dimensions(Registry<Biome> biomeRegistry, Registry<DimensionSettings> dimensionSettingsRegistry, long seed) {
-        SimpleRegistry<Dimension> registry = new SimpleRegistry<>(Registry.DIMENSION_KEY, Lifecycle.experimental());
+        SimpleRegistry<Dimension> registry = new SimpleRegistry<>(Registry.DIMENSION_KEY, Lifecycle.stable());
         return registry;
     }
     

@@ -3,8 +3,10 @@ package org.crumbleworks.forge.aTFC.worldgen;
 import java.util.ArrayList;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.layer.Layer;
@@ -18,24 +20,33 @@ import net.minecraft.world.gen.layer.Layer;
  */
 public class ContinentalBiomeProvider extends BiomeProvider {
     
+    public static final Codec<ContinentalBiomeProvider> CODEC = RecordCodecBuilder.create(instance ->
+        instance.group(
+                Codec.LONG.fieldOf("seed").stable().forGetter(cbp -> cbp.seed),
+                RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).forGetter(cbp -> cbp.biomes)
+            ).apply(instance, instance.stable(ContinentalBiomeProvider::new))
+    );
+    
+    private final long seed;
     private final Layer noiseBiomelayer;
     private final Registry<Biome> biomes;
     
     protected ContinentalBiomeProvider(long seed, Registry<Biome> biomes) {
         super(new ArrayList<>()); //FIXME this should hold biomes apparently? So unnecessarily complex
+        this.seed = seed;
         noiseBiomelayer = ContinentalLayerUtil.createGenLayers(seed);
         this.biomes = biomes;
     }
 
     @Override
     public Biome getNoiseBiome(int x, int y, int z) {
-        //FIXME why do we drop y?!
+        //FIXME why do we drop y?! Might be because we assume biomes to be all over the place...
         return noiseBiomelayer.func_242936_a(biomes, x, z);
     }
 
     @Override
     protected Codec<? extends BiomeProvider> getBiomeProviderCodec() {
-        return BiomeProvider.CODEC;
+        return CODEC;
     }
 
     @Override

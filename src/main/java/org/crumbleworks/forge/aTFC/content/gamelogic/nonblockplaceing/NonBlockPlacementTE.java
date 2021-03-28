@@ -5,8 +5,9 @@ import org.crumbleworks.forge.aTFC.wiring.TileEntities;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -22,7 +23,7 @@ public class NonBlockPlacementTE extends TileEntity {
 
     private static final String STORAGE_KEY = Main.MOD_ID + "_NBP_inv";
 
-    // FIXME make this dependant on the block used to create
+    // FIXME make this dependant on the block used to create ?
     private final LazyOptional<ItemStackHandler> inventory = LazyOptional
             .of(() -> new ItemStackHandler(4));
 
@@ -30,6 +31,22 @@ public class NonBlockPlacementTE extends TileEntity {
         super(TileEntities.NON_BLOCK_PLACER_TE);
     }
 
+    
+    
+    @Override
+    public void onDataPacket(NetworkManager net,
+            SUpdateTileEntityPacket pkt) {
+    }
+    
+    
+    
+    @Override
+    public void handleUpdateTag(BlockState state, CompoundNBT tag) {
+        super.handleUpdateTag(state, tag);
+    }
+    
+    
+    
     @Override
     public CompoundNBT write(CompoundNBT nbt) {
         super.write(nbt);

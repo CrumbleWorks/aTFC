@@ -15,6 +15,7 @@ public class MiscellaneousTranslations implements Wireable {
         tr.add("generator.atfc.continental", "aTFC Continental");
         tr.add("itemGroup.atfc.blocks", "aTFC Block");
         tr.add("itemGroup.atfc.materials", "aTFC Materials");
+        tr.add("key.atfc.categories.atfc_bindings", "aTFC Keybindings");
     }
     
     @Override
@@ -22,5 +23,6 @@ public class MiscellaneousTranslations implements Wireable {
         tr.add("generator.atfc.continental", "aTFC Kontinente");
         tr.add("itemGroup.atfc.blocks", "aTFC Bl\u00f6ck");
         tr.add("itemGroup.atfc.materials", "aTFC Materialie");
+        tr.add("key.atfc.categories.atfc_bindings", "aTFC Taschtäbindige");
     }
 }

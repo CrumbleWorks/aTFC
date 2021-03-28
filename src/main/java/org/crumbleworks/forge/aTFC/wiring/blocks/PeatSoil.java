@@ -28,7 +28,7 @@ public class PeatSoil extends GrassCoverableBlock {
 
     private static final String name = "peatsoil";
 
-    private static final int soilWeight = 3;
+    private static final int soilWeight = 2;
     private static final int peatClodWeight = 1;
 
     public static final RegistryObject<Block> PEATSOIL_BLOCK = BLOCKS
