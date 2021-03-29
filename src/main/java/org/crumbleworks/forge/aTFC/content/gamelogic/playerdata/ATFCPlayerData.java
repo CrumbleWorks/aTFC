@@ -1,5 +1,6 @@
 package org.crumbleworks.forge.aTFC.content.gamelogic.playerdata;
 
+import org.crumbleworks.forge.aTFC.content.gamelogic.playerdata.tastepreferences.TastePreference;
 
 /**
  * TODO
@@ -9,7 +10,5 @@ package org.crumbleworks.forge.aTFC.content.gamelogic.playerdata;
  */
 public interface ATFCPlayerData {
 
-    int getTravelledChunks();
-
-    void addTravelledChunk();
+    TastePreference tastePreferences();
 }
