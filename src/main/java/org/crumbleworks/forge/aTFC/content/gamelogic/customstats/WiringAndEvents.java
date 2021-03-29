@@ -46,8 +46,10 @@ public class WiringAndEvents implements Wireable {
     static final class ModEvents {
 
         @SubscribeEvent(priority = EventPriority.HIGHEST)
-        public static void registerAtfcStatsForge(RegistryEvent.Register<StatType<?>> event) {
-            aTFCStats.aTFC_CUSTOM.setRegistryName(new ResourceLocation(Main.MOD_ID, "stats"));
+        public static void registerAtfcStatsForge(
+                RegistryEvent.Register<StatType<?>> event) {
+            aTFCStats.aTFC_CUSTOM.setRegistryName(
+                    new ResourceLocation(Main.MOD_ID, "stats"));
             ForgeRegistries.STAT_TYPES.register(aTFCStats.aTFC_CUSTOM);
         }
     }

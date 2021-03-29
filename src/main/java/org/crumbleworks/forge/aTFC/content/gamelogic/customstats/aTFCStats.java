@@ -24,22 +24,30 @@ import net.minecraft.util.registry.SimpleRegistry;
  */
 public class aTFCStats {
 
-    public static final RegistryKey<Registry<ResourceLocation>> ATFC_STAT_KEY = RegistryKey.getOrCreateRootKey(new ResourceLocation(Main.MOD_ID, "atfc_stat"));
-    public static final Registry<ResourceLocation> ATFC_STAT =
-            addRegistry(ATFC_STAT_KEY, new SimpleRegistry<>(ATFC_STAT_KEY, Lifecycle.experimental()), () -> Stats.JUMP, Lifecycle.experimental());
-    public static StatType<ResourceLocation> aTFC_CUSTOM = new StatType<>(ATFC_STAT);
-    
-    private static <T, R extends MutableRegistry<T>> R addRegistry(RegistryKey<? extends Registry<T>> registryKey, R instance, Supplier<T> objectSupplier, Lifecycle lifecycle) {
+    public static final RegistryKey<Registry<ResourceLocation>> ATFC_STAT_KEY = RegistryKey
+            .getOrCreateRootKey(
+                    new ResourceLocation(Main.MOD_ID, "atfc_stat"));
+    public static final Registry<ResourceLocation> ATFC_STAT = addRegistry(
+            ATFC_STAT_KEY,
+            new SimpleRegistry<>(ATFC_STAT_KEY, Lifecycle.experimental()),
+            () -> Stats.JUMP, Lifecycle.experimental());
+    public static StatType<ResourceLocation> aTFC_CUSTOM = new StatType<>(
+            ATFC_STAT);
+
+    private static <T, R extends MutableRegistry<T>> R addRegistry(
+            RegistryKey<? extends Registry<T>> registryKey, R instance,
+            Supplier<T> objectSupplier, Lifecycle lifecycle) {
         ResourceLocation resourcelocation = registryKey.getLocation();
         Registry.LOCATION_TO_SUPPLIER.put(resourcelocation, objectSupplier);
         MutableRegistry<R> mutableregistry = (MutableRegistry<R>)Registry.ROOT_REGISTRY;
-        return (R)mutableregistry.register((RegistryKey)registryKey, instance, lifecycle);
+        return (R)mutableregistry.register((RegistryKey)registryKey, instance,
+                lifecycle);
     }
-    
-    public static Stat<ResourceLocation> registerAtfcStat(String key, IStatFormatter formatter) {
-        ResourceLocation resourcelocation = new ResourceLocation(Main.MOD_ID, key);
-        
-        //FIXME rewrite below so we write to aTFC_CUSTOM list instead
+
+    public static Stat<ResourceLocation> registerAtfcStat(String key,
+            IStatFormatter formatter) {
+        ResourceLocation resourcelocation = new ResourceLocation(Main.MOD_ID,
+                key);
         Registry.register(ATFC_STAT, key, resourcelocation);
         return aTFC_CUSTOM.get(resourcelocation, formatter);
     }
