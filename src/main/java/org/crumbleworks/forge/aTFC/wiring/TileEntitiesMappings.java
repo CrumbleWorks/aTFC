@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplaceing.NonBlockPlacementTE;
+import org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplacing.NonBlockPlacementTE;
 
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;

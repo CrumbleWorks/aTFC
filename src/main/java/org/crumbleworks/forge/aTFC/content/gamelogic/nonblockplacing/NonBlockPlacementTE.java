@@ -1,4 +1,4 @@
-package org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplaceing;
+package org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplacing;
 
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.wiring.TileEntities;

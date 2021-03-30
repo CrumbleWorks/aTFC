@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.content.gamelogic.brickdrying.BrickPlacerTE;
-import org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplaceing.NonBlockPlacementTE;
+import org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplacing.NonBlockPlacementTE;
 
 import net.minecraft.tileentity.TileEntityType;
 

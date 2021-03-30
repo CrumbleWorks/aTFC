@@ -1,4 +1,4 @@
-package playerskills;
+package org.crumbleworks.forge.aTFC.content.gamelogic.playerskills;
 
 import java.util.function.Supplier;
 

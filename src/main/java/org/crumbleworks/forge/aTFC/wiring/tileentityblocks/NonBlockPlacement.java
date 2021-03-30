@@ -1,7 +1,7 @@
 package org.crumbleworks.forge.aTFC.wiring.tileentityblocks;
 
-import org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplaceing.NonBlockPlacementBlock;
-import org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplaceing.NonBlockPlacementTE;
+import org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplacing.NonBlockPlacementBlock;
+import org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplacing.NonBlockPlacementTE;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
 import org.crumbleworks.forge.aTFC.wiring.TileEntitiesMappings;

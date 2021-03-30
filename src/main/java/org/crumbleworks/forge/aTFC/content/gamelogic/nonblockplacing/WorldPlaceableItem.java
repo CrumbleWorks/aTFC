@@ -1,4 +1,4 @@
-package org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplaceing;
+package org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplacing;
 
 
 /**

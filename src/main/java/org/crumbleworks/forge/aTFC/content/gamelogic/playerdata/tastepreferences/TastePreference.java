@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,9 @@ import org.crumbleworks.forge.aTFC.content.gamelogic.tasteprofile.Flavour;
 import org.crumbleworks.forge.aTFC.content.gamelogic.tasteprofile.Taste;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraftforge.common.util.INBTSerializable;
 
 /**
  * TODO
@@ -19,7 +23,7 @@ import net.minecraft.entity.player.PlayerEntity;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class TastePreference {
+public class TastePreference implements INBTSerializable<INBT> {
 
     public final static int MAX_SWEET_DESIRE = 120;
     public final static int MIN_SWEET_DESIRE = 40;
@@ -37,22 +41,25 @@ public class TastePreference {
     public final static int FLAVOUR_ENJOY_TRESHOLD = 40;
     public final static int FLAVOUR_LOVE_TRESHOLD = 90;
 
-    private final Map<Taste, Integer> tasteDesires;
-    private final Map<Flavour, Integer> flavourDesires;
+    private Map<Taste, Integer> tasteDesires;
+    private Map<Flavour, Integer> flavourDesires;
 
     public TastePreference(long worldSeed, PlayerEntity player) {
         Map<Taste, Integer> tasteDesires = new HashMap<>();
         Map<Flavour, Integer> flavourDesires = new HashMap<>();
 
+        // seed random
         List<String> playerNameNumbers = new ArrayList<>();
-        for(char c : player.getName().getString().toCharArray()) {
+        String playerName = player.getGameProfile() != null ? player.getName().getString() : "Yoghurt"; //handle missing profile gracefully..
+        for(char c : playerName.toCharArray()) {
             playerNameNumbers.add(String.valueOf((int)c));
         }
         String playerNumber = playerNameNumbers.stream()
                 .collect(Collectors.joining());
-        long parsedPlayerNumber = Long.parseLong(playerNumber);
+        long parsedPlayerNumber = Long.parseLong(playerNumber.substring(0, 18));
 
-        Random rand = new Random(worldSeed + parsedPlayerNumber);
+        Random rand = new Random(
+                worldSeed + parsedPlayerNumber + System.nanoTime());
 
         // calculate tastes
         tasteDesires.put(Taste.SWEET,
@@ -80,11 +87,62 @@ public class TastePreference {
         this.flavourDesires = Collections.unmodifiableMap(flavourDesires);
     }
 
+    /**
+     * DESERIALIZING CTOR, ONLY USE FOR DESERIALIZING
+     */
+    public TastePreference() {}
+
     public int desireFor(Taste taste) {
         return tasteDesires.get(taste);
     }
 
     public int desireFor(Flavour flavour) {
         return flavourDesires.get(flavour);
+    }
+
+
+    private static final String TASTE_TAG = "tastes";
+    private static final String FLAVOUR_TAG = "flavours";
+
+    @Override
+    public INBT serializeNBT() {
+        CompoundNBT nbt = new CompoundNBT();
+
+        CompoundNBT tastesNbt = new CompoundNBT();
+        for(Entry<Taste, Integer> entry : tasteDesires.entrySet()) {
+            tastesNbt.putInt(entry.getKey().name(), entry.getValue());
+        }
+        nbt.put(TASTE_TAG, tastesNbt);
+
+        CompoundNBT flavoursNbt = new CompoundNBT();
+        for(Entry<Flavour, Integer> entry : flavourDesires.entrySet()) {
+            flavoursNbt.putInt(entry.getKey().name(), entry.getValue());
+        }
+        nbt.put(FLAVOUR_TAG, flavoursNbt);
+
+        return nbt;
+    }
+
+    @Override
+    public void deserializeNBT(INBT nbt) {
+        Map<Taste, Integer> tasteDesires = new HashMap<>();
+        Map<Flavour, Integer> flavourDesires = new HashMap<>();
+
+        CompoundNBT nbtCast = (CompoundNBT)nbt;
+
+        CompoundNBT tastesNbt = nbtCast.getCompound(TASTE_TAG);
+        tasteDesires.put(Taste.SWEET, tastesNbt.getInt(Taste.SWEET.name()));
+        tasteDesires.put(Taste.SOUR, tastesNbt.getInt(Taste.SOUR.name()));
+        tasteDesires.put(Taste.SALTY, tastesNbt.getInt(Taste.SALTY.name()));
+        tasteDesires.put(Taste.BITTER, tastesNbt.getInt(Taste.BITTER.name()));
+        tasteDesires.put(Taste.UMAMI, tastesNbt.getInt(Taste.UMAMI.name()));
+
+        CompoundNBT flavoursNbt = nbtCast.getCompound(FLAVOUR_TAG);
+        for(Flavour f : Flavour.values()) {
+            flavourDesires.put(f, flavoursNbt.getInt(f.name()));
+        }
+
+        this.tasteDesires = Collections.unmodifiableMap(tasteDesires);
+        this.flavourDesires = Collections.unmodifiableMap(flavourDesires);
     }
 }
