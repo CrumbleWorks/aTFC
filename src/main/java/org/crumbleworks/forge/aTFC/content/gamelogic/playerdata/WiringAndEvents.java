@@ -36,9 +36,10 @@ public class WiringAndEvents implements Wireable {
             event.addCapability(
                     new ResourceLocation(Main.MOD_ID, "player_data"),
                     new ATFCPlayerDataCapabilityProvider(
-                            event.getObject().getEntityWorld()
-                                    .getBiomeManager().seed,
-                            (PlayerEntity)event.getObject()));
+                            event.getObject().getEntityWorld().getBiomeManager().seed,
+                            (PlayerEntity)event.getObject()
+                            )
+                    );
         }
     }
 

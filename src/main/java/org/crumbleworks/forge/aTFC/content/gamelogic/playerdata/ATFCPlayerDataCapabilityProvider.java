@@ -21,7 +21,7 @@ public class ATFCPlayerDataCapabilityProvider
 
     @CapabilityInject(ATFCPlayerData.class)
     public static Capability<ATFCPlayerData> CAPABILITY_ATFCPLAYERDATA = null;
-    private ATFCPlayerData atfcPlayerData;
+    private final ATFCPlayerData atfcPlayerData;
 
     public ATFCPlayerDataCapabilityProvider(long worldSeed,
             PlayerEntity player) {

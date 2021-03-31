@@ -43,8 +43,6 @@ public class ATFCStatsScreen extends StatsScreen {
     }
 
     public void initButtons() {
-        // TODO add button for our UI, change pos for everything..
-
         this.addButton(new Button(
                 this.width / 2 - 160, this.height - 52,
                 80, 20,

@@ -7,6 +7,7 @@ import org.crumbleworks.forge.aTFC.networking.Networking;
 import org.crumbleworks.forge.aTFC.wiring.Wireable;
 import org.lwjgl.glfw.GLFW;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.stats.IStatFormatter;
 import net.minecraft.stats.Stat;
@@ -31,7 +32,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
  */
 public class WiringAndEvents implements Wireable {
 
-    private static final KeyBinding STATS_KEY = new KeyBinding(
+    public static final KeyBinding STATS_KEY = new KeyBinding(
             "key.atfc.statsButton", GLFW.GLFW_KEY_K,
             "key.atfc.categories.atfc_bindings");
     static Stat<ResourceLocation> PRESSED_K = null;
@@ -41,8 +42,8 @@ public class WiringAndEvents implements Wireable {
 
         @SubscribeEvent
         public static void handleKeyBindings(ClientTickEvent event) {
-            if(STATS_KEY.isPressed()) {
-                Networking.sendToServer(new StatCheckMessage());
+            if(STATS_KEY.isPressed() && Minecraft.getInstance().currentScreen == null) {
+                Minecraft.getInstance().displayGuiScreen(new StatsScreen());
             }
         }
     }
@@ -74,13 +75,17 @@ public class WiringAndEvents implements Wireable {
 
     @Override
     public void englishTranslations(Translations tr) {
-        tr.add("key.atfc.statsButton", "Show Playerstats");
-        tr.add("stat.atfc.pressed_k", "K-Key Pressed");
+        tr.add("key.atfc.statsButton", "Show Skills");
+        tr.add("stat.atfc.pressed_k", "Looked at skills screen");
+
+        tr.add("gui.atfc.stats.title", "Skills");
     }
 
     @Override
     public void swissTranslations(Translations tr) {
-        tr.add("key.atfc.statsButton", "Zeig d Spielerstats");
-        tr.add("stat.atfc.pressed_k", "K-Taschtä drückt");
+        tr.add("key.atfc.statsButton", "Zeig d Skills");
+        tr.add("stat.atfc.pressed_k", "D Skills liebgäuglet");
+
+        tr.add("gui.atfc.stats.title", "Skills");
     }
 }
