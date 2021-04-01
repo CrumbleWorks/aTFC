@@ -1,5 +1,6 @@
 package org.crumbleworks.forge.aTFC.content.gamelogic.playerdata;
 
+import org.crumbleworks.forge.aTFC.content.gamelogic.playerdata.skills.Skills;
 import org.crumbleworks.forge.aTFC.content.gamelogic.playerdata.tastepreferences.TastePreference;
 
 /**
@@ -11,4 +12,5 @@ import org.crumbleworks.forge.aTFC.content.gamelogic.playerdata.tastepreferences
 public interface ATFCPlayerData {
 
     TastePreference tastePreferences();
+    Skills skills();
 }

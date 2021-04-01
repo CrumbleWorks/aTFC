@@ -14,27 +14,27 @@ import net.minecraftforge.fml.network.NetworkEvent.Context;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class StatCheckMessage implements Message<StatCheckMessage> {
+public class SkillsCheckMessage implements Message<SkillsCheckMessage> {
 
     @Override
-    public void encode(StatCheckMessage msg, PacketBuffer buffer) {}
+    public void encode(SkillsCheckMessage msg, PacketBuffer buffer) {}
 
     @Override
-    public StatCheckMessage decode(PacketBuffer buffer) {
-        return new StatCheckMessage();
+    public SkillsCheckMessage decode(PacketBuffer buffer) {
+        return new SkillsCheckMessage();
     }
 
     @Override
-    public void consumeClientSide(StatCheckMessage msg,
+    public void consumeClientSide(SkillsCheckMessage msg,
             Supplier<Context> ctx) {
         throw new UnsupportedOperationException(
                 "This Message must only ever be sent from Client to Server!");
     }
 
     @Override
-    public void consumeServerSide(StatCheckMessage msg,
+    public void consumeServerSide(SkillsCheckMessage msg,
             Supplier<Context> ctx) {
         PlayerEntity player = ctx.get().getSender();
-        player.addStat(WiringAndEvents.PRESSED_K);
+        player.addStat(WiringAndEvents.OPENED_SKILLS);
     }
 }

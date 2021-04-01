@@ -32,18 +32,19 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
  */
 public class WiringAndEvents implements Wireable {
 
-    public static final KeyBinding STATS_KEY = new KeyBinding(
-            "key.atfc.statsButton", GLFW.GLFW_KEY_K,
+    public static final KeyBinding SKILLS_KEY = new KeyBinding(
+            "key.atfc.skillsKey", GLFW.GLFW_KEY_K,
             "key.atfc.categories.atfc_bindings");
-    static Stat<ResourceLocation> PRESSED_K = null;
+    static Stat<ResourceLocation> OPENED_SKILLS = null;
 
     @Mod.EventBusSubscriber(modid = Main.MOD_ID, bus = Bus.FORGE)
     static final class ForgeEvents {
 
         @SubscribeEvent
         public static void handleKeyBindings(ClientTickEvent event) {
-            if(STATS_KEY.isPressed() && Minecraft.getInstance().currentScreen == null) {
-                Minecraft.getInstance().displayGuiScreen(new StatsScreen());
+            if(SKILLS_KEY.isPressed()
+                    && Minecraft.getInstance().currentScreen == null) {
+                Minecraft.getInstance().displayGuiScreen(new SkillsScreen());
             }
         }
     }
@@ -54,38 +55,64 @@ public class WiringAndEvents implements Wireable {
         @SubscribeEvent(priority = EventPriority.LOWEST)
         public static void registerAtfcStatsForge(
                 RegistryEvent.Register<StatType<?>> event) {
-            PRESSED_K = aTFCStats.registerAtfcStat("pressed_k",
+            OPENED_SKILLS = aTFCStats.registerAtfcStat("opened_skills",
                     IStatFormatter.DEFAULT);
         }
 
         @SubscribeEvent
         public static void registerMessage(FMLCommonSetupEvent event) {
             event.enqueueWork(() -> {
-                Networking.registerMessageType(StatCheckMessage.class);
+                Networking.registerMessageType(SkillsCheckMessage.class);
             });
         }
 
         @SubscribeEvent
         public static void registerKeyBindings(FMLClientSetupEvent event) {
             event.enqueueWork(() -> {
-                ClientRegistry.registerKeyBinding(STATS_KEY);
+                ClientRegistry.registerKeyBinding(SKILLS_KEY);
             });
         }
     }
 
     @Override
     public void englishTranslations(Translations tr) {
-        tr.add("key.atfc.statsButton", "Show Skills");
-        tr.add("stat.atfc.pressed_k", "Looked at skills screen");
+        tr.add("key.atfc.skillsKey", "Show Skills");
+        tr.add("stat.atfc.opened_skills", "Looked at skills screen");
 
-        tr.add("gui.atfc.stats.title", "Skills");
+        tr.add("gui.atfc.skills.title", "Skills");
+        tr.add("gui.atfc.skills.gen_smithing", "General Smithing");
+        tr.add("gui.atfc.skills.tol_smithing", "Tool Smithing");
+        tr.add("gui.atfc.skills.arm_smithing", "Armor Smithing");
+        tr.add("gui.atfc.skills.wpn_smithing", "Weapon Smithing");
+        tr.add("gui.atfc.skills.agriculture", "Agriculture");
+        tr.add("gui.atfc.skills.cooking", "Cooking");
+        tr.add("gui.atfc.skills.prospecting", "Prospecting");
+        tr.add("gui.atfc.skills.butchering", "Butchering");
+        
+        tr.add("gui.atfc.skills.novice_level", "Novice");
+        tr.add("gui.atfc.skills.adept_level", "Adept");
+        tr.add("gui.atfc.skills.expert_level", "Expert");
+        tr.add("gui.atfc.skills.master_level", "Master");
     }
 
     @Override
     public void swissTranslations(Translations tr) {
-        tr.add("key.atfc.statsButton", "Zeig d Skills");
-        tr.add("stat.atfc.pressed_k", "D Skills liebgäuglet");
+        tr.add("key.atfc.skillsKey", "Zeig d Skills");
+        tr.add("stat.atfc.opened_skills", "D Skills liebgäuglet");
 
-        tr.add("gui.atfc.stats.title", "Skills");
+        tr.add("gui.atfc.skills.title", "Fähigkeitä");
+        tr.add("gui.atfc.skills.gen_smithing", "Allgemeins Schmiidä");
+        tr.add("gui.atfc.skills.tol_smithing", "Wärchzüüg Schmiidä");
+        tr.add("gui.atfc.skills.arm_smithing", "Rüschtigä Schmiidä");
+        tr.add("gui.atfc.skills.wpn_smithing", "Waffä Schmiidä");
+        tr.add("gui.atfc.skills.agriculture", "Landwirtschaft");
+        tr.add("gui.atfc.skills.cooking", "Chochä");
+        tr.add("gui.atfc.skills.prospecting", "Prospektierä");
+        tr.add("gui.atfc.skills.butchering", "Metzgä");
+        
+        tr.add("gui.atfc.skills.novice_level", "Noviz");
+        tr.add("gui.atfc.skills.adept_level", "Adept");
+        tr.add("gui.atfc.skills.expert_level", "Expärt");
+        tr.add("gui.atfc.skills.master_level", "Meischter");
     }
 }

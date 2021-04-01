@@ -1,5 +1,6 @@
 package org.crumbleworks.forge.aTFC.content.gamelogic.playerdata;
 
+import org.crumbleworks.forge.aTFC.content.gamelogic.playerdata.skills.Skills;
 import org.crumbleworks.forge.aTFC.content.gamelogic.playerdata.tastepreferences.TastePreference;
 
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,13 +19,16 @@ import net.minecraftforge.common.capabilities.Capability.IStorage;
 public class ATFCPlayerDataImpl implements ATFCPlayerData {
 
     private TastePreference tastePreferences;
+    private Skills skills;
 
     public ATFCPlayerDataImpl(long worldSeed, PlayerEntity player) {
         tastePreferences = new TastePreference(worldSeed, player);
+        skills = new Skills();
     }
 
     public ATFCPlayerDataImpl() {
         tastePreferences = new TastePreference();
+        skills = new Skills();
     }
 
     @Override
@@ -32,7 +36,13 @@ public class ATFCPlayerDataImpl implements ATFCPlayerData {
         return tastePreferences;
     }
 
+    @Override
+    public Skills skills() {
+        return skills;
+    }
+
     private static final String TASTE_PREFS_TAG = "taste_prefs";
+    private static final String SKILLS_TAG = "skills";
 
     public static class ATFCPlayerDataImplStorage
             implements IStorage<ATFCPlayerData> {
@@ -44,6 +54,8 @@ public class ATFCPlayerDataImpl implements ATFCPlayerData {
             CompoundNBT nbt = new CompoundNBT();
             nbt.put(TASTE_PREFS_TAG,
                     instance.tastePreferences().serializeNBT());
+            nbt.put(SKILLS_TAG,
+                    instance.skills().serializeNBT());
 
             return nbt;
         }
@@ -57,6 +69,11 @@ public class ATFCPlayerDataImpl implements ATFCPlayerData {
             TastePreference tastePref = new TastePreference();
             tastePref.deserializeNBT(nbtCast.get(TASTE_PREFS_TAG));
             ((ATFCPlayerDataImpl)instance).tastePreferences = tastePref;
+
+            Skills skills = new Skills();
+            skills.deserializeNBT(nbtCast.get(SKILLS_TAG));
+            ((ATFCPlayerDataImpl)instance).skills = skills;
         }
     }
+
 }
