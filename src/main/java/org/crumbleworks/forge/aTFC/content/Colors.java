@@ -35,4 +35,6 @@ public class Colors {
     public static final int TEXT_GREEN = 0xFF55FF55;
     public static final int TEXT_BLUE = 0xFF5555FF;
     public static final int TEXT_PURPLE = 0xFFFF55FF;
+    public static final int TEXT_YELLOW = 0xFFFFFF55;
+    public static final int TEXT_RED = 0xFFFF5555;
 }
