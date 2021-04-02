@@ -87,6 +87,19 @@ public class CharacterWiringAndEvents implements Wireable {
         tr.add("gui.atfc.character.taste_prefs.salty", "Salty");
         tr.add("gui.atfc.character.taste_prefs.bitter", "Bitter");
         tr.add("gui.atfc.character.taste_prefs.umami", "Umami");
+        
+        tr.add("gui.atfc.character.flavour_prefs.title", "Flavour Preferences");
+        tr.add("gui.atfc.character.flavour_prefs.smoked", "Smoky");
+        tr.add("gui.atfc.character.flavour_prefs.charred", "Charred");
+        tr.add("gui.atfc.character.flavour_prefs.spicy", "Spicy");
+        tr.add("gui.atfc.character.flavour_prefs.slimy", "Slimy");
+        tr.add("gui.atfc.character.flavour_prefs.dry", "Dry");
+        tr.add("gui.atfc.character.flavour_prefs.chewy", "Chewy");
+        tr.add("gui.atfc.character.flavour_prefs.tender", "Tender");
+        tr.add("gui.atfc.character.flavour_prefs.hot", "Hot");
+        tr.add("gui.atfc.character.flavour_prefs.cold", "Cold");
+        tr.add("gui.atfc.character.flavour_prefs.fatty", "Fatty");
+        tr.add("gui.atfc.character.flavour_prefs.lean", "Lean");
     }
 
     @Override
@@ -102,5 +115,18 @@ public class CharacterWiringAndEvents implements Wireable {
         tr.add("gui.atfc.character.taste_prefs.salty", "Salzig");
         tr.add("gui.atfc.character.taste_prefs.bitter", "Bitter");
         tr.add("gui.atfc.character.taste_prefs.umami", "U(h)mami");
+        
+        tr.add("gui.atfc.character.flavour_prefs.title", "Aromavorzüg");
+        tr.add("gui.atfc.character.flavour_prefs.smoked", "Gräucheret");
+        tr.add("gui.atfc.character.flavour_prefs.charred", "Verbrönnt");
+        tr.add("gui.atfc.character.flavour_prefs.spicy", "Scharf");
+        tr.add("gui.atfc.character.flavour_prefs.slimy", "Schleimig");
+        tr.add("gui.atfc.character.flavour_prefs.dry", "Trochä");
+        tr.add("gui.atfc.character.flavour_prefs.chewy", "Chätschig");
+        tr.add("gui.atfc.character.flavour_prefs.tender", "Zart");
+        tr.add("gui.atfc.character.flavour_prefs.hot", "Heiss");
+        tr.add("gui.atfc.character.flavour_prefs.cold", "Chalt");
+        tr.add("gui.atfc.character.flavour_prefs.fatty", "Fettig");
+        tr.add("gui.atfc.character.flavour_prefs.lean", "Mager");
     }
 }

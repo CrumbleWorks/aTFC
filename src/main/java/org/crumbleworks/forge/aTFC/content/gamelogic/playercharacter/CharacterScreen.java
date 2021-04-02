@@ -1,5 +1,7 @@
 package org.crumbleworks.forge.aTFC.content.gamelogic.playercharacter;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Supplier;
 
 import org.crumbleworks.forge.aTFC.content.Colors;
@@ -8,6 +10,7 @@ import org.crumbleworks.forge.aTFC.content.gamelogic.playerdata.ATFCPlayerDataCa
 import org.crumbleworks.forge.aTFC.content.gamelogic.playerdata.tastepreferences.TastePreference;
 import org.crumbleworks.forge.aTFC.content.gamelogic.playerskills.SkillsScreen;
 import org.crumbleworks.forge.aTFC.content.gamelogic.playerskills.SkillsWiringAndEvents;
+import org.crumbleworks.forge.aTFC.content.gamelogic.tasteprofile.Flavour;
 import org.crumbleworks.forge.aTFC.content.gamelogic.tasteprofile.Taste;
 import org.crumbleworks.forge.aTFC.gui.BigBlankGui;
 import org.crumbleworks.forge.aTFC.gui.GuiHelper;
@@ -90,11 +93,66 @@ public class CharacterScreen extends BigBlankGui {
 
         private static final int xOffset = 5;
         private static final int barHeight = 8;
+        private static final String DISGUSTED = "§c--§r";
+        private static final String DISLIKED = "§c-§r";
+        private static final String ENJOYED = "§a+§r";
+        private static final String LOVED = "§a++§r";
 
         private int threeDigs = font.getStringWidth("999");
         private int textStart = (xSize / 3);
         private int barStart = textStart + threeDigs;
         private int barWidth = (xSize / 3 * 2) - (2 * threeDigs) - (4 * 2);
+
+        private Set<String> flavours;
+
+        @Override
+        public void init(int widthIn, int heightIn, Minecraft minecraftIn,
+                boolean widthTooNarrowIn) {
+            flavours = new HashSet<>();
+            putFlavour(Flavour.SMOKED, new TranslationTextComponent(
+                    "gui.atfc.character.flavour_prefs.smoked"));
+            putFlavour(Flavour.CHARRED, new TranslationTextComponent(
+                    "gui.atfc.character.flavour_prefs.charred"));
+            putFlavour(Flavour.SPICY, new TranslationTextComponent(
+                    "gui.atfc.character.flavour_prefs.spicy"));
+            putFlavour(Flavour.SLIMY, new TranslationTextComponent(
+                    "gui.atfc.character.flavour_prefs.slimy"));
+            putFlavour(Flavour.DRY, new TranslationTextComponent(
+                    "gui.atfc.character.flavour_prefs.dry"));
+            putFlavour(Flavour.CHEWY, new TranslationTextComponent(
+                    "gui.atfc.character.flavour_prefs.chewy"));
+            putFlavour(Flavour.TENDER, new TranslationTextComponent(
+                    "gui.atfc.character.flavour_prefs.tender"));
+            putFlavour(Flavour.HOT, new TranslationTextComponent(
+                    "gui.atfc.character.flavour_prefs.hot"));
+            putFlavour(Flavour.COLD, new TranslationTextComponent(
+                    "gui.atfc.character.flavour_prefs.cold"));
+            putFlavour(Flavour.FATTY, new TranslationTextComponent(
+                    "gui.atfc.character.flavour_prefs.fatty"));
+            putFlavour(Flavour.LEAN, new TranslationTextComponent(
+                    "gui.atfc.character.flavour_prefs.lean"));
+
+            super.init(widthIn, heightIn, minecraftIn, widthTooNarrowIn);
+        }
+
+        private void putFlavour(Flavour flavour, ITextComponent label) {
+            int enjoyment = playerData.tastePreferences().desireFor(flavour);
+
+            StringBuilder sb = new StringBuilder(label.getString());
+            sb.append("[");
+            if(enjoyment < TastePreference.FLAVOUR_DISLIKE_TRESHOLD) {
+                sb.append(DISGUSTED);
+            } else if(enjoyment < TastePreference.FLAVOUR_ENJOY_TRESHOLD) {
+                sb.append(DISLIKED);
+            } else if(enjoyment < TastePreference.FLAVOUR_LOVE_TRESHOLD) {
+                sb.append(ENJOYED);
+            } else {
+                sb.append(LOVED);
+            }
+            sb.append("]");
+
+            flavours.add(sb.toString());
+        }
 
         @Override
         protected void drawGuiForegroundLayer(MatrixStack matrixStack,
@@ -134,6 +192,33 @@ public class CharacterScreen extends BigBlankGui {
                     66, TastePreference.MIN_UMAMI_DESIRE,
                     TastePreference.MAX_UMAMI_DESIRE,
                     playerData.tastePreferences().desireFor(Taste.UMAMI));
+
+            GuiHelper.sunkenHLine(matrixStack, 2, xSize - 3, 77);
+
+            GuiHelper.writeText(matrixStack, font,
+                    new TranslationTextComponent(
+                            "gui.atfc.character.flavour_prefs.title"),
+                    5, 81, Colors.GUI_DARK);
+
+            int lineWidth = xSize - (2 * xOffset) - 3;
+            int yPos = 93;
+            StringBuilder line = new StringBuilder();
+            for(String flavour : flavours) {
+                if(font.getStringWidth(
+                        line.toString() + flavour) > lineWidth) {
+                    GuiHelper.writeText(matrixStack, font,
+                            new StringTextComponent(line.toString()),
+                            xOffset + 3, yPos, Colors.GUI_DARK);
+                    yPos += 12;
+                    line = new StringBuilder();
+                }
+
+                line.append(flavour).append(", ");
+            }
+            line.setLength(line.length() - 2);
+            GuiHelper.writeText(matrixStack, font,
+                    new StringTextComponent(line.toString()), xOffset + 3,
+                    yPos, Colors.GUI_DARK);
         }
 
         private void drawTaste(MatrixStack matrixStack, ITextComponent text,
@@ -143,7 +228,7 @@ public class CharacterScreen extends BigBlankGui {
                             String.format("%s", text.getString())),
                     textStart - 2 - font.getStringWidth(text.getString()),
                     y, Colors.GUI_DARK);
-            
+
             drawTasteBar(matrixStack, y, min, max, taste);
         }
 
@@ -152,14 +237,16 @@ public class CharacterScreen extends BigBlankGui {
             int barEnd = barStart + barWidth;
 
             GuiHelper.writeText(matrixStack, font,
-                    new StringTextComponent(String.format("%s", String.valueOf(min))),
+                    new StringTextComponent(
+                            String.format("%s", String.valueOf(min))),
                     barStart - 1 - font.getStringWidth(String.valueOf(min)),
                     y, Colors.WHITE);
-            
+
             GuiHelper.writeText(matrixStack, font,
-                    new StringTextComponent(String.format("%s", String.valueOf(max))),
+                    new StringTextComponent(
+                            String.format("%s", String.valueOf(max))),
                     barEnd + 2, y, Colors.WHITE);
-            
+
             fill(matrixStack,
                     barStart, y,
                     barEnd - 1, y + barHeight - 1,
@@ -173,11 +260,15 @@ public class CharacterScreen extends BigBlankGui {
                     barStart + 1, y + 1,
                     barEnd - 1, y + barHeight - 1,
                     Colors.TEXT_RED, Colors.TEXT_GREEN);
-            
-            float sliderPos = (float)barWidth / (float)(max - min) * (float)(taste - min);
-            GuiHelper.vLine(matrixStack, barStart + Math.round(sliderPos), y - 2, y + barHeight + 1, Colors.BLACK);
-            
-            GuiHelper.writeTextSmall(matrixStack, font, new StringTextComponent(String.valueOf(taste)), barStart + 2, y + 2, Colors.WHITE);
+
+            float sliderPos = (float)barWidth / (float) (max - min)
+                    * (float) (taste - min);
+            GuiHelper.vLine(matrixStack, barStart + Math.round(sliderPos),
+                    y - 2, y + barHeight + 1, Colors.BLACK);
+
+            GuiHelper.writeTextSmall(matrixStack, font,
+                    new StringTextComponent(String.valueOf(taste)),
+                    barStart + 2, y + 2, Colors.WHITE);
         }
     }
 }
