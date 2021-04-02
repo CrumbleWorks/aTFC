@@ -43,6 +43,8 @@ public class TastePreference implements INBTSerializable<INBT> {
 
     private Map<Taste, Integer> tasteDesires;
     private Map<Flavour, Integer> flavourDesires;
+    //TODO add another map for foodstuffs once foodstuffs exist
+    // -> use same system as flavourdesires
 
     public TastePreference(long worldSeed, PlayerEntity player) {
         Map<Taste, Integer> tasteDesires = new HashMap<>();

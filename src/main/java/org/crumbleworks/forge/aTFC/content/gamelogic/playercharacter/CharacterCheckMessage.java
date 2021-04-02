@@ -1,4 +1,4 @@
-package org.crumbleworks.forge.aTFC.content.gamelogic.playerskills;
+package org.crumbleworks.forge.aTFC.content.gamelogic.playercharacter;
 
 import java.util.function.Supplier;
 
@@ -14,27 +14,27 @@ import net.minecraftforge.fml.network.NetworkEvent.Context;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class SkillsCheckMessage implements Message<SkillsCheckMessage> {
+public class CharacterCheckMessage implements Message<CharacterCheckMessage> {
 
     @Override
-    public void encode(SkillsCheckMessage msg, PacketBuffer buffer) {}
+    public void encode(CharacterCheckMessage msg, PacketBuffer buffer) {}
 
     @Override
-    public SkillsCheckMessage decode(PacketBuffer buffer) {
-        return new SkillsCheckMessage();
+    public CharacterCheckMessage decode(PacketBuffer buffer) {
+        return new CharacterCheckMessage();
     }
 
     @Override
-    public void consumeClientSide(SkillsCheckMessage msg,
+    public void consumeClientSide(CharacterCheckMessage msg,
             Supplier<Context> ctx) {
         throw new UnsupportedOperationException(
                 "This Message must only ever be sent from Client to Server!");
     }
 
     @Override
-    public void consumeServerSide(SkillsCheckMessage msg,
+    public void consumeServerSide(CharacterCheckMessage msg,
             Supplier<Context> ctx) {
         PlayerEntity player = ctx.get().getSender();
-        player.addStat(SkillsWiringAndEvents.OPENED_SKILLS);
+        player.addStat(CharacterWiringAndEvents.OPENED_CHARACTER);
     }
 }

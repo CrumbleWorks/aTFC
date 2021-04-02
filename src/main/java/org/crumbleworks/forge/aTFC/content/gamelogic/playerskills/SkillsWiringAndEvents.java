@@ -30,7 +30,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class WiringAndEvents implements Wireable {
+public class SkillsWiringAndEvents implements Wireable {
 
     public static final KeyBinding SKILLS_KEY = new KeyBinding(
             "key.atfc.skillsKey", GLFW.GLFW_KEY_K,

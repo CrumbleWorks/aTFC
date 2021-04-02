@@ -21,7 +21,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class WiringAndEvents implements Wireable {
+public class PlayerDataWiringAndEvents implements Wireable {
 
     @Mod.EventBusSubscriber(modid = Main.MOD_ID, bus = Bus.FORGE)
     static final class ForgeEvents {

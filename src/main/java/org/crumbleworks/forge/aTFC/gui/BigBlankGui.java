@@ -1,12 +1,17 @@
 package org.crumbleworks.forge.aTFC.gui;
 
+import java.util.function.Supplier;
+
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.content.Colors;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
@@ -21,16 +26,26 @@ public abstract class BigBlankGui extends Screen {
 
     private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(
             Main.MOD_ID, "textures/gui/generic_gui.png");
-    protected int xSize = 176;
-    protected int ySize = 166;
-    protected int titleX = 8;
-    protected int titleY = 6;
+    protected static final int xSize = 176;
+    protected static final int ySize = 166;
+    protected static final int titleX = 8;
+    protected static final int titleY = 6;
+
+    private final KeyBinding activeGuiBinding;
+    private final KeyBinding[] otherGuisBindings;
+    private final Supplier<Screen>[] otherGuisWindows;
 
     protected int guiLeft;
     protected int guiTop;
 
-    protected BigBlankGui(ITextComponent title) {
+    protected BigBlankGui(ITextComponent title, KeyBinding activeGuiBinding,
+            KeyBinding[] otherGuisBindings,
+            Supplier<Screen>[] otherGuisWindows) {
         super(title);
+
+        this.activeGuiBinding = activeGuiBinding;
+        this.otherGuisBindings = otherGuisBindings;
+        this.otherGuisWindows = otherGuisWindows;
     }
 
     @Override
@@ -71,23 +86,24 @@ public abstract class BigBlankGui extends Screen {
     protected abstract void drawGuiForegroundLayer(MatrixStack matrixStack,
             int mouseX, int mouseY);
 
-    protected final void sunkenHLine(MatrixStack matrixStack, int minX,
-            int maxX, int y) {
-        hLine(matrixStack, minX, maxX - 1, y, Colors.GUI_DARK);
-        hLine(matrixStack, minX + 1, maxX, y + 1, Colors.WHITE);
-    }
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        InputMappings.Input mouseKey = InputMappings.getInputByCode(keyCode,
+                scanCode);
+        if(activeGuiBinding.isActiveAndMatches(mouseKey)) {
+            this.closeScreen();
+            return true;
+        }
 
-    protected final void writeText(MatrixStack matrixStack,
-            ITextComponent text, int x, int y, int color) {
-        this.font.func_243248_b(matrixStack, text, x, y, color);
-    }
+        for(int i = 0 ; i < otherGuisBindings.length ; i++) {
+            if(otherGuisBindings[i].isActiveAndMatches(mouseKey)) {
+                this.closeScreen();
+                Minecraft.getInstance()
+                        .displayGuiScreen(otherGuisWindows[i].get());
+                return true;
+            }
+        }
 
-    protected final void writeTextSmall(MatrixStack matrixStack,
-            ITextComponent text, int x, int y, int color) {
-        RenderSystem.pushMatrix();
-        RenderSystem.translatef(x, y, 0.0f);
-        RenderSystem.scalef(0.5f, 0.5f, 0.0f);
-        this.font.func_243248_b(matrixStack, text, 0.0f, 0.0f, color);
-        RenderSystem.popMatrix();
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 }
