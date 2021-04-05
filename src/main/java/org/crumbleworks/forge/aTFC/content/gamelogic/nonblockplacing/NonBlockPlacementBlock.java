@@ -74,44 +74,30 @@ public class NonBlockPlacementBlock extends aTFCBaseBlock
             BlockPos pos, PlayerEntity player, Hand handIn,
             BlockRayTraceResult hit) {
         if(worldIn.isRemote()) {
-            System.out.println("NOT REMOTE!");
             return ActionResultType.SUCCESS;
         }
 
         TileEntity tileEntity = worldIn.getTileEntity(pos);
         if(! (tileEntity instanceof NonBlockPlacementTE)) {
-            System.out.println("WRONG TILEENTITY!");
             return ActionResultType.PASS;
         }
 
         NonBlockPlacementTE nbpte = (NonBlockPlacementTE)tileEntity;
         ItemStack itemstack = player.getHeldItem(handIn);
         int targetSlot = Util.gridSlot2x2XY(hit);
-        if(player.isSneaking()) { // place item
-            if(itemstack.isEmpty()) { // holding nothing
-                System.out.println("TRY-PLACE, HOLDING NOTHING!");
-                return ActionResultType.PASS;
-            }
-
-            System.out.println("TRY-PLACE, SUCCESS?");
-            if(player.isCreative()) {
-                nbpte.insertItem(targetSlot, itemstack.copy());
-            } else {
-                player.setHeldItem(handIn,
-                        nbpte.insertItem(targetSlot, itemstack));
-            }
-
-            return ActionResultType.CONSUME;
-        } else { // take item
-            if(!itemstack.isEmpty()) { // already holding sth
-                System.out.println("TRY-TAKE, HOLDING SOMETHING!");
-                return ActionResultType.PASS;
-            }
-
-            System.out.println("TRY-TAKE, SUCCESS?");
+        if(itemstack.isEmpty()) { // holding nothing
             player.setHeldItem(handIn, nbpte.extractItem(targetSlot));
             return ActionResultType.CONSUME;
         }
+        
+        if(player.isCreative()) {
+            nbpte.insertItem(targetSlot, itemstack.copy());
+        } else {
+            player.setHeldItem(handIn,
+                    nbpte.insertItem(targetSlot, itemstack));
+        }
+        
+        return ActionResultType.CONSUME;
     }
 
     @Override

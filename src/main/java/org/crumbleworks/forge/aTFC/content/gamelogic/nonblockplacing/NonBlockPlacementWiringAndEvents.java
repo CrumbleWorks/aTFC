@@ -47,7 +47,7 @@ public class NonBlockPlacementWiringAndEvents implements Wireable {
             if(!player.isSneaking()) {
                 return;
             }
-
+            
             ItemStack itemstack = event.getItemStack();
             if(itemstack.isEmpty()) {
                 return;
@@ -57,7 +57,7 @@ public class NonBlockPlacementWiringAndEvents implements Wireable {
             if(! (item instanceof WorldPlaceableItem)) {
                 return;
             }
-
+            
             if(event.getFace() != Direction.UP) {
                 return;
             }
@@ -67,8 +67,6 @@ public class NonBlockPlacementWiringAndEvents implements Wireable {
                 return;
             }
             
-            System.out.println(" >>>>>> BLOCK IS SOLID TOP EEEEH");
-
             BlockPos placementPos = event.getPos().up();
             event.getWorld().setBlockState(placementPos,
                     NONBLOCKPLACEMENT_BLOCK.get().getDefaultState());
