@@ -26,7 +26,7 @@ public class NonBlockPlacementTE extends TileEntity {
 
     private static final String STORAGE_KEY = Main.MOD_ID + "_NBP_inv";
 
-    private final LazyOptional<ItemStackHandler> inventory = LazyOptional
+    final LazyOptional<ItemStackHandler> inventory = LazyOptional
             .of(() -> new NonBlockPlacementItemStackHandler());
 
     public NonBlockPlacementTE() {
@@ -34,16 +34,19 @@ public class NonBlockPlacementTE extends TileEntity {
     }
 
     public ItemStack insertItem(int slot, ItemStack item) {
-        System.out.println(" >>> PLACING ITEM SIR");
+        System.out.println(" >>> PLACING ITEM SIR [slot:" + slot + "]");
+
+        ItemStack resultStack = inventory.resolve().get().insertItem(slot,
+                item, false);
 
         markDirty();
         world.notifyBlockUpdate(pos, getBlockState(), getBlockState(),
                 Constants.BlockFlags.DEFAULT);
-        return inventory.resolve().get().insertItem(slot, item, false);
+        return resultStack;
     }
 
     public ItemStack extractItem(int slot) {
-        System.out.println(" >>> REMOVING ITEM SIR");
+        System.out.println(" >>> REMOVING ITEM SIR [slot:" + slot + "]");
 
         NonBlockPlacementItemStackHandler _inventory = (NonBlockPlacementItemStackHandler)inventory
                 .resolve().get();

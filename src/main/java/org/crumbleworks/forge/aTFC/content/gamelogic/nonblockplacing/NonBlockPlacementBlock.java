@@ -3,11 +3,14 @@ package org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplacing;
 import org.crumbleworks.forge.aTFC.content.Materials;
 import org.crumbleworks.forge.aTFC.content.blocks.aTFCBaseBlock;
 import org.crumbleworks.forge.aTFC.utilities.Util;
+import org.crumbleworks.forge.aTFC.utilities.aTFCInventoryHelper;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.IWaterLoggable;
 import net.minecraft.block.SoundType;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -15,7 +18,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
@@ -28,11 +30,13 @@ import net.minecraft.world.World;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class NonBlockPlacementBlock extends aTFCBaseBlock {
+public class NonBlockPlacementBlock extends aTFCBaseBlock
+        implements IWaterLoggable {
 
     public NonBlockPlacementBlock() {
         super(AbstractBlock.Properties.create(Materials.ABSTRACT_BLOCKS)
-                .zeroHardnessAndResistance().sound(SoundType.GLASS).doesNotBlockMovement());
+                .zeroHardnessAndResistance().sound(SoundType.GLASS)
+                .doesNotBlockMovement());
     }
 
     // copy from AirBlock
@@ -44,6 +48,7 @@ public class NonBlockPlacementBlock extends aTFCBaseBlock {
      * @deprecated call via {@link IBlockState#getRenderType()} whenever
      *             possible. Implementing/overriding is fine.
      */
+    @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.ENTITYBLOCK_ANIMATED;
     }
@@ -95,7 +100,7 @@ public class NonBlockPlacementBlock extends aTFCBaseBlock {
                 player.setHeldItem(handIn,
                         nbpte.insertItem(targetSlot, itemstack));
             }
-            
+
             return ActionResultType.CONSUME;
         } else { // take item
             if(!itemstack.isEmpty()) { // already holding sth
@@ -107,5 +112,24 @@ public class NonBlockPlacementBlock extends aTFCBaseBlock {
             player.setHeldItem(handIn, nbpte.extractItem(targetSlot));
             return ActionResultType.CONSUME;
         }
+    }
+
+    @Override
+    public void onReplaced(BlockState state, World worldIn, BlockPos pos,
+            BlockState newState, boolean isMoving) {
+        TileEntity tileEntity = worldIn.getTileEntity(pos);
+        if(tileEntity instanceof NonBlockPlacementTE) {
+            aTFCInventoryHelper.dropInventoryItems(worldIn, pos,
+                    ((NonBlockPlacementTE)tileEntity).inventory.resolve()
+                            .get());
+        }
+
+        super.onReplaced(state, worldIn, pos, newState, isMoving);
+    }
+
+    @Override
+    public boolean addDestroyEffects(BlockState state, World world,
+            BlockPos pos, ParticleManager manager) {
+        return true;
     }
 }

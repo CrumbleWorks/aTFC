@@ -66,6 +66,8 @@ public class NonBlockPlacementWiringAndEvents implements Wireable {
                     event.getWorld(), event.getPos(), Direction.UP)) {
                 return;
             }
+            
+            System.out.println(" >>>>>> BLOCK IS SOLID TOP EEEEH");
 
             BlockPos placementPos = event.getPos().up();
             event.getWorld().setBlockState(placementPos,
