@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
-import org.crumbleworks.forge.aTFC.content.Colors;
 import org.crumbleworks.forge.aTFC.content.gamelogic.playercharacter.CharacterScreen;
 import org.crumbleworks.forge.aTFC.content.gamelogic.playercharacter.CharacterWiringAndEvents;
 import org.crumbleworks.forge.aTFC.content.gamelogic.playerdata.ATFCPlayerData;
@@ -13,6 +12,7 @@ import org.crumbleworks.forge.aTFC.content.gamelogic.playerdata.skills.Skills;
 import org.crumbleworks.forge.aTFC.gui.BigBlankGui;
 import org.crumbleworks.forge.aTFC.gui.GuiHelper;
 import org.crumbleworks.forge.aTFC.networking.Networking;
+import org.crumbleworks.forge.aTFC.utilities.Colors;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 

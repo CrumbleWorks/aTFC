@@ -61,20 +61,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  */
 public class ContinentalChunkGenerator extends ChunkGenerator {
 
-    //FIXME: commented is example from forge chat on how it should be done instead
     public static final Codec<ContinentalChunkGenerator> CODEC = RecordCodecBuilder.create(instance -> 
         instance.group(
                 BiomeProvider.CODEC.fieldOf("biome_source").forGetter(ccg -> ccg.biomeProvider),
                 Codec.LONG.fieldOf("seed").stable().forGetter(ccg -> ccg.seed),
                 DimensionSettings.field_236098_b_.fieldOf("settings").forGetter(ccg -> ccg.dimSettingsSupplier)
         ).apply(instance, instance.stable(ContinentalChunkGenerator::new)));
-
-//    public static final Codec<ContinentalChunkGenerator> CODEC = RecordCodecBuilder.create(instance ->
-//    instance.group(
-//            RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).forGetter((ccg) -> {return ccg.biomeProvider;}),
-//            Codec.LONG.fieldOf("seed").forGetter((ccg) -> {return ccg_.seed;}),
-//            DimensionSettings.field_236098_b_.fieldOf("settings").forGetter((ccg) -> {return ccg.dimSettingsSupplier;})
-//    ).apply(instance, ContinentalChunkGenerator::new));
     
     private final int verticalNoiseGranularity;
     private final int noiseSizeY;

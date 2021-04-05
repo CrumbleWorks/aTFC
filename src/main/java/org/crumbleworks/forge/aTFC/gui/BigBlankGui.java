@@ -3,7 +3,7 @@ package org.crumbleworks.forge.aTFC.gui;
 import java.util.function.Supplier;
 
 import org.crumbleworks.forge.aTFC.Main;
-import org.crumbleworks.forge.aTFC.content.Colors;
+import org.crumbleworks.forge.aTFC.utilities.Colors;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;

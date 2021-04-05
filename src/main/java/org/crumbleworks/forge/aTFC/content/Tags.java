@@ -39,6 +39,8 @@ public class Tags {
         public static final IOptionalNamedTag<Item> SAND = tag("sand");
         public static final IOptionalNamedTag<Item> SOIL = tag("soil");
         
+        public static final IOptionalNamedTag<Item> CLAY_MOLD = tag("clay_mold");
+        
         public static final IOptionalNamedTag<Item> SHOVELS = tag(
                 "tools/shovels");
         public static final IOptionalNamedTag<Item> HATCHETS = tag(

@@ -1,6 +1,6 @@
 package org.crumbleworks.forge.aTFC.gui;
 
-import org.crumbleworks.forge.aTFC.content.Colors;
+import org.crumbleworks.forge.aTFC.utilities.Colors;
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.matrix.MatrixStack;

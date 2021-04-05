@@ -15,7 +15,8 @@ public class aTFCBlockItem extends BlockItem implements Bulky, Weighty {
     // size and weight are chosen to be able to place stacks of material in
     // chests without too much hassle
     private final Bulk bulk = Bulk.LARGE;
-    private final Weight weight = Weight.MEDIUM;
+    private final int stacksize = 16;
+    private final int weight = Weighty.HALF_TON;
 
     public aTFCBlockItem(Block block,
             Properties properties) {
@@ -28,12 +29,12 @@ public class aTFCBlockItem extends BlockItem implements Bulky, Weighty {
     }
 
     @Override
-    public Weight getWeight() {
+    public int getWeight() {
         return weight;
     }
 
     @Override
     public int getMaxStackSize() {
-        return weight.getStacksize();
+        return stacksize;
     }
 }

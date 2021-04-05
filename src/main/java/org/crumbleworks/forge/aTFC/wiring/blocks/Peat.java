@@ -8,7 +8,7 @@ import org.crumbleworks.forge.aTFC.content.Tags;
 import org.crumbleworks.forge.aTFC.content.blocks.BogBlock;
 import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.content.items.Bulky.Bulk;
-import org.crumbleworks.forge.aTFC.content.items.Weighty.Weight;
+import org.crumbleworks.forge.aTFC.content.items.Weighty;
 import org.crumbleworks.forge.aTFC.content.items.aTFCBaseItem;
 import org.crumbleworks.forge.aTFC.content.items.aTFCBlockItem;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
@@ -66,15 +66,15 @@ public class Peat extends GrassCoverableBlock {
                     new Item.Properties().group(ItemGroups.BLOCKS)));
 
     public static final RegistryObject<Item> PEAT_CLOD_ITEM = ITEMS.register(
-            name_peat_clod, () -> new aTFCBaseItem(Bulk.SMALL, Weight.LIGHT,
+            name_peat_clod, () -> new aTFCBaseItem(Bulk.SMALL, Weighty.POUND,
                     new Item.Properties().group(ItemGroups.MATERIALS)));
     public static final RegistryObject<Item> FRESH_PEAT_ITEM = ITEMS.register(
             name_peat_fresh,
-            () -> new aTFCBaseItem(Bulk.NORMAL, Weight.MEDIUM,
+            () -> new aTFCBaseItem(Bulk.NORMAL, Weighty.TEN_POUND,
                     new Item.Properties().group(ItemGroups.MATERIALS)));
     public static final RegistryObject<Item> DRIED_PEAT_ITEM = ITEMS.register(
             name_peat_dried,
-            () -> new aTFCBaseItem(Bulk.NORMAL, Weight.MEDIUM,
+            () -> new aTFCBaseItem(Bulk.NORMAL, Weighty.FIVE_POUND,
                     new Item.Properties().group(ItemGroups.MATERIALS)));
 
     public Peat() {

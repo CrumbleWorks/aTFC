@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 
@@ -65,18 +67,22 @@ public abstract class Wiring {
         return wireables;
     }
 
-    // TileEntities refer to the Blocks that they can be attached to, thus
-    // they need to be loaded after the blocks
-    @SubscribeEvent
-    public static void onTileEntityTypeRegistration(
-            final RegistryEvent.Register<TileEntityType<?>> event) {
-        TileEntitiesMappings tem = new TileEntitiesMappings();
-        for(Wireable wireable : Main.wireables) {
-            wireable.registerTileEntities(tem);
-        }
-
-        for(TileEntityType<?> tet : TileEntities.getTETs()) {
-            event.getRegistry().register(tet);
+    @Mod.EventBusSubscriber(modid = Main.MOD_ID, bus = Bus.MOD)
+    static final class ModEvents {
+        // TileEntities refer to the Blocks that they can be attached to, thus
+        // they need to be loaded after the blocks
+        @SubscribeEvent
+        public static void onTileEntityTypeRegistration(
+                final RegistryEvent.Register<TileEntityType<?>> event) {
+            
+            TileEntitiesMappings tem = new TileEntitiesMappings();
+            for(Wireable wireable : Main.wireables) {
+                wireable.registerTileEntities(tem);
+            }
+            
+            for(TileEntityType<?> tet : TileEntities.getTETs()) {
+                event.getRegistry().register(tet);
+            }
         }
     }
 }

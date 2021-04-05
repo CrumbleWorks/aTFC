@@ -12,9 +12,9 @@ import net.minecraft.item.Item;
 public class aTFCBaseItem extends Item implements Bulky, Weighty {
 
     private final Bulk bulk;
-    private final Weight weight;
+    private final int weight;
 
-    public aTFCBaseItem(Bulk bulk, Weight weight, Properties properties) {
+    public aTFCBaseItem(Bulk bulk, int weight, Properties properties) {
         super(properties);
         this.bulk = bulk;
         this.weight = weight;
@@ -26,12 +26,12 @@ public class aTFCBaseItem extends Item implements Bulky, Weighty {
     }
 
     @Override
-    public Weight getWeight() {
+    public int getWeight() {
         return weight;
     }
 
     @Override
     public int getMaxStackSize() {
-        return weight.getStacksize();
+        return bulk.getStacksize();
     }
 }

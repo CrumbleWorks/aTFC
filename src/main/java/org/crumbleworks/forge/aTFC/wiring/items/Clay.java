@@ -3,7 +3,7 @@ package org.crumbleworks.forge.aTFC.wiring.items;
 import org.crumbleworks.forge.aTFC.content.Tags;
 import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.content.items.Bulky.Bulk;
-import org.crumbleworks.forge.aTFC.content.items.Weighty.Weight;
+import org.crumbleworks.forge.aTFC.content.items.Weighty;
 import org.crumbleworks.forge.aTFC.content.items.aTFCBaseItem;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
@@ -22,7 +22,7 @@ public class Clay implements Wireable {
     private static final String name = "clay";
 
     public static final RegistryObject<Item> CLAY_ITEM = ITEMS.register(name,
-            () -> new aTFCBaseItem(Bulk.SMALL, Weight.LIGHT,
+            () -> new aTFCBaseItem(Bulk.SMALL, Weighty.POUND,
                     new Item.Properties().group(ItemGroups.MATERIALS)));
 
     @Override

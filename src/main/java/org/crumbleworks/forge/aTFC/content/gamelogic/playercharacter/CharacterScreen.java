@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import org.crumbleworks.forge.aTFC.content.Colors;
 import org.crumbleworks.forge.aTFC.content.gamelogic.playerdata.ATFCPlayerData;
 import org.crumbleworks.forge.aTFC.content.gamelogic.playerdata.ATFCPlayerDataCapabilityProvider;
 import org.crumbleworks.forge.aTFC.content.gamelogic.playerdata.tastepreferences.TastePreference;
@@ -16,6 +15,7 @@ import org.crumbleworks.forge.aTFC.gui.BigBlankGui;
 import org.crumbleworks.forge.aTFC.gui.GuiHelper;
 import org.crumbleworks.forge.aTFC.gui.SideScreenGui;
 import org.crumbleworks.forge.aTFC.networking.Networking;
+import org.crumbleworks.forge.aTFC.utilities.Colors;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
@@ -198,10 +198,10 @@ public class CharacterScreen extends BigBlankGui {
             GuiHelper.writeText(matrixStack, font,
                     new TranslationTextComponent(
                             "gui.atfc.character.flavour_prefs.title"),
-                    5, 81, Colors.GUI_DARK);
+                    5, 82, Colors.GUI_DARK);
 
             int lineWidth = xSize - (2 * xOffset) - 3;
-            int yPos = 93;
+            int yPos = 94;
             StringBuilder line = new StringBuilder();
             for(String flavour : flavours) {
                 if(font.getStringWidth(
