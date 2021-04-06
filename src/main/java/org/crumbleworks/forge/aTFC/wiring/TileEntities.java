@@ -20,6 +20,7 @@ public class TileEntities {
 
     private static final List<TileEntityType<?>> tileEntityTypes = new ArrayList<>();
 
+    //FIXME move into according WiringAndEvents classes
     public static final TileEntityType<NonBlockPlacementTE> NON_BLOCK_PLACER_TE = TileEntityType.Builder
             .create(NonBlockPlacementTE::new,
                     TileEntitiesMappings.getMappings(NonBlockPlacementTE.class))
@@ -38,7 +39,7 @@ public class TileEntities {
         return Collections.unmodifiableList(tileEntityTypes);
     }
 
-    private static void register(String name,
+    public static void register(String name,
             TileEntityType<?> tileEntityType) {
         tileEntityType.setRegistryName(Main.MOD_ID + ":" + name);
         tileEntityTypes.add(tileEntityType);

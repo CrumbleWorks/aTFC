@@ -24,6 +24,7 @@ public class TileEntityRenderers {
 
     private static final List<Runnable> tileEntityRendererRegisterCallbacks = new ArrayList<>();
 
+    //FIXME move into according WiringAndEvents classes
     static {
         register(TileEntities.NON_BLOCK_PLACER_TE, NonBlockPlacementTER::new);
         register(TileEntities.BRICK_PLACER_TE, BrickPlacerTER::new);
@@ -34,7 +35,7 @@ public class TileEntityRenderers {
                 .unmodifiableList(tileEntityRendererRegisterCallbacks);
     }
 
-    private static <T extends TileEntity> void register(
+    public static <T extends TileEntity> void register(
             TileEntityType<T> type,
             Function<? super TileEntityRendererDispatcher, ? extends TileEntityRenderer<T>> renderer) {
         tileEntityRendererRegisterCallbacks.add(

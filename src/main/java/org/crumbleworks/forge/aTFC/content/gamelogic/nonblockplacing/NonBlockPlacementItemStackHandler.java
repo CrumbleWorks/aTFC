@@ -22,7 +22,7 @@ public class NonBlockPlacementItemStackHandler extends ItemStackHandler {
 
     @Override
     public boolean isItemValid(int slot, ItemStack stack) {
-        return stack.getItem() instanceof WorldPlaceableItem;
+        return stack.getItem() instanceof WorldPlaceable;
     }
 
     @Override

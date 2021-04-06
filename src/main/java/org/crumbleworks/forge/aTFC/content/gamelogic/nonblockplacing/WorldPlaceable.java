@@ -8,4 +8,4 @@ package org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplacing;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public interface WorldPlaceableItem {}
+public interface WorldPlaceable {}

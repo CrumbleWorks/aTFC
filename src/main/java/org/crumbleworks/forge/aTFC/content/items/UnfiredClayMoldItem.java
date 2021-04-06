@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class UnfiredClayMoldItem extends PlaceableItem {
+public class UnfiredClayMoldItem extends WorldPlaceableItem {
 
     public UnfiredClayMoldItem() {
         super(Bulk.MEDIUM, Weighty.TEN_POUND, new Item.Properties()
