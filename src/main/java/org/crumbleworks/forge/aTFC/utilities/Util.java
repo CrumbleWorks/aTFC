@@ -3,6 +3,9 @@ package org.crumbleworks.forge.aTFC.utilities;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -19,6 +22,8 @@ import net.minecraftforge.registries.ForgeRegistries;
  * @since CURRENT_VERSION
  */
 public class Util {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Util.class);
 
     public static final boolean isServerWorld(World world) {
         return world.isRemote() == false;
@@ -98,6 +103,11 @@ public class Util {
      * @return a number from 0 to 3
      */
     public static final int gridSlot2X2(double a, double b) {
-        return (Math.round(a) < a ? 1 : 0) + (Math.round(b) < b ? 2 : 0);
+        int _a = ((double)Math.round(a) < a ? 1 : 0);
+        int _b = ((double)Math.round(b) < b ? 2 : 0);
+        LOGGER.debug(
+                "Assigning Gridslot from vector-a: {}[rnd{}], vector-b: {}[rnd{}] -> {} + {} = {}",
+                a, (double)Math.round(a), b, (double)Math.round(b), _a, _b, _a + _b);
+        return _a + _b;
     }
 }

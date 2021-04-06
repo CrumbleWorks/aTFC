@@ -10,10 +10,14 @@ import net.minecraft.item.Item;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class ClayMoldItem extends PlaceableItem {
+public class UnfiredClayMoldItem extends PlaceableItem {
 
-    public ClayMoldItem() {
-        super(Bulk.SMALL, Weighty.TWO_POUND, new Item.Properties()
+    public UnfiredClayMoldItem() {
+        super(Bulk.MEDIUM, Weighty.TEN_POUND, new Item.Properties()
                 .group(ItemGroups.MOLDS).isImmuneToFire());
+    }
+    
+    public int getMaxStackSize() {
+        return 1;
     }
 }

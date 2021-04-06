@@ -34,8 +34,6 @@ public class NonBlockPlacementTE extends TileEntity {
     }
 
     public ItemStack insertItem(int slot, ItemStack item) {
-        System.out.println(" >>> PLACING ITEM SIR [slot:" + slot + "]");
-
         ItemStack resultStack = inventory.resolve().get().insertItem(slot,
                 item, false);
 
@@ -46,15 +44,12 @@ public class NonBlockPlacementTE extends TileEntity {
     }
 
     public ItemStack extractItem(int slot) {
-        System.out.println(" >>> REMOVING ITEM SIR [slot:" + slot + "]");
-
         NonBlockPlacementItemStackHandler _inventory = (NonBlockPlacementItemStackHandler)inventory
                 .resolve().get();
         ItemStack stack = _inventory.extractItem(slot, 1, false);
 
         markDirty();
         if(_inventory.isEmpty()) {
-            System.out.println(" >>> DESTROYING BLOCK SIR");
             world.setBlockState(pos, Blocks.AIR.getDefaultState(),
                     Constants.BlockFlags.DEFAULT);
         }

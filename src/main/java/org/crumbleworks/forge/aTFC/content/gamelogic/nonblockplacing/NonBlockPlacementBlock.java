@@ -84,7 +84,7 @@ public class NonBlockPlacementBlock extends aTFCBaseBlock
 
         NonBlockPlacementTE nbpte = (NonBlockPlacementTE)tileEntity;
         ItemStack itemstack = player.getHeldItem(handIn);
-        int targetSlot = Util.gridSlot2x2XY(hit);
+        int targetSlot = Util.gridSlot2x2XZ(hit);
         if(itemstack.isEmpty()) { // holding nothing
             player.setHeldItem(handIn, nbpte.extractItem(targetSlot));
             return ActionResultType.CONSUME;

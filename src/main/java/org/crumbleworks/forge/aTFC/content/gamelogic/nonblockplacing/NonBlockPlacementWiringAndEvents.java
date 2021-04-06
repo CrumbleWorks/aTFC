@@ -76,7 +76,7 @@ public class NonBlockPlacementWiringAndEvents implements Wireable {
             }
 
             NonBlockPlacementTE nbpte = (NonBlockPlacementTE)te;
-            int targetSlot = Util.gridSlot2x2XY(event.getHitVec());
+            int targetSlot = Util.gridSlot2x2XZ(event.getHitVec());
             if(player.isCreative()) {
                 nbpte.insertItem(targetSlot, itemstack.copy());
             } else {

@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
@@ -46,8 +47,12 @@ public class NonBlockPlacementTER extends TileEntityRenderer<NonBlockPlacementTE
         //FIXME call renderer for each item stored in tileEntityIn, offset to the 4 corners of the block
         
         matrixStack.push(); // push the current transformation matrix + normals matrix
-        int wireframeColor = Colors.TEXT_PURPLE;
 
+        //TODO impl: https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/mapping-and-modding-tutorials/1571543-forge-rendering-an-item-on-your-block
+        ItemEntity entItem = null;
+        
+        //TODO remove below old render...
+        int wireframeColor = Colors.TEXT_PURPLE;
         drawTetrahedronWireframe(matrixStack, buffer, wireframeColor);
         matrixStack.pop(); // restore the original transformation matrix + normals matrix
     }
