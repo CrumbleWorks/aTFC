@@ -1,4 +1,6 @@
-package org.crumbleworks.forge.aTFC.content.gamelogic.brickdrying;
+package org.crumbleworks.forge.aTFC.content.gamelogic.drying.bricks;
+
+import org.crumbleworks.forge.aTFC.content.capabilities.atfcItemHandler;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
@@ -10,7 +12,8 @@ import net.minecraftforge.items.ItemStackHandler;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class BrickDryingItemStackHandler extends ItemStackHandler {
+public class BrickDryingItemStackHandler extends ItemStackHandler
+        implements atfcItemHandler {
 
     public BrickDryingItemStackHandler() {
         super(4);
@@ -18,7 +21,7 @@ public class BrickDryingItemStackHandler extends ItemStackHandler {
 
     @Override
     public boolean isItemValid(int slot, ItemStack stack) {
-        return stack.getItem() instanceof DryableBrickItem;
+        return stack.getItem() instanceof DryableBrick;
     }
 
     @Override

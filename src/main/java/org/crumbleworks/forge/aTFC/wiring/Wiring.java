@@ -10,11 +10,13 @@ import org.crumbleworks.forge.aTFC.wiring.blocks.Soil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 
@@ -34,6 +36,7 @@ public abstract class Wiring {
     static {
         registries.add(Wireable.BLOCKS);
         registries.add(Wireable.ITEMS);
+        registries.add(Wireable.TILE_ENTITIES);
     }
 
     public static final Set<Wireable> wireUp() {
@@ -67,21 +70,35 @@ public abstract class Wiring {
         return wireables;
     }
 
-    @Mod.EventBusSubscriber(modid = Main.MOD_ID, bus = Bus.MOD)
-    static final class ModEvents {
-        // TileEntities refer to the Blocks that they can be attached to, thus
-        // they need to be loaded after the blocks
+    @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Main.MOD_ID,
+            bus = Bus.MOD)
+    static final class ClientModEvents {
+
         @SubscribeEvent
-        public static void onTileEntityTypeRegistration(
-                final RegistryEvent.Register<TileEntityType<?>> event) {
-            
-            TileEntitiesMappings tem = new TileEntitiesMappings();
+        public static void registerTileEntityRenderers(
+                FMLClientSetupEvent event) {
+            TileEntityRenderers ter = new TileEntityRenderers();
             for(Wireable wireable : Main.wireables) {
-                wireable.registerTileEntities(tem);
+                wireable.registerTileEntityRenderers(ter);
             }
-            
-            for(TileEntityType<?> tet : TileEntities.getTETs()) {
-                event.getRegistry().register(tet);
+
+            for(Runnable r : ter.getTERRCs()) {
+                r.run();
+            }
+        }
+
+        @SubscribeEvent
+        public static void registerItemProperties(FMLClientSetupEvent event) {
+            for(Wireable wireable : Main.wireables) {
+                wireable.registerItemProperties();
+            }
+        }
+
+        @SubscribeEvent
+        public static void registerSpecialModels(ModelRegistryEvent event) {
+            ModelLoader ml = ModelLoader.instance();
+            for(Wireable wireable : Main.wireables) {
+                wireable.registerSpecialModels(ml);
             }
         }
     }

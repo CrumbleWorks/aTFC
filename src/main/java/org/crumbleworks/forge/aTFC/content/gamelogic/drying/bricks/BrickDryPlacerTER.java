@@ -1,4 +1,7 @@
-package org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplacing;
+package org.crumbleworks.forge.aTFC.content.gamelogic.drying.bricks;
+
+import org.crumbleworks.forge.aTFC.content.gamelogic.drying.DryingCapabilityProvider;
+import org.crumbleworks.forge.aTFC.content.items.CurableBrickItem;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
@@ -10,7 +13,6 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.items.IItemHandler;
 
 
@@ -20,24 +22,20 @@ import net.minecraftforge.items.IItemHandler;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class NonBlockPlacementTER
-        extends TileEntityRenderer<NonBlockPlacementTE> {
+public class BrickDryPlacerTER extends TileEntityRenderer<BrickDryPlacerTE> {
 
-    public NonBlockPlacementTER(
+    public BrickDryPlacerTER(
             TileEntityRendererDispatcher rendererDispatcherIn) {
         super(rendererDispatcherIn);
     }
 
     @Override
-    public void render(NonBlockPlacementTE tileEntity, float partialTicks,
+    public void render(BrickDryPlacerTE tileEntity, float partialTicks,
             MatrixStack matrixStack, IRenderTypeBuffer buffer,
             int combinedLight, int combinedOverlay) {
 
         matrixStack.push();
 
-        //FIXME this is only valid for 4 small items, need additional code in case of large item
-        // -> make item bigger and render in center
-        
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         IItemHandler inventory = tileEntity.inventory.resolve().get();
         for(int i = 0 ; i < inventory.getSlots() ; i++) {
@@ -58,24 +56,19 @@ public class NonBlockPlacementTER
                 zTrans -= 0.5f;
             }
 
-            matrixStack.translate(xTrans, 0.33f, zTrans);
+            CurableBrickItem item = (CurableBrickItem)stack.getItem();
+            float dryingProgress = stack
+                    .getCapability(DryingCapabilityProvider.CAPABILITY_DRYING)
+                    .resolve().get().getDryingProgress();
 
-            //Rotate towards player position; looks shit when too close..
-//            BlockPos tePos = tileEntityIn.getPos();
-//            PlayerEntity player = Minecraft.getInstance().player;
-//            double xDir = player.getPosX() - tePos.getX();
-//            double zDir = player.getPosZ() - tePos.getZ();
-//            float rotationYaw = MathHelper.wrapDegrees((float)(MathHelper.atan2(zDir, xDir) * (double)(180F / (float)Math.PI)) - 90.0F);
-//            matrixStack.rotate(Vector3f.YN.rotationDegrees(rotationYaw));
-            
-            //Rotate counter to player facing; looks shit on screen corner/far away
-            matrixStack.rotate(Vector3f.YN.rotationDegrees(
-                    Minecraft.getInstance().player.rotationYawHead));
+            matrixStack.translate(xTrans, item.renderYOffset(), zTrans);
 
-            IBakedModel bakedModel = itemRenderer.getItemModelWithOverrides(
-                    stack, tileEntity.getWorld(), null);
+            IBakedModel bakedModel = Minecraft.getInstance().getModelManager()
+                    .getModel(dryingProgress < item.dryingThreshold()
+                            ? item.uncuredBrickModel()
+                            : item.curedBrickModel());
             itemRenderer.renderItem(stack,
-                    ItemCameraTransforms.TransformType.GROUND, true,
+                    ItemCameraTransforms.TransformType.FIXED, true,
                     matrixStack, buffer, combinedLight, combinedOverlay,
                     bakedModel);
 

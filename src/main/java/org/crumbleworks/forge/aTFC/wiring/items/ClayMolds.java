@@ -93,7 +93,6 @@ public class ClayMolds implements Wireable {
                 .texture("layer0", im
                         .modLoc("tfctng/items/ceramics/unfired/mold/"
                                 + tngMoldName));
-
     }
 
     @Override

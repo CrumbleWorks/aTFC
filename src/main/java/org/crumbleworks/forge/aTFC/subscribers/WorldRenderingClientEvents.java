@@ -2,6 +2,7 @@ package org.crumbleworks.forge.aTFC.subscribers;
 
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.worldgen.ContinentalCloudRenderHandler;
+import org.crumbleworks.forge.aTFC.worldgen.ContinentalSkyRenderHandler;
 import org.crumbleworks.forge.aTFC.worldgen.ContinentalWorldType;
 
 import net.minecraft.client.world.ClientWorld;
@@ -19,7 +20,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
  */
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Main.MOD_ID,
         bus = Bus.FORGE)
-public class ForgeRegisteringClientEvents {
+public class WorldRenderingClientEvents {
 
     @SubscribeEvent
     public static void registerRenderHandlers(WorldEvent.Load event) {
@@ -30,5 +31,7 @@ public class ForgeRegisteringClientEvents {
         ((ClientWorld)event.getWorld()).field_239131_x_
                 .setCloudRenderHandler(new ContinentalCloudRenderHandler(
                         ContinentalWorldType.CLOUD_LEVEL));
+        ((ClientWorld)event.getWorld()).field_239131_x_
+                .setSkyRenderHandler(new ContinentalSkyRenderHandler());
     }
 }

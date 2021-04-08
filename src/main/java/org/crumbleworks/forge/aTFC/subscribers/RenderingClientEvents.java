@@ -7,7 +7,6 @@ import org.crumbleworks.forge.aTFC.content.blocks.Multilayered;
 import org.crumbleworks.forge.aTFC.content.blocks.Tintable;
 import org.crumbleworks.forge.aTFC.dataGeneration.DynamicPainter;
 import org.crumbleworks.forge.aTFC.utilities.Util;
-import org.crumbleworks.forge.aTFC.wiring.TileEntityRenderers;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;
@@ -28,10 +27,11 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
  */
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Main.MOD_ID,
         bus = Bus.MOD)
-public final class ModRegisteringClientEvents {
+public final class RenderingClientEvents {
 
     @SubscribeEvent
     public static void registerTranslucency(FMLClientSetupEvent event) {
+        // Multilayer blocks
         Set<Block> blocks = Util.getBlocks(Multilayered.class);
         for(Block block : blocks) {
             RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
@@ -50,13 +50,5 @@ public final class ModRegisteringClientEvents {
         Set<Item> items = Util.getItems(Tintable.class);
         event.getItemColors().register(new DynamicPainter(),
                 items.toArray(new Item[items.size()]));
-    }
-
-    @SubscribeEvent
-    public static void registerTileEntityRenderers(
-            FMLClientSetupEvent event) {
-        for(Runnable r : TileEntityRenderers.getTERRCs()) {
-            r.run();
-        }
     }
 }

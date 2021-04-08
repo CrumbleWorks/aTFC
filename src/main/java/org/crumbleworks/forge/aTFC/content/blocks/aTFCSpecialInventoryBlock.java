@@ -1,20 +1,21 @@
-package org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplacing;
+package org.crumbleworks.forge.aTFC.content.blocks;
 
-import org.crumbleworks.forge.aTFC.content.Materials;
-import org.crumbleworks.forge.aTFC.content.blocks.aTFCBaseBlock;
+import java.util.function.Supplier;
+
+import org.crumbleworks.forge.aTFC.content.tileentities.aTFCSpecialInventoryTE;
 import org.crumbleworks.forge.aTFC.utilities.Util;
 import org.crumbleworks.forge.aTFC.utilities.aTFCInventoryHelper;
 
-import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.IWaterLoggable;
-import net.minecraft.block.SoundType;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -22,7 +23,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 /**
  * TODO
@@ -30,13 +31,18 @@ import net.minecraft.world.World;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class NonBlockPlacementBlock extends aTFCBaseBlock
-        implements IWaterLoggable {
+public class aTFCSpecialInventoryBlock extends aTFCBaseBlock {
 
-    public NonBlockPlacementBlock() {
-        super(AbstractBlock.Properties.create(Materials.ABSTRACT_BLOCKS)
-                .zeroHardnessAndResistance().sound(SoundType.GLASS)
-                .doesNotBlockMovement());
+    private final Supplier<TileEntity> teFactory;
+    private final Class<? extends aTFCSpecialInventoryTE> limiterClass;
+
+    public aTFCSpecialInventoryBlock(Properties properties,
+            Supplier<TileEntity> teFactory,
+            Class<? extends aTFCSpecialInventoryTE> limiterClass) {
+        super(properties);
+
+        this.teFactory = teFactory;
+        this.limiterClass = limiterClass;
     }
 
     // copy from AirBlock
@@ -66,7 +72,7 @@ public class NonBlockPlacementBlock extends aTFCBaseBlock
 
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new NonBlockPlacementTE();
+        return teFactory.get();
     }
 
     @Override
@@ -78,35 +84,86 @@ public class NonBlockPlacementBlock extends aTFCBaseBlock
         }
 
         TileEntity tileEntity = worldIn.getTileEntity(pos);
-        if(! (tileEntity instanceof NonBlockPlacementTE)) {
+        if(! (limiterClass.isInstance(tileEntity))) {
             return ActionResultType.PASS;
         }
 
-        NonBlockPlacementTE nbpte = (NonBlockPlacementTE)tileEntity;
+        aTFCSpecialInventoryTE te = (aTFCSpecialInventoryTE)tileEntity;
         ItemStack itemstack = player.getHeldItem(handIn);
         int targetSlot = Util.gridSlot2x2XZ(hit);
         if(itemstack.isEmpty()) { // holding nothing
-            player.setHeldItem(handIn, nbpte.extractItem(targetSlot));
+            player.setHeldItem(handIn, te.extractItem(targetSlot));
             return ActionResultType.CONSUME;
         }
-        
+
         if(player.isCreative()) {
-            nbpte.insertItem(targetSlot, itemstack.copy());
+            te.insertItem(targetSlot, itemstack.copy());
         } else {
             player.setHeldItem(handIn,
-                    nbpte.insertItem(targetSlot, itemstack));
+                    te.insertItem(targetSlot, itemstack));
         }
-        
+
         return ActionResultType.CONSUME;
+    }
+
+    public static void firstItemCreationLogic(
+            PlayerInteractEvent.RightClickBlock event, Block createdBlock,
+            Class<?> itemMarker) {
+        if(!Util.isServerWorld(event.getWorld())) {
+            return;
+        }
+
+        PlayerEntity player = event.getPlayer();
+        if(!player.isSneaking()) {
+            return;
+        }
+
+        ItemStack itemstack = event.getItemStack();
+        if(itemstack.isEmpty()) {
+            return;
+        }
+
+        Item item = itemstack.getItem();
+        if(! (itemMarker.isInstance(item))) {
+            return;
+        }
+
+        if(event.getFace() != Direction.UP) {
+            return;
+        }
+
+        if(!event.getWorld().getBlockState(event.getPos()).isSolidSide(
+                event.getWorld(), event.getPos(), Direction.UP)) {
+            return;
+        }
+
+        BlockPos placementPos = event.getPos().up();
+        event.getWorld().setBlockState(placementPos,
+                createdBlock.getDefaultState());
+        TileEntity te = event.getWorld().getTileEntity(placementPos);
+        if(! (te instanceof aTFCSpecialInventoryTE)) {
+            return;
+        }
+
+        aTFCSpecialInventoryTE specTe = (aTFCSpecialInventoryTE)te;
+        int targetSlot = Util.gridSlot2x2XZ(event.getHitVec());
+        if(player.isCreative()) {
+            specTe.insertItem(targetSlot, itemstack.copy());
+        } else {
+            player.setHeldItem(event.getHand(),
+                    specTe.insertItem(targetSlot, itemstack));
+        }
+
+        event.setCanceled(true);
     }
 
     @Override
     public void onReplaced(BlockState state, World worldIn, BlockPos pos,
             BlockState newState, boolean isMoving) {
         TileEntity tileEntity = worldIn.getTileEntity(pos);
-        if(tileEntity instanceof NonBlockPlacementTE) {
+        if(limiterClass.isInstance(tileEntity)) {
             aTFCInventoryHelper.dropInventoryItems(worldIn, pos,
-                    ((NonBlockPlacementTE)tileEntity).inventory.resolve()
+                    ((aTFCSpecialInventoryTE)tileEntity).inventory.resolve()
                             .get());
         }
 

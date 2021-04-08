@@ -1,5 +1,6 @@
 package org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplacing;
 
+import org.crumbleworks.forge.aTFC.content.capabilities.atfcItemHandler;
 import org.crumbleworks.forge.aTFC.content.items.Bulky;
 import org.crumbleworks.forge.aTFC.content.items.Bulky.Bulk;
 
@@ -14,7 +15,8 @@ import net.minecraftforge.items.ItemStackHandler;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class NonBlockPlacementItemStackHandler extends ItemStackHandler {
+public class NonBlockPlacementItemStackHandler extends ItemStackHandler
+        implements atfcItemHandler {
 
     public NonBlockPlacementItemStackHandler() {
         super(4);

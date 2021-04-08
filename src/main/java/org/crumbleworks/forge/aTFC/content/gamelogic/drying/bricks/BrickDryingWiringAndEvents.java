@@ -1,4 +1,4 @@
-package org.crumbleworks.forge.aTFC.content.gamelogic.nonblockplacing;
+package org.crumbleworks.forge.aTFC.content.gamelogic.drying.bricks;
 
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.content.Materials;
@@ -24,25 +24,22 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class NonBlockPlacementWiringAndEvents implements Wireable {
+public class BrickDryingWiringAndEvents implements Wireable {
 
-    private static final String name = "nonblockplacement";
+    private static final String name = "brick_drying";
 
-    public static final RegistryObject<Block> NONBLOCKPLACEMENT_BLOCK = BLOCKS
+    public static final RegistryObject<Block> BRICKDRYING_BLOCK = BLOCKS
             .register(name, () -> new aTFCSpecialInventoryBlock(
                     AbstractBlock.Properties.create(Materials.ABSTRACT_BLOCKS)
-                            .zeroHardnessAndResistance()
-                            .sound(SoundType.GLASS)
+                            .zeroHardnessAndResistance().sound(SoundType.BONE)
                             .doesNotBlockMovement(),
-                    () -> new NonBlockPlacementTE(),
-                    NonBlockPlacementTE.class));
+                    () -> new BrickDryPlacerTE(),
+                    BrickDryPlacerTE.class));
 
-    public static final RegistryObject<TileEntityType<NonBlockPlacementTE>> NON_BLOCK_PLACER_TE = TILE_ENTITIES
-            .register(name,
-                    () -> TileEntityType.Builder
-                            .create(NonBlockPlacementTE::new,
-                                    NONBLOCKPLACEMENT_BLOCK.get())
-                            .build(null));
+    public static final RegistryObject<TileEntityType<BrickDryPlacerTE>> BRICK_PLACER_TE = TILE_ENTITIES
+            .register(name, () -> TileEntityType.Builder
+                    .create(BrickDryPlacerTE::new, BRICKDRYING_BLOCK.get())
+                    .build(null));
 
     @Mod.EventBusSubscriber(modid = Main.MOD_ID, bus = Bus.FORGE)
     static final class ForgeEvents {
@@ -51,7 +48,7 @@ public class NonBlockPlacementWiringAndEvents implements Wireable {
         public static void createPlacementStorage(
                 PlayerInteractEvent.RightClickBlock event) {
             aTFCSpecialInventoryBlock.firstItemCreationLogic(event,
-                    NONBLOCKPLACEMENT_BLOCK.get(), WorldPlaceable.class);
+                    BRICKDRYING_BLOCK.get(), DryableBrick.class);
         }
     }
 
@@ -62,11 +59,11 @@ public class NonBlockPlacementWiringAndEvents implements Wireable {
 
     @Override
     public void generateBlockStates(BlockStates bs) {
-        bs.simpleState(name, NONBLOCKPLACEMENT_BLOCK.get());
+        bs.simpleState(name, BRICKDRYING_BLOCK.get());
     }
 
     @Override
     public void registerTileEntityRenderers(TileEntityRenderers ter) {
-        ter.register(NON_BLOCK_PLACER_TE.get(), NonBlockPlacementTER::new);
+        ter.register(BRICK_PLACER_TE.get(), BrickDryPlacerTER::new);
     }
 }

@@ -12,14 +12,14 @@ import net.minecraftforge.items.IItemHandler;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class aTFCInventoryHelper extends InventoryHelper {
+public class aTFCInventoryHelper {
 
     public static void dropInventoryItems(World worldIn, BlockPos pos,
             IItemHandler itemHandler) {
         for(int i = 0 ; i < itemHandler.getSlots() ; ++i) {
-            spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(),
-                    itemHandler.extractItem(i, itemHandler.getSlotLimit(i),
-                            false));
+            InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(),
+                    pos.getZ(), itemHandler.extractItem(i,
+                            itemHandler.getSlotLimit(i), false));
         }
     }
 }

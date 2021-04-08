@@ -22,7 +22,7 @@ public interface Bulky {
 
         /** Pebbles, small gems and such */
         TINY(64),
-        /** Can comfortably fit a human palm (e.g. a rock, a potato, ...) */
+        /** Can comfortably fit a human palm (e.g. a small rock, a potato, ...) */
         VERY_SMALL(32),
         /** Comparable to a human (fore)arm (e.g. sticks, a squash, ...) */
         SMALL(16),

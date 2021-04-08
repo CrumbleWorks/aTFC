@@ -23,6 +23,8 @@ public interface Weighty {
     public static int FIVE_POUND = 5 * POUND;
     /** around 4-5kg */
     public static int TEN_POUND = 10 * POUND;
+    /** around 9-10kg */
+    public static int TWENTY_POUND = 2 * TEN_POUND;
     /** around 25kg */
     public static int BUSHEL = 50 * POUND;
     /** around 50kg */

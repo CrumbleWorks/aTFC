@@ -22,7 +22,7 @@ public class Clay implements Wireable {
     private static final String name = "clay";
 
     public static final RegistryObject<Item> CLAY_ITEM = ITEMS.register(name,
-            () -> new aTFCBaseItem(Bulk.SMALL, Weighty.POUND,
+            () -> new aTFCBaseItem(Bulk.SMALL, Weighty.TWO_POUND,
                     new Item.Properties().group(ItemGroups.MATERIALS)));
 
     @Override

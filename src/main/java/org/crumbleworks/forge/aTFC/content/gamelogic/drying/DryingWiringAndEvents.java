@@ -1,10 +1,9 @@
-package org.crumbleworks.forge.aTFC.content.gamelogic.playerdata;
+package org.crumbleworks.forge.aTFC.content.gamelogic.drying;
 
 import org.crumbleworks.forge.aTFC.Main;
 import org.crumbleworks.forge.aTFC.wiring.Wireable;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -20,24 +19,21 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
  * @author Michael Stocker
  * @since CURRENT_VERSION
  */
-public class PlayerDataWiringAndEvents implements Wireable {
+public class DryingWiringAndEvents implements Wireable {
 
     @Mod.EventBusSubscriber(modid = Main.MOD_ID, bus = Bus.FORGE)
     static final class ForgeEvents {
 
         @SubscribeEvent
         public static void registerCapabilities(
-                AttachCapabilitiesEvent<Entity> event) {
-            if(! (event.getObject() instanceof PlayerEntity)) {
+                AttachCapabilitiesEvent<ItemStack> event) {
+            if(! (event.getObject().getItem() instanceof Dryable)) {
                 return;
             }
 
             event.addCapability(
-                    new ResourceLocation(Main.MOD_ID, "player_data"),
-                    new ATFCPlayerDataCapabilityProvider(
-                            event.getObject().getEntityWorld()
-                                    .getBiomeManager().seed,
-                            (PlayerEntity)event.getObject()));
+                    new ResourceLocation(Main.MOD_ID, "drying"),
+                    new DryingCapabilityProvider());
         }
     }
 
@@ -47,9 +43,9 @@ public class PlayerDataWiringAndEvents implements Wireable {
         @SubscribeEvent
         public static void registerCapabilityProvider(
                 FMLCommonSetupEvent event) {
-            CapabilityManager.INSTANCE.register(ATFCPlayerData.class,
-                    new ATFCPlayerDataImpl.ATFCPlayerDataImplStorage(),
-                    ATFCPlayerDataImpl::new);
+            CapabilityManager.INSTANCE.register(Drying.class,
+                    new DryingImpl.DryingImplStorage(),
+                    DryingImpl::new);
         }
     }
 }
