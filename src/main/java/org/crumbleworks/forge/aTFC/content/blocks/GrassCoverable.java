@@ -18,8 +18,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LightType;
 import net.minecraft.world.server.ServerWorld;
 
-import org.crumbleworks.forge.aTFC.content.blocks.BSP.GrassCoverage;
-
 /**
  * Marker and methods for blocks that can have grass growing on them (changing
  * their {@link BlockState}). Don't forget to call these methods from your
@@ -50,7 +48,7 @@ public interface GrassCoverable extends BSP {
         // Check if we have enough 'power' for spreading
         if(MINIMUM_LIGHTLEVEL_FOR_GRASSGROWING > sunlight) {
             if(MINIMUM_LIGHTLEVEL_FOR_GRASSKEEPING > sunlight) {
-                world.setBlockAndUpdate(pos, state.getBlock().defaultBlockState());
+                world.setBlockAndUpdate(pos, defaultState);
             }
 
             return;
@@ -79,14 +77,21 @@ public interface GrassCoverable extends BSP {
                 // check block above our targetblock; because that's what
                 // minecraft expects from you
                 .filter(b -> world.canSeeSky(b.above()))
+                // only spread to default blocks, non-defaults get their own chance to grow over
+                .filter(b -> {
+                    BlockState _state = world.getBlockState(b);
+                    return _state == _state.getBlock().defaultBlockState();
+                })
                 .collect(Collectors.toList());
         if(targets.isEmpty()) {
             return;
         }
 
+        // try spread
         Collections.shuffle(targets);
         spreadGrass(world, targets.get(0));
 
+        // try grow over
         spreadGrass(world, pos);
     }
 
