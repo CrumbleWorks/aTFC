@@ -1,21 +1,26 @@
 package org.crumbleworks.forge.aTFC.wiring.blocks;
 
-import org.crumbleworks.forge.aTFC.content.blocks.ClaySoilBlock;
+import org.crumbleworks.forge.aTFC.content.Materials;
+import org.crumbleworks.forge.aTFC.content.Tags;
+import org.crumbleworks.forge.aTFC.content.blocks.GrasscoverableBlock;
 import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 import org.crumbleworks.forge.aTFC.content.items.TintableBlockItem;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
+import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
-import org.crumbleworks.forge.aTFC.wiring.GrassCoverableBlock;
 import org.crumbleworks.forge.aTFC.wiring.items.Clay;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.item.Item;
 import net.minecraft.loot.ItemLootEntry;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.RandomValueRange;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 
 /**
@@ -30,11 +35,15 @@ public class ClaySoil extends GrassCoverableBlock {
     private static final int maxClayAmount = 3;
 
     public static final RegistryObject<Block> CLAYSOIL_BLOCK = BLOCKS
-            .register(name, () -> new ClaySoilBlock());
+            .register(name,
+                    () -> new GrasscoverableBlock(AbstractBlock.Properties
+                            .of(Materials.CLAY_SOIL)
+                            .strength(0.6F)
+                            .sound(SoundType.GRAVEL)
+                            .harvestTool(ToolType.SHOVEL)));
     public static final RegistryObject<Item> CLAYSOIL_ITEM = ITEMS.register(
-            name,
-            () -> new TintableBlockItem(CLAYSOIL_BLOCK.get(),
-                    new Item.Properties().group(ItemGroups.BLOCKS)));
+            name, () -> new TintableBlockItem(CLAYSOIL_BLOCK.get(),
+                    new Item.Properties().tab(ItemGroups.BLOCKS)));
 
     public ClaySoil() {
         super(name, CLAYSOIL_BLOCK);
@@ -53,11 +62,12 @@ public class ClaySoil extends GrassCoverableBlock {
     @Override
     public void generateLootTables(LootTables lt) {
         lt.addBlock(name,
-                LootTable.builder().addLootPool(LootPool.builder().name(name)
-                        .rolls(RandomValueRange.of(minClayAmount,
+                LootTable.lootTable().withPool(LootPool.lootPool()
+                        .name(name)
+                        .setRolls(RandomValueRange.between(minClayAmount,
                                 maxClayAmount))
-                        .addEntry(ItemLootEntry
-                                .builder(Clay.CLAY_ITEM.get()))));
+                        .add(ItemLootEntry
+                                .lootTableItem(Clay.CLAY_ITEM.get()))));
     }
 
     @Override
@@ -68,5 +78,10 @@ public class ClaySoil extends GrassCoverableBlock {
     @Override
     public void swissTranslations(Translations tr) {
         tr.add(CLAYSOIL_BLOCK.get(), "Lehmerd\u00e4");
+    }
+
+    @Override
+    public void registerForItemTags(ItemTags it) {
+        it.itemTagBuilder(Tags.Items.CLAY).add(CLAYSOIL_ITEM.get());
     }
 }

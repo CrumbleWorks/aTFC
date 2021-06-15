@@ -23,7 +23,7 @@ public interface BSP {
         NONE, TOP, SIDE, OPPOSITES, CORNER, USHAPE, HALO;
 
         @Override
-        public String getString() {
+        public String getSerializedName() {
             // need to match [a-z0-9_]+ (source: forge forums...)
             return name().toLowerCase();
         }

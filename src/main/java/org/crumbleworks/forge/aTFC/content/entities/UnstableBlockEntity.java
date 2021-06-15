@@ -41,28 +41,28 @@ public class UnstableBlockEntity extends FallingBlockEntity {
     private boolean isThisOrNeighbouringBlockOriginal(BlockPos blockpos,
             Block block) {
 
-        if(this.world.getBlockState(blockpos).isIn(block)) {
-            this.world.removeBlock(blockpos, false);
+        if(this.level.getBlockState(blockpos).is(block)) {
+            this.level.removeBlock(blockpos, false);
             return true;
         }
 
-        if(this.world.getBlockState(blockpos.north()).isIn(block)) {
-            this.world.removeBlock(blockpos.north(), false);
+        if(this.level.getBlockState(blockpos.north()).is(block)) {
+            this.level.removeBlock(blockpos.north(), false);
             return true;
         }
 
-        if(this.world.getBlockState(blockpos.east()).isIn(block)) {
-            this.world.removeBlock(blockpos.east(), false);
+        if(this.level.getBlockState(blockpos.east()).is(block)) {
+            this.level.removeBlock(blockpos.east(), false);
             return true;
         }
 
-        if(this.world.getBlockState(blockpos.south()).isIn(block)) {
-            this.world.removeBlock(blockpos.south(), false);
+        if(this.level.getBlockState(blockpos.south()).is(block)) {
+            this.level.removeBlock(blockpos.south(), false);
             return true;
         }
 
-        if(this.world.getBlockState(blockpos.west()).isIn(block)) {
-            this.world.removeBlock(blockpos.west(), false);
+        if(this.level.getBlockState(blockpos.west()).is(block)) {
+            this.level.removeBlock(blockpos.west(), false);
             return true;
         }
 
@@ -72,113 +72,113 @@ public class UnstableBlockEntity extends FallingBlockEntity {
     // Copy of the orig with our changes
     @Override
     public void tick() {
-        if(this.fallTile.isAir()) {
+        if(this.blockState.isAir()) {
             this.remove();
         } else {
-            Block block = this.fallTile.getBlock();
-            if(this.fallTime++ == 0) {
-                BlockPos blockpos = this.getPosition();
+            Block block = this.blockState.getBlock();
+            if(this.time++ == 0) {
+                BlockPos blockpos = this.blockPosition();
 
                 // THIS IS CHANGED
                 if(isThisOrNeighbouringBlockOriginal(blockpos, block)) {}
-                else if(!this.world.isRemote) {
+                else if(!this.level.isClientSide) {
                         this.remove();
                         return;
                     }
             }
 
-            if(!this.hasNoGravity()) {
-                this.setMotion(this.getMotion().add(0.0D, -0.04D, 0.0D));
+            if(!this.isNoGravity()) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.04D, 0.0D));
             }
 
-            this.move(MoverType.SELF, this.getMotion());
-            if(!this.world.isRemote) {
-                BlockPos blockpos1 = this.getPosition();
-                boolean flag = this.fallTile
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            if(!this.level.isClientSide) {
+                BlockPos blockpos1 = this.blockPosition();
+                boolean flag = this.blockState
                         .getBlock() instanceof ConcretePowderBlock;
-                boolean flag1 = flag && this.world.getFluidState(blockpos1)
-                        .isTagged(FluidTags.WATER);
-                double d0 = this.getMotion().lengthSquared();
+                boolean flag1 = flag && this.level.getFluidState(blockpos1)
+                        .is(FluidTags.WATER);
+                double d0 = this.getDeltaMovement().lengthSqr();
                 if(flag && d0 > 1.0D) {
-                    BlockRayTraceResult blockraytraceresult = this.world
-                            .rayTraceBlocks(new RayTraceContext(
-                                    new Vector3d(this.prevPosX, this.prevPosY,
-                                            this.prevPosZ),
-                                    this.getPositionVec(),
+                    BlockRayTraceResult blockraytraceresult = this.level
+                            .clip(new RayTraceContext(
+                                    new Vector3d(this.xo, this.yo,
+                                            this.zo),
+                                    this.position(),
                                     RayTraceContext.BlockMode.COLLIDER,
                                     RayTraceContext.FluidMode.SOURCE_ONLY,
                                     this));
                     if(blockraytraceresult
                             .getType() != RayTraceResult.Type.MISS
-                            && this.world
+                            && this.level
                                     .getFluidState(
-                                            blockraytraceresult.getPos())
-                                    .isTagged(FluidTags.WATER)) {
-                        blockpos1 = blockraytraceresult.getPos();
+                                            blockraytraceresult.getBlockPos())
+                                    .is(FluidTags.WATER)) {
+                        blockpos1 = blockraytraceresult.getBlockPos();
                         flag1 = true;
                     }
                 }
 
                 if(!this.onGround && !flag1) {
-                    if(!this.world.isRemote && (this.fallTime > 100
+                    if(!this.level.isClientSide && (this.time > 100
                             && (blockpos1.getY() < 1
                                     || blockpos1.getY() > 256)
-                            || this.fallTime > 600)) {
-                        if(this.shouldDropItem && this.world.getGameRules()
-                                .getBoolean(GameRules.DO_ENTITY_DROPS)) {
-                            this.entityDropItem(block);
+                            || this.time > 600)) {
+                        if(this.dropItem && this.level.getGameRules()
+                                .getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+                            this.spawnAtLocation(block);
                         }
 
                         this.remove();
                     }
                 } else {
-                    BlockState blockstate = this.world
+                    BlockState blockstate = this.level
                             .getBlockState(blockpos1);
-                    this.setMotion(this.getMotion().mul(0.7D, -0.5D, 0.7D));
-                    if(!blockstate.isIn(Blocks.MOVING_PISTON)) {
+                    this.setDeltaMovement(this.getDeltaMovement().multiply(0.7D, -0.5D, 0.7D));
+                    if(!blockstate.is(Blocks.MOVING_PISTON)) {
                         this.remove();
-                        if(!this.dontSetBlock) {
-                            boolean flag2 = blockstate.isReplaceable(
-                                    new DirectionalPlaceContext(this.world,
+                        if(!this.cancelDrop) {
+                            boolean flag2 = blockstate.canBeReplaced(
+                                    new DirectionalPlaceContext(this.level,
                                             blockpos1, Direction.DOWN,
                                             ItemStack.EMPTY, Direction.UP));
                             boolean flag3 = FallingBlock
-                                    .canFallThrough(this.world
-                                            .getBlockState(blockpos1.down()))
+                                    .isFree(this.level
+                                            .getBlockState(blockpos1.below()))
                                     && (!flag || !flag1);
-                            boolean flag4 = this.fallTile.isValidPosition(
-                                    this.world, blockpos1) && !flag3;
+                            boolean flag4 = this.blockState.canSurvive(
+                                    this.level, blockpos1) && !flag3;
                             if(flag2 && flag4) {
-                                if(this.fallTile.hasProperty(
+                                if(this.blockState.hasProperty(
                                         BlockStateProperties.WATERLOGGED)
-                                        && this.world.getFluidState(blockpos1)
-                                                .getFluid() == Fluids.WATER) {
-                                    this.fallTile = this.fallTile.with(
+                                        && this.level.getFluidState(blockpos1)
+                                                .getType() == Fluids.WATER) {
+                                    this.blockState = this.blockState.setValue(
                                             BlockStateProperties.WATERLOGGED,
                                             Boolean.valueOf(true));
                                 }
 
-                                if(this.world.setBlockState(blockpos1,
-                                        this.fallTile, 3)) {
+                                if(this.level.setBlock(blockpos1,
+                                        this.blockState, 3)) {
                                     if(block instanceof FallingBlock) {
-                                        ((FallingBlock)block).onEndFalling(
-                                                this.world, blockpos1,
-                                                this.fallTile, blockstate,
+                                        ((FallingBlock)block).onLand(
+                                                this.level, blockpos1,
+                                                this.blockState, blockstate,
                                                 this);
                                     }
 
-                                    if(this.tileEntityData != null
-                                            && this.fallTile
+                                    if(this.blockData != null
+                                            && this.blockState
                                                     .hasTileEntity()) {
-                                        TileEntity tileentity = this.world
-                                                .getTileEntity(blockpos1);
+                                        TileEntity tileentity = this.level
+                                                .getBlockEntity(blockpos1);
                                         if(tileentity != null) {
                                             CompoundNBT compoundnbt = tileentity
-                                                    .write(new CompoundNBT());
+                                                    .save(new CompoundNBT());
 
-                                            for(String s : this.tileEntityData
-                                                    .keySet()) {
-                                                INBT inbt = this.tileEntityData
+                                            for(String s : this.blockData
+                                                    .getAllKeys()) {
+                                                INBT inbt = this.blockData
                                                         .get(s);
                                                 if(!"x".equals(s)
                                                         && !"y".equals(s)
@@ -188,31 +188,31 @@ public class UnstableBlockEntity extends FallingBlockEntity {
                                                 }
                                             }
 
-                                            tileentity.read(this.fallTile,
+                                            tileentity.load(this.blockState,
                                                     compoundnbt);
-                                            tileentity.markDirty();
+                                            tileentity.setChanged();
                                         }
                                     }
-                                } else if(this.shouldDropItem && this.world
+                                } else if(this.dropItem && this.level
                                         .getGameRules().getBoolean(
-                                                GameRules.DO_ENTITY_DROPS)) {
-                                                    this.entityDropItem(
+                                                GameRules.RULE_DOENTITYDROPS)) {
+                                                    this.spawnAtLocation(
                                                             block);
                                                 }
-                            } else if(this.shouldDropItem
-                                    && this.world.getGameRules().getBoolean(
-                                            GameRules.DO_ENTITY_DROPS)) {
-                                                this.entityDropItem(block);
+                            } else if(this.dropItem
+                                    && this.level.getGameRules().getBoolean(
+                                            GameRules.RULE_DOENTITYDROPS)) {
+                                                this.spawnAtLocation(block);
                                             }
                         } else if(block instanceof FallingBlock) {
-                            ((FallingBlock)block).onBroken(this.world,
+                            ((FallingBlock)block).onBroken(this.level,
                                     blockpos1, this);
                         }
                     }
                 }
             }
 
-            this.setMotion(this.getMotion().scale(0.98D));
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.98D));
         }
     }
 }

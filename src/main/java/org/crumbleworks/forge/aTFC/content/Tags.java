@@ -32,8 +32,19 @@ public class Tags {
 
     public static class Items {
 
+        public static final IOptionalNamedTag<Item> CLAY = tag("clay");
+        public static final IOptionalNamedTag<Item> CLAY_BALL = tag("clay_ball");
+        public static final IOptionalNamedTag<Item> FLINT = tag("flint");
+        public static final IOptionalNamedTag<Item> GRAVEL = tag("gravel");
+        public static final IOptionalNamedTag<Item> SAND = tag("sand");
+        public static final IOptionalNamedTag<Item> SOIL = tag("soil");
+        
+        public static final IOptionalNamedTag<Item> CLAY_MOLD = tag("clay_mold");
+        
         public static final IOptionalNamedTag<Item> SHOVELS = tag(
                 "tools/shovels");
+        public static final IOptionalNamedTag<Item> HATCHETS = tag(
+                "tools/hatchets");
 
         private static IOptionalNamedTag<Item> tag(String name) {
             return ItemTags

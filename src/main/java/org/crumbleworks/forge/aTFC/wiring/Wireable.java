@@ -17,6 +17,8 @@ import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
 import net.minecraft.block.Block;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -36,6 +38,8 @@ public interface Wireable {
             .create(ForgeRegistries.BLOCKS, Main.MOD_ID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister
             .create(ForgeRegistries.ITEMS, Main.MOD_ID);
+    public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister
+            .create(ForgeRegistries.TILE_ENTITIES, Main.MOD_ID);
 
     default void generateBlockModels(BlockModels bm) {}
     default void generateItemModels(ItemModels im) {}
@@ -52,4 +56,8 @@ public interface Wireable {
     default void registerForEntityTypeTags(EntityTypeTags et) {}
     
     default void registerRecipes(Recipes re, Consumer<IFinishedRecipe> consumer) {}
+    
+    default void registerTileEntityRenderers(TileEntityRenderers ter) {}
+    default void registerSpecialModels(ModelLoader ml) {}
+    default void registerItemProperties() {}
 }

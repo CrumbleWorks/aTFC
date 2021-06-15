@@ -1,7 +1,12 @@
 package org.crumbleworks.forge.aTFC.wiring.items;
 
+import org.crumbleworks.forge.aTFC.content.Tags;
 import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
+import org.crumbleworks.forge.aTFC.content.items.Bulky.Bulk;
+import org.crumbleworks.forge.aTFC.content.items.Weighty;
+import org.crumbleworks.forge.aTFC.content.items.aTFCBaseItem;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
+import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
 import org.crumbleworks.forge.aTFC.wiring.Wireable;
 
@@ -17,8 +22,8 @@ public class Flint implements Wireable {
     private static final String name = "flint";
 
     public static final RegistryObject<Item> FLINT_ITEM = ITEMS.register(name,
-            () -> new Item(
-                    new Item.Properties().group(ItemGroups.MATERIALS)));
+            () -> new aTFCBaseItem(Bulk.VERY_SMALL, Weighty.POUND,
+                    new Item.Properties().tab(ItemGroups.MATERIALS)));
 
     @Override
     public void generateItemModels(ItemModels im) {
@@ -35,5 +40,10 @@ public class Flint implements Wireable {
     @Override
     public void swissTranslations(Translations tr) {
         tr.add(FLINT_ITEM.get(), "F\\u00fc\\u00fcrstei");
+    }
+
+    @Override
+    public void registerForItemTags(ItemTags it) {
+        it.itemTagBuilder(Tags.Items.FLINT).add(FLINT_ITEM.get());
     }
 }

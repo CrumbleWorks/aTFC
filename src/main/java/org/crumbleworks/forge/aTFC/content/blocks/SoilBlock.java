@@ -8,10 +8,14 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
+import net.minecraft.entity.Entity;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
+
+import org.crumbleworks.forge.aTFC.content.blocks.BSP.GrassCoverage;
 
 /**
  * @author Michael Stocker
@@ -22,22 +26,22 @@ public class SoilBlock extends UnstableTintableBlock
 
     public SoilBlock() {
         super(AbstractBlock.Properties
-                .create(Materials.SOIL)
-                .hardnessAndResistance(0.5F)
-                .sound(SoundType.GROUND)
+                .of(Materials.SOIL)
+                .strength(0.5F)
+                .sound(SoundType.GRAVEL)
                 .harvestTool(ToolType.SHOVEL));
 
-        setDefaultState(stateContainer.getBaseState().with(COVERAGE,
+        registerDefaultState(stateDefinition.any().setValue(COVERAGE,
                 GrassCoverage.NONE));
     }
 
     @Override
-    protected void fillStateContainer(Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
         builder.add(PROPSET_GRASS_COVERABLE);
     }
 
     @Override
-    public boolean ticksRandomly(BlockState state) {
+    public boolean isRandomlyTicking(BlockState state) {
         return true;
     }
 
@@ -45,5 +49,16 @@ public class SoilBlock extends UnstableTintableBlock
     public void randomTick(BlockState state, ServerWorld worldIn,
             BlockPos pos, Random random) {
         tryGrowingGrass(state, worldIn, pos, random);
+    }
+
+    @Override
+    public SoundType getSoundType(BlockState state, IWorldReader world,
+            BlockPos pos, Entity entity) {
+        //if grass grows on the block
+        if(state != this.getBlock().defaultBlockState()) {
+            return SoundType.GRASS;
+        }
+
+        return super.getSoundType(state, world, pos, entity);
     }
 }

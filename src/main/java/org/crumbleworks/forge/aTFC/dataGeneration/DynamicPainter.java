@@ -1,6 +1,6 @@
 package org.crumbleworks.forge.aTFC.dataGeneration;
 
-import org.crumbleworks.forge.aTFC.content.Colors;
+import org.crumbleworks.forge.aTFC.utilities.Colors;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.color.IBlockColor;

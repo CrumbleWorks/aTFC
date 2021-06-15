@@ -9,6 +9,7 @@ import org.crumbleworks.forge.aTFC.dataGeneration.BlockModels;
 import org.crumbleworks.forge.aTFC.dataGeneration.BlockStates;
 import org.crumbleworks.forge.aTFC.dataGeneration.DynamicPainter;
 import org.crumbleworks.forge.aTFC.dataGeneration.ItemModels;
+import org.crumbleworks.forge.aTFC.dataGeneration.ItemTags;
 import org.crumbleworks.forge.aTFC.dataGeneration.LootTables;
 import org.crumbleworks.forge.aTFC.dataGeneration.Translations;
 import org.crumbleworks.forge.aTFC.wiring.Wireable;
@@ -41,14 +42,14 @@ public class Gravel implements Wireable {
     public static final RegistryObject<Block> GRAVEL_BLOCK = BLOCKS
             .register(name,
                     () -> new UnstableTintableBlock(AbstractBlock.Properties
-                            .create(Materials.GRAVEL)
-                            .hardnessAndResistance(0.6F)
-                            .sound(SoundType.GROUND)
+                            .of(Materials.GRAVEL)
+                            .strength(0.6F)
+                            .sound(SoundType.GRAVEL)
                             .harvestTool(ToolType.SHOVEL)));
     public static final RegistryObject<Item> GRAVEL_ITEM = ITEMS.register(
             name,
             () -> new TintableBlockItem(GRAVEL_BLOCK.get(),
-                    new Item.Properties().group(ItemGroups.BLOCKS)));
+                    new Item.Properties().tab(ItemGroups.BLOCKS)));
 
     @Override
     public void generateBlockModels(BlockModels bm) {
@@ -70,16 +71,16 @@ public class Gravel implements Wireable {
     @Override
     public void generateLootTables(LootTables lt) {
         lt.addBlock(name,
-                LootTable.builder().addLootPool(LootPool.builder().name(name)
-                        .rolls(ConstantRange.of(1))
-                        .addEntry(ItemLootEntry.builder(GRAVEL_ITEM.get())
-                                .weight(gravelWeight))
-                        .addEntry(ItemLootEntry
-                                .builder(Flint.FLINT_ITEM.get())
-                                .weight(flintWeight)
-                                .acceptCondition(MatchTool.builder(
-                                        ItemPredicate.Builder.create()
-                                                .tag(Tags.Items.SHOVELS))))));
+                LootTable.lootTable().withPool(LootPool.lootPool().name(name)
+                        .setRolls(ConstantRange.exactly(1))
+                        .add(ItemLootEntry.lootTableItem(GRAVEL_ITEM.get())
+                                .setWeight(gravelWeight))
+                        .add(ItemLootEntry
+                                .lootTableItem(Flint.FLINT_ITEM.get())
+                                .setWeight(flintWeight)
+                                .when(MatchTool.toolMatches(
+                                        ItemPredicate.Builder.item()
+                                                .of(Tags.Items.SHOVELS))))));
     }
 
     @Override
@@ -90,5 +91,10 @@ public class Gravel implements Wireable {
     @Override
     public void swissTranslations(Translations tr) {
         tr.add(GRAVEL_BLOCK.get(), "Gravel");
+    }
+
+    @Override
+    public void registerForItemTags(ItemTags it) {
+        it.itemTagBuilder(Tags.Items.GRAVEL).add(GRAVEL_ITEM.get());
     }
 }

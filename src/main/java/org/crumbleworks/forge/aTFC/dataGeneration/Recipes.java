@@ -38,7 +38,7 @@ public class Recipes extends RecipeProvider {
     }
 
     @Override
-    protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+    protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
         for(Wireable wireable : Main.wireables) {
             wireable.registerRecipes(this, consumer);
         }
@@ -51,58 +51,58 @@ public class Recipes extends RecipeProvider {
     public CookingRecipeBuilder cookingRecipe(Ingredient ingredient,
             IItemProvider result, float experience, int cookingTime,
             CookingRecipeSerializer<?> serializer) {
-        return CookingRecipeBuilder.cookingRecipe(ingredient, result,
+        return CookingRecipeBuilder.cooking(ingredient, result,
                 experience, cookingTime, serializer);
     }
 
     public CookingRecipeBuilder blastingRecipe(Ingredient ingredient,
             IItemProvider result, float experience, int cookingTime) {
-        return CookingRecipeBuilder.blastingRecipe(ingredient, result,
+        return CookingRecipeBuilder.blasting(ingredient, result,
                 experience, cookingTime);
     }
 
     public CookingRecipeBuilder smeltingRecipe(Ingredient ingredient,
             IItemProvider result, float experience, int cookingTime) {
-        return CookingRecipeBuilder.smeltingRecipe(ingredient, result,
+        return CookingRecipeBuilder.smelting(ingredient, result,
                 experience, cookingTime);
     }
 
     public CustomRecipeBuilder customRecipe(
             SpecialRecipeSerializer<?> serializer) {
-        return CustomRecipeBuilder.customRecipe(serializer);
+        return CustomRecipeBuilder.special(serializer);
     }
 
     public ShapedRecipeBuilder shapedRecipe(IItemProvider result, int count) {
-        return ShapedRecipeBuilder.shapedRecipe(result, count);
+        return ShapedRecipeBuilder.shaped(result, count);
     }
 
     public ShapedRecipeBuilder shapedRecipe(IItemProvider result) {
-        return ShapedRecipeBuilder.shapedRecipe(result);
+        return ShapedRecipeBuilder.shaped(result);
     }
 
     public ShapelessRecipeBuilder shapelessRecipe(IItemProvider result,
             int count) {
-        return ShapelessRecipeBuilder.shapelessRecipe(result, count);
+        return ShapelessRecipeBuilder.shapeless(result, count);
     }
 
     public ShapelessRecipeBuilder shapelessRecipe(IItemProvider result) {
-        return ShapelessRecipeBuilder.shapelessRecipe(result);
+        return ShapelessRecipeBuilder.shapeless(result);
     }
 
     public SingleItemRecipeBuilder stonecuttingRecipe(Ingredient ingredient,
             IItemProvider result) {
-        return SingleItemRecipeBuilder.stonecuttingRecipe(ingredient, result);
+        return SingleItemRecipeBuilder.stonecutting(ingredient, result);
     }
 
     public SingleItemRecipeBuilder stonecuttingRecipe(Ingredient ingredient,
             IItemProvider result, int count) {
-        return SingleItemRecipeBuilder.stonecuttingRecipe(ingredient, result,
+        return SingleItemRecipeBuilder.stonecutting(ingredient, result,
                 count);
     }
 
     public SmithingRecipeBuilder smithingRecipe(Ingredient base,
             Ingredient addition, Item output) {
-        return SmithingRecipeBuilder.smithingRecipe(base, addition, output);
+        return SmithingRecipeBuilder.smithing(base, addition, output);
     }
 
     /*
@@ -110,22 +110,22 @@ public class Recipes extends RecipeProvider {
      */
 
     public EnterBlockTrigger.Instance triggerWhenEnteringBlock(Block block) {
-        return RecipeProvider.enteredBlock(block);
+        return RecipeProvider.insideOf(block);
     }
 
     public InventoryChangeTrigger.Instance triggerWhenHasItem(
             IItemProvider item) {
-        return RecipeProvider.hasItem(item);
+        return RecipeProvider.has(item);
     }
 
-    public InventoryChangeTrigger.Instance triggerWhenHasAnyItemOf(
+    public InventoryChangeTrigger.Instance triggerWhenHasAnyOf(
             ITag<Item> tag) {
-        return RecipeProvider.hasItem(tag);
+        return RecipeProvider.has(tag);
     }
 
-    public InventoryChangeTrigger.Instance triggerWhenHasAnyItemOf(
+    public InventoryChangeTrigger.Instance triggerWhenHasAnyIn(
             ItemPredicate... predicate) {
-        return RecipeProvider.hasItem(predicate);
+        return RecipeProvider.inventoryTrigger(predicate);
     }
 
     @Override

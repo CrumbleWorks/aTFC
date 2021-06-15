@@ -15,7 +15,7 @@ This mod is different to...
 ### Contributors
 
 * [Michael "dot_Sp0T" Stocker](https://github.com/dotSp0T)
-* [Patrick "McDonnough" Bächli](https://github.com/McDonnough)
+* [Patrick "McDonnough" BÃ¤chli](https://github.com/McDonnough)
 
 ## Testers
 
@@ -97,6 +97,7 @@ Delete the `src/generated` directory or run `gradlew deleteGeneratedFiles`
 * **Modding with Forge 1.8**: https://www.youtube.com/playlist?list=PLiFAb_ju1TahVZ1uOer7T3m_17crt15kp
 
 * **Modding for 1.14.4+**: https://greyminecraftcoder.blogspot.com/p/list-of-topics-1144.html
+* **Modding for 1.14.x (TileEntities, Containers)**: https://www.youtube.com/watch?v=KdwxCrUYqmo&list=PLyseegEZ84-eMJ2YmFJTTBGectrdThC0a&index=12
 
 **Texturing**:
 - Multi-Texturing: https://mcmodhelp.fandom.com/wiki/Multi-Texturing_Blocks
@@ -110,13 +111,13 @@ Delete the `src/generated` directory or run `gradlew deleteGeneratedFiles`
 - https://github.com/TheGreyGhost/MinecraftByExample
 
 ### Umlauts
-Ä \u00c4  
-ä \u00e4  
-Ö \u00d6  
-ö \u00f6  
-Ü \u00dc  
-ü \u00fc  
-ß (sz) \u00df  
+Ã„ \u00c4  
+Ã¤ \u00e4  
+Ã– \u00d6  
+Ã¶ \u00f6  
+Ãœ \u00dc  
+Ã¼ \u00fc  
+ÃŸ (sz) \u00df
 
 
 [1]: https://plus.terrafirmacraft.com/

@@ -10,6 +10,13 @@ import org.crumbleworks.forge.aTFC.wiring.blocks.Soil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 
@@ -29,6 +36,7 @@ public abstract class Wiring {
     static {
         registries.add(Wireable.BLOCKS);
         registries.add(Wireable.ITEMS);
+        registries.add(Wireable.TILE_ENTITIES);
     }
 
     public static final Set<Wireable> wireUp() {
@@ -41,10 +49,11 @@ public abstract class Wiring {
         // only static stuff...)
         Set<Wireable> wireables = new HashSet<>();
         for(Class<? extends Wireable> subType : subTypes) {
-            if(subType.isInterface() || Modifier.isAbstract(subType.getModifiers())) {
+            if(subType.isInterface()
+                    || Modifier.isAbstract(subType.getModifiers())) {
                 continue;
             }
-            
+
             try {
                 wireables.add(subType.getConstructor().newInstance());
             } catch(InstantiationException | IllegalAccessException
@@ -59,5 +68,38 @@ public abstract class Wiring {
         }
 
         return wireables;
+    }
+
+    @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Main.MOD_ID,
+            bus = Bus.MOD)
+    static final class ClientModEvents {
+
+        @SubscribeEvent
+        public static void registerTileEntityRenderers(
+                FMLClientSetupEvent event) {
+            TileEntityRenderers ter = new TileEntityRenderers();
+            for(Wireable wireable : Main.wireables) {
+                wireable.registerTileEntityRenderers(ter);
+            }
+
+            for(Runnable r : ter.getTERRCs()) {
+                r.run();
+            }
+        }
+
+        @SubscribeEvent
+        public static void registerItemProperties(FMLClientSetupEvent event) {
+            for(Wireable wireable : Main.wireables) {
+                wireable.registerItemProperties();
+            }
+        }
+
+        @SubscribeEvent
+        public static void registerSpecialModels(ModelRegistryEvent event) {
+            ModelLoader ml = ModelLoader.instance();
+            for(Wireable wireable : Main.wireables) {
+                wireable.registerSpecialModels(ml);
+            }
+        }
     }
 }
