@@ -23,7 +23,7 @@ public class Clay implements Wireable {
 
     public static final RegistryObject<Item> CLAY_ITEM = ITEMS.register(name,
             () -> new aTFCBaseItem(Bulk.SMALL, Weighty.TWO_POUND,
-                    new Item.Properties().group(ItemGroups.MATERIALS)));
+                    new Item.Properties().tab(ItemGroups.MATERIALS)));
 
     @Override
     public void generateItemModels(ItemModels im) {

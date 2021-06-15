@@ -36,7 +36,7 @@ public class StatsWiringAndEvents implements Wireable {
             if(oldGui instanceof StatsScreen
                     && ! (oldGui instanceof ATFCStatsScreen)) {
                 event.setGui(new ATFCStatsScreen(
-                        ((StatsScreen)oldGui).parentScreen,
+                        ((StatsScreen)oldGui).lastScreen,
                         Minecraft.getInstance().player.getStats()));
             }
         }

@@ -33,7 +33,7 @@ public class NonBlockPlacementTER
             MatrixStack matrixStack, IRenderTypeBuffer buffer,
             int combinedLight, int combinedOverlay) {
 
-        matrixStack.push();
+        matrixStack.pushPose();
 
         //FIXME this is only valid for 4 small items, need additional code in case of large item
         // -> make item bigger and render in center
@@ -46,7 +46,7 @@ public class NonBlockPlacementTER
                 continue;
             }
 
-            matrixStack.push();
+            matrixStack.pushPose();
 
             float xTrans = 0.75f;
             if(i % 2 == 1) {
@@ -69,19 +69,19 @@ public class NonBlockPlacementTER
 //            matrixStack.rotate(Vector3f.YN.rotationDegrees(rotationYaw));
             
             //Rotate counter to player facing; looks shit on screen corner/far away
-            matrixStack.rotate(Vector3f.YN.rotationDegrees(
-                    Minecraft.getInstance().player.rotationYawHead));
+            matrixStack.mulPose(Vector3f.YN.rotationDegrees(
+                    Minecraft.getInstance().player.yHeadRot));
 
-            IBakedModel bakedModel = itemRenderer.getItemModelWithOverrides(
-                    stack, tileEntity.getWorld(), null);
-            itemRenderer.renderItem(stack,
+            IBakedModel bakedModel = itemRenderer.getModel(
+                    stack, tileEntity.getLevel(), null);
+            itemRenderer.render(stack,
                     ItemCameraTransforms.TransformType.GROUND, true,
                     matrixStack, buffer, combinedLight, combinedOverlay,
                     bakedModel);
 
-            matrixStack.pop();
+            matrixStack.popPose();
         }
 
-        matrixStack.pop();
+        matrixStack.popPose();
     }
 }

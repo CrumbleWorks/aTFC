@@ -37,13 +37,13 @@ public class ClaySoil extends GrassCoverableBlock {
     public static final RegistryObject<Block> CLAYSOIL_BLOCK = BLOCKS
             .register(name,
                     () -> new GrasscoverableBlock(AbstractBlock.Properties
-                            .create(Materials.CLAY_SOIL)
-                            .hardnessAndResistance(0.6F)
-                            .sound(SoundType.GROUND)
+                            .of(Materials.CLAY_SOIL)
+                            .strength(0.6F)
+                            .sound(SoundType.GRAVEL)
                             .harvestTool(ToolType.SHOVEL)));
     public static final RegistryObject<Item> CLAYSOIL_ITEM = ITEMS.register(
             name, () -> new TintableBlockItem(CLAYSOIL_BLOCK.get(),
-                    new Item.Properties().group(ItemGroups.BLOCKS)));
+                    new Item.Properties().tab(ItemGroups.BLOCKS)));
 
     public ClaySoil() {
         super(name, CLAYSOIL_BLOCK);
@@ -62,12 +62,12 @@ public class ClaySoil extends GrassCoverableBlock {
     @Override
     public void generateLootTables(LootTables lt) {
         lt.addBlock(name,
-                LootTable.builder().addLootPool(LootPool.builder()
+                LootTable.lootTable().withPool(LootPool.lootPool()
                         .name(name)
-                        .rolls(RandomValueRange.of(minClayAmount,
+                        .setRolls(RandomValueRange.between(minClayAmount,
                                 maxClayAmount))
-                        .addEntry(ItemLootEntry
-                                .builder(Clay.CLAY_ITEM.get()))));
+                        .add(ItemLootEntry
+                                .lootTableItem(Clay.CLAY_ITEM.get()))));
     }
 
     @Override

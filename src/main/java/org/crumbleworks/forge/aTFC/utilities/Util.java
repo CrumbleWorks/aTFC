@@ -26,7 +26,7 @@ public class Util {
     private static final Logger LOGGER = LoggerFactory.getLogger(Util.class);
 
     public static final boolean isServerWorld(World world) {
-        return world.isRemote() == false;
+        return world.isClientSide() == false;
     }
 
     public static final void sendMessageToAllPlayers(World world,
@@ -36,7 +36,7 @@ public class Util {
 
     public static final void sendMessageToAllPlayers(World world,
             ITextComponent message) {
-        for(PlayerEntity player : world.getPlayers()) {
+        for(PlayerEntity player : world.players()) {
             player.sendMessage(message, null);
         }
     }
@@ -74,15 +74,15 @@ public class Util {
     }
 
     public static final int gridSlot2x2XZ(RayTraceResult rtr) {
-        return gridSlot2X2(rtr.getHitVec().x, rtr.getHitVec().z);
+        return gridSlot2X2(rtr.getLocation().x, rtr.getLocation().z);
     }
 
     public static final int gridSlot2x2XY(RayTraceResult rtr) {
-        return gridSlot2X2(rtr.getHitVec().x, rtr.getHitVec().y);
+        return gridSlot2X2(rtr.getLocation().x, rtr.getLocation().y);
     }
 
     public static final int gridSlot2x2ZY(RayTraceResult rtr) {
-        return gridSlot2X2(rtr.getHitVec().z, rtr.getHitVec().y);
+        return gridSlot2X2(rtr.getLocation().z, rtr.getLocation().y);
     }
 
     /**

@@ -48,28 +48,28 @@ public class ATFCStatsScreen extends StatsScreen {
                 80, 20,
                 new TranslationTextComponent("menu.atfc.stats.atfc_tab"),
                 (button) -> {
-                    this.func_213110_a(this.ourStats);
+                    this.setActiveList(this.ourStats);
                 }));
         this.addButton(new Button(
                 this.width / 2 - 80, this.height - 52,
                 80, 20,
                 new TranslationTextComponent("stat.generalButton"),
                 (button) -> {
-                    this.func_213110_a(this.generalStats);
+                    this.setActiveList(this.statsList);
                 }));
         Button itemStatsButton = this.addButton(new Button(
                 this.width / 2, this.height - 52,
                 80, 20,
                 new TranslationTextComponent("stat.itemsButton"),
                 (button) -> {
-                    this.func_213110_a(this.itemStats);
+                    this.setActiveList(this.itemStatsList);
                 }));
         Button mobStatsButton = this.addButton(new Button(
                 this.width / 2 + 80, this.height - 52,
                 80, 20,
                 new TranslationTextComponent("stat.mobsButton"),
                 (button) -> {
-                    this.func_213110_a(this.mobStats);
+                    this.setActiveList(this.mobsStatsList);
                 }));
 
 
@@ -78,31 +78,31 @@ public class ATFCStatsScreen extends StatsScreen {
                 200, 20,
                 DialogTexts.GUI_DONE,
                 (button) -> {
-                    this.minecraft.displayGuiScreen(this.parentScreen);
+                    this.minecraft.setScreen(this.lastScreen);
                 }));
 
 
-        if(this.itemStats.getEventListeners().isEmpty()) {
+        if(this.itemStatsList.children().isEmpty()) {
             itemStatsButton.active = false;
         }
 
-        if(this.mobStats.getEventListeners().isEmpty()) {
+        if(this.mobsStatsList.children().isEmpty()) {
             mobStatsButton.active = false;
         }
     }
 
     public void onStatsUpdated() {
-        if(this.doesGuiPauseGame) {
+        if(this.isLoading) {
             this.initLists();
             this.initButtons();
-            this.func_213110_a(super.generalStats);
-            this.doesGuiPauseGame = false;
+            this.setActiveList(super.statsList);
+            this.isLoading = false;
         }
     }
 
-    public void func_213110_a(@Nullable ExtendedList<?> p_213110_1_) {
+    public void setActiveList(@Nullable ExtendedList<?> p_213110_1_) {
         this.children.remove(this.ourStats);
-        super.func_213110_a(p_213110_1_);
+        super.setActiveList(p_213110_1_);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -121,8 +121,8 @@ public class ATFCStatsScreen extends StatsScreen {
 
             objectarraylist
                     .sort(java.util.Comparator.comparing((p_238679_0_) -> {
-                        return I18n.format(
-                                StatsScreen.func_238672_b_(p_238679_0_));
+                        return I18n.get(
+                                StatsScreen.getTranslationKey(p_238679_0_));
                     }));
 
             for(Stat<ResourceLocation> stat : objectarraylist) {
@@ -145,7 +145,7 @@ public class ATFCStatsScreen extends StatsScreen {
             private Entry(Stat<ResourceLocation> stat) {
                 this.stat = stat;
                 this.displayText = new TranslationTextComponent(
-                        StatsScreen.func_238672_b_(stat));
+                        StatsScreen.getTranslationKey(stat));
             }
 
             public void render(MatrixStack matStack, int index,
@@ -159,7 +159,7 @@ public class ATFCStatsScreen extends StatsScreen {
                         ATFCStatsScreen.this.stats.getValue(this.stat));
                 AbstractGui.drawString(matStack, ATFCStatsScreen.this.font, s,
                         left + 2 + 213
-                                - ATFCStatsScreen.this.font.getStringWidth(s),
+                                - ATFCStatsScreen.this.font.width(s),
                         top + 1,
                         index % 2 == 0 ? 16777215 : 9474192);
             }

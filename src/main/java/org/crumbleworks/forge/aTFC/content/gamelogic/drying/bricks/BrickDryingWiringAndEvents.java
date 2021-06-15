@@ -30,15 +30,15 @@ public class BrickDryingWiringAndEvents implements Wireable {
 
     public static final RegistryObject<Block> BRICKDRYING_BLOCK = BLOCKS
             .register(name, () -> new aTFCSpecialInventoryBlock(
-                    AbstractBlock.Properties.create(Materials.ABSTRACT_BLOCKS)
-                            .zeroHardnessAndResistance().sound(SoundType.BONE)
-                            .doesNotBlockMovement(),
+                    AbstractBlock.Properties.of(Materials.ABSTRACT_BLOCKS)
+                            .instabreak().sound(SoundType.BONE_BLOCK)
+                            .noCollission(),
                     () -> new BrickDryPlacerTE(),
                     BrickDryPlacerTE.class));
 
     public static final RegistryObject<TileEntityType<BrickDryPlacerTE>> BRICK_PLACER_TE = TILE_ENTITIES
             .register(name, () -> TileEntityType.Builder
-                    .create(BrickDryPlacerTE::new, BRICKDRYING_BLOCK.get())
+                    .of(BrickDryPlacerTE::new, BRICKDRYING_BLOCK.get())
                     .build(null));
 
     @Mod.EventBusSubscriber(modid = Main.MOD_ID, bus = Bus.FORGE)

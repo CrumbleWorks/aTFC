@@ -27,20 +27,20 @@ public class ItemTags extends TagsProvider<Item> {
     }
 
     @Override
-    protected void registerTags() {
+    protected void addTags() {
         for(Wireable wireable : Main.wireables) {
             wireable.registerForItemTags(this);
         }
     }
     
     public TagsProvider.Builder<Item> itemTagBuilder(ITag.INamedTag<Item> tag) {
-        return getOrCreateBuilder(tag);
+        return tag(tag);
     }
 
     /**
      * Resolves a Path for the location to save the given tag.
      */
-    protected Path makePath(ResourceLocation id) {
+    protected Path getPath(ResourceLocation id) {
        return this.generator.getOutputFolder().resolve("data/" + id.getNamespace() + "/tags/items/" + id.getPath() + ".json");
     }
 

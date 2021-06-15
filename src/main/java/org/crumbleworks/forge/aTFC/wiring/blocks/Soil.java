@@ -34,7 +34,7 @@ public class Soil extends GrassCoverableBlock {
             .register(name, () -> new SoilBlock());
     public static final RegistryObject<Item> SOIL_ITEM = ITEMS.register(name,
             () -> new TintableBlockItem(SOIL_BLOCK.get(),
-                    new Item.Properties().group(ItemGroups.BLOCKS)));
+                    new Item.Properties().tab(ItemGroups.BLOCKS)));
 
     public Soil() {
         super(name, SOIL_BLOCK);
@@ -48,12 +48,12 @@ public class Soil extends GrassCoverableBlock {
     @Override
     public void generateLootTables(LootTables lt) {
         lt.addBlock(name,
-                LootTable.builder().addLootPool(LootPool.builder().name(name)
-                        .rolls(ConstantRange.of(1))
-                        .addEntry(ItemLootEntry.builder(SOIL_ITEM.get())
-                                .weight(dirtWeight))
-                        .addEntry(ItemLootEntry.builder(Clay.CLAY_ITEM.get())
-                                .weight(clayWeight))));
+                LootTable.lootTable().withPool(LootPool.lootPool().name(name)
+                        .setRolls(ConstantRange.exactly(1))
+                        .add(ItemLootEntry.lootTableItem(SOIL_ITEM.get())
+                                .setWeight(dirtWeight))
+                        .add(ItemLootEntry.lootTableItem(Clay.CLAY_ITEM.get())
+                                .setWeight(clayWeight))));
     }
 
     @Override

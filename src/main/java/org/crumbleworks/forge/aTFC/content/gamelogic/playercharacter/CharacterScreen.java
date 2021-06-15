@@ -69,9 +69,9 @@ public class CharacterScreen extends BigBlankGui {
     }
 
     @Override
-    public void onClose() {
+    public void removed() {
         playerData = null;
-        super.onClose();
+        super.removed();
     }
 
     @Override
@@ -98,7 +98,7 @@ public class CharacterScreen extends BigBlankGui {
         private static final String ENJOYED = "§a+§r";
         private static final String LOVED = "§a++§r";
 
-        private int threeDigs = font.getStringWidth("999");
+        private int threeDigs = font.width("999");
         private int textStart = (xSize / 3);
         private int barStart = textStart + threeDigs;
         private int barWidth = (xSize / 3 * 2) - (2 * threeDigs) - (4 * 2);
@@ -204,7 +204,7 @@ public class CharacterScreen extends BigBlankGui {
             int yPos = 94;
             StringBuilder line = new StringBuilder();
             for(String flavour : flavours) {
-                if(font.getStringWidth(
+                if(font.width(
                         line.toString() + flavour) > lineWidth) {
                     GuiHelper.writeText(matrixStack, font,
                             new StringTextComponent(line.toString()),
@@ -226,7 +226,7 @@ public class CharacterScreen extends BigBlankGui {
             GuiHelper.writeText(matrixStack, font,
                     new StringTextComponent(
                             String.format("%s", text.getString())),
-                    textStart - 2 - font.getStringWidth(text.getString()),
+                    textStart - 2 - font.width(text.getString()),
                     y, Colors.GUI_DARK);
 
             drawTasteBar(matrixStack, y, min, max, taste);
@@ -239,7 +239,7 @@ public class CharacterScreen extends BigBlankGui {
             GuiHelper.writeText(matrixStack, font,
                     new StringTextComponent(
                             String.format("%s", String.valueOf(min))),
-                    barStart - 1 - font.getStringWidth(String.valueOf(min)),
+                    barStart - 1 - font.width(String.valueOf(min)),
                     y, Colors.WHITE);
 
             GuiHelper.writeText(matrixStack, font,

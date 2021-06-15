@@ -27,20 +27,20 @@ public class BlockTags extends TagsProvider<Block> {
     }
 
     @Override
-    protected void registerTags() {
+    protected void addTags() {
         for(Wireable wireable : Main.wireables) {
             wireable.registerForBlockTags(this);
         }
     }
     
     public TagsProvider.Builder<Block> blockTagBuilder(ITag.INamedTag<Block> tag) {
-        return getOrCreateBuilder(tag);
+        return tag(tag);
     }
 
     /**
      * Resolves a Path for the location to save the given tag.
      */
-    protected Path makePath(ResourceLocation id) {
+    protected Path getPath(ResourceLocation id) {
        return this.generator.getOutputFolder().resolve("data/" + id.getNamespace() + "/tags/blocks/" + id.getPath() + ".json");
     }
 

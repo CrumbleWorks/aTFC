@@ -25,7 +25,7 @@ import net.minecraft.util.registry.SimpleRegistry;
 public class aTFCStats {
 
     public static final RegistryKey<Registry<ResourceLocation>> ATFC_STAT_KEY = RegistryKey
-            .getOrCreateRootKey(
+            .createRegistryKey(
                     new ResourceLocation(Main.MOD_ID, "atfc_stat"));
     public static final Registry<ResourceLocation> ATFC_STAT = addRegistry(
             ATFC_STAT_KEY,
@@ -37,9 +37,9 @@ public class aTFCStats {
     private static <T, R extends MutableRegistry<T>> R addRegistry(
             RegistryKey<? extends Registry<T>> registryKey, R instance,
             Supplier<T> objectSupplier, Lifecycle lifecycle) {
-        ResourceLocation resourcelocation = registryKey.getLocation();
-        Registry.REGISTRY_NAME_TO_DEFAULT.put(resourcelocation, objectSupplier);
-        MutableRegistry<R> mutableregistry = (MutableRegistry<R>)Registry.ROOT_REGISTRY;
+        ResourceLocation resourcelocation = registryKey.location();
+        Registry.LOADERS.put(resourcelocation, objectSupplier);
+        MutableRegistry<R> mutableregistry = (MutableRegistry<R>)Registry.WRITABLE_REGISTRY;
         return (R)mutableregistry.register((RegistryKey)registryKey, instance,
                 lifecycle);
     }

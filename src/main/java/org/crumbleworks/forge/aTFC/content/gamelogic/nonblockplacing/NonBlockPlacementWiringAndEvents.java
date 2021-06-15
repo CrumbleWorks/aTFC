@@ -30,17 +30,17 @@ public class NonBlockPlacementWiringAndEvents implements Wireable {
 
     public static final RegistryObject<Block> NONBLOCKPLACEMENT_BLOCK = BLOCKS
             .register(name, () -> new aTFCSpecialInventoryBlock(
-                    AbstractBlock.Properties.create(Materials.ABSTRACT_BLOCKS)
-                            .zeroHardnessAndResistance()
+                    AbstractBlock.Properties.of(Materials.ABSTRACT_BLOCKS)
+                            .instabreak()
                             .sound(SoundType.GLASS)
-                            .doesNotBlockMovement(),
+                            .noCollission(),
                     () -> new NonBlockPlacementTE(),
                     NonBlockPlacementTE.class));
 
     public static final RegistryObject<TileEntityType<NonBlockPlacementTE>> NON_BLOCK_PLACER_TE = TILE_ENTITIES
             .register(name,
                     () -> TileEntityType.Builder
-                            .create(NonBlockPlacementTE::new,
+                            .of(NonBlockPlacementTE::new,
                                     NONBLOCKPLACEMENT_BLOCK.get())
                             .build(null));
 

@@ -36,14 +36,14 @@ public class Sand implements Wireable {
     public static final RegistryObject<Block> SAND_BLOCK = BLOCKS
             .register(name,
                     () -> new UnstableTintableBlock(AbstractBlock.Properties
-                            .create(Materials.SAND)
-                            .hardnessAndResistance(0.5F)
+                            .of(Materials.SAND)
+                            .strength(0.5F)
                             .sound(SoundType.SAND)
                             .harvestTool(ToolType.SHOVEL)));
     public static final RegistryObject<Item> SAND_ITEM = ITEMS.register(
             name,
             () -> new TintableBlockItem(SAND_BLOCK.get(),
-                    new Item.Properties().group(ItemGroups.BLOCKS)));
+                    new Item.Properties().tab(ItemGroups.BLOCKS)));
 
     @Override
     public void generateBlockModels(BlockModels bm) {
@@ -64,9 +64,9 @@ public class Sand implements Wireable {
     @Override
     public void generateLootTables(LootTables lt) {
         lt.addBlock(name,
-                LootTable.builder().addLootPool(LootPool.builder().name(name)
-                        .rolls(ConstantRange.of(1))
-                        .addEntry(ItemLootEntry.builder(SAND_ITEM.get()))));
+                LootTable.lootTable().withPool(LootPool.lootPool().name(name)
+                        .setRolls(ConstantRange.exactly(1))
+                        .add(ItemLootEntry.lootTableItem(SAND_ITEM.get()))));
     }
 
     @Override

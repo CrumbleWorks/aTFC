@@ -29,7 +29,7 @@ public class EntityTypeTags extends TagsProvider<EntityType<?>> {
     }
 
     @Override
-    protected void registerTags() {
+    protected void addTags() {
         for(Wireable wireable : Main.wireables) {
             wireable.registerForEntityTypeTags(this);
         }
@@ -37,13 +37,13 @@ public class EntityTypeTags extends TagsProvider<EntityType<?>> {
 
     public TagsProvider.Builder<EntityType<?>> itemTagBuilder(
             ITag.INamedTag<EntityType<?>> tag) {
-        return getOrCreateBuilder(tag);
+        return tag(tag);
     }
 
     /**
      * Resolves a Path for the location to save the given tag.
      */
-    protected Path makePath(ResourceLocation id) {
+    protected Path getPath(ResourceLocation id) {
         return this.generator.getOutputFolder()
                 .resolve("data/" + id.getNamespace() + "/tags/entity_types/"
                         + id.getPath() + ".json");

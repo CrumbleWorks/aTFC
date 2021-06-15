@@ -35,6 +35,6 @@ public class SkillsCheckMessage implements Message<SkillsCheckMessage> {
     public void consumeServerSide(SkillsCheckMessage msg,
             Supplier<Context> ctx) {
         PlayerEntity player = ctx.get().getSender();
-        player.addStat(SkillsWiringAndEvents.OPENED_SKILLS);
+        player.awardStat(SkillsWiringAndEvents.OPENED_SKILLS);
     }
 }

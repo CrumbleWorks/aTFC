@@ -55,7 +55,7 @@ public abstract class SideScreenGui extends AbstractGui {
         int j = (this.height - ySize) / 2;
 
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(this.GUI_TEXTURE);
+        this.mc.getTextureManager().bind(this.GUI_TEXTURE);
         this.blit(matrixStack, i, j, 1, 1, xSize, ySize);
 
         RenderSystem.disableRescaleNormal();

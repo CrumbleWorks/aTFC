@@ -39,8 +39,8 @@ public interface GrassCoverable extends BSP {
 
     default void tryGrowingGrass(BlockState state, ServerWorld world,
             BlockPos pos, Random rand) {
-        BlockState defaultState = state.getBlock().getDefaultState();
-        int sunlight = world.getLightFor(LightType.SKY, pos.up());
+        BlockState defaultState = state.getBlock().defaultBlockState();
+        int sunlight = world.getBrightness(LightType.SKY, pos.above());
 
         // Don't spread grass from non-grown blocks
         if(state == defaultState) {
@@ -50,26 +50,26 @@ public interface GrassCoverable extends BSP {
         // Check if we have enough 'power' for spreading
         if(MINIMUM_LIGHTLEVEL_FOR_GRASSGROWING > sunlight) {
             if(MINIMUM_LIGHTLEVEL_FOR_GRASSKEEPING > sunlight) {
-                world.setBlockState(pos, state.getBlock().getDefaultState());
+                world.setBlockAndUpdate(pos, state.getBlock().defaultBlockState());
             }
 
             return;
         }
 
-        BlockPos upPosA = pos.up().north().west();
-        BlockPos upPosB = pos.up().south().east();
+        BlockPos upPosA = pos.above().north().west();
+        BlockPos upPosB = pos.above().south().east();
         Stream<BlockPos> upStream = StreamSupport.stream(
-                BlockPos.getAllInBoxMutable(upPosA, upPosB).spliterator(),
+                BlockPos.betweenClosed(upPosA, upPosB).spliterator(),
                 false);
         BlockPos midPosA = pos.north(3).west(3);
         BlockPos midPosB = pos.south(3).east(3);
         Stream<BlockPos> midStream = StreamSupport.stream(
-                BlockPos.getAllInBoxMutable(midPosA, midPosB).spliterator(),
+                BlockPos.betweenClosed(midPosA, midPosB).spliterator(),
                 false);
-        BlockPos downPosA = pos.down().north().west();
-        BlockPos downPosB = pos.down(3).south().east();
+        BlockPos downPosA = pos.below().north().west();
+        BlockPos downPosB = pos.below(3).south().east();
         Stream<BlockPos> downStream = StreamSupport.stream(
-                BlockPos.getAllInBoxMutable(downPosA, downPosB).spliterator(),
+                BlockPos.betweenClosed(downPosA, downPosB).spliterator(),
                 false);
 
         List<BlockPos> targets = Stream
@@ -78,7 +78,7 @@ public interface GrassCoverable extends BSP {
                         .isInstance(world.getBlockState(b).getBlock()))
                 // check block above our targetblock; because that's what
                 // minecraft expects from you
-                .filter(b -> world.canSeeSky(b.up()))
+                .filter(b -> world.canSeeSky(b.above()))
                 .collect(Collectors.toList());
         if(targets.isEmpty()) {
             return;
@@ -98,9 +98,9 @@ public interface GrassCoverable extends BSP {
         }
 
         // At first grass needs to get a hold, so it only grows on top
-        BlockState defaultState = state.getBlock().getDefaultState();
+        BlockState defaultState = state.getBlock().defaultBlockState();
         if(state == defaultState) {
-            world.setBlockState(pos, state.with(COVERAGE, GrassCoverage.TOP));
+            world.setBlockAndUpdate(pos, state.setValue(COVERAGE, GrassCoverage.TOP));
             return;
         }
 
@@ -120,12 +120,12 @@ public interface GrassCoverable extends BSP {
 
         switch(surroundingBlocks.size()) {
             case 0:
-                world.setBlockState(pos,
-                        state.with(COVERAGE, GrassCoverage.HALO));
+                world.setBlockAndUpdate(pos,
+                        state.setValue(COVERAGE, GrassCoverage.HALO));
                 return;
             case 1:
-                world.setBlockState(pos,
-                        state.with(COVERAGE, GrassCoverage.USHAPE).with(
+                world.setBlockAndUpdate(pos,
+                        state.setValue(COVERAGE, GrassCoverage.USHAPE).setValue(
                                 FACING,
                                 surroundingBlocks.get(0).getOpposite()));
                 return;
@@ -136,48 +136,48 @@ public interface GrassCoverable extends BSP {
 
                 switch(leftoverBlocks.size()) {
                     case 0:
-                        world.setBlockState(pos,
-                                state.with(COVERAGE, GrassCoverage.OPPOSITES)
-                                        .with(FACING, Direction.WEST));
+                        world.setBlockAndUpdate(pos,
+                                state.setValue(COVERAGE, GrassCoverage.OPPOSITES)
+                                        .setValue(FACING, Direction.WEST));
                         return;
                     case 1:
                         if(surroundingBlocks.contains(Direction.NORTH)
                                 && surroundingBlocks
                                         .contains(Direction.EAST)) {
-                            world.setBlockState(pos,
-                                    state.with(COVERAGE, GrassCoverage.CORNER)
-                                            .with(FACING, Direction.EAST));
+                            world.setBlockAndUpdate(pos,
+                                    state.setValue(COVERAGE, GrassCoverage.CORNER)
+                                            .setValue(FACING, Direction.EAST));
                             return;
                         }
                         if(surroundingBlocks.contains(Direction.EAST)
                                 && surroundingBlocks
                                         .contains(Direction.SOUTH)) {
-                            world.setBlockState(pos,
-                                    state.with(COVERAGE, GrassCoverage.CORNER)
-                                            .with(FACING, Direction.SOUTH));
+                            world.setBlockAndUpdate(pos,
+                                    state.setValue(COVERAGE, GrassCoverage.CORNER)
+                                            .setValue(FACING, Direction.SOUTH));
                             return;
                         }
                         if(surroundingBlocks.contains(Direction.SOUTH)
                                 && surroundingBlocks
                                         .contains(Direction.WEST)) {
-                            world.setBlockState(pos,
-                                    state.with(COVERAGE, GrassCoverage.CORNER)
-                                            .with(FACING, Direction.WEST));
+                            world.setBlockAndUpdate(pos,
+                                    state.setValue(COVERAGE, GrassCoverage.CORNER)
+                                            .setValue(FACING, Direction.WEST));
                             return;
                         }
                         if(surroundingBlocks.contains(Direction.WEST)
                                 && surroundingBlocks
                                         .contains(Direction.NORTH)) {
-                            world.setBlockState(pos,
-                                    state.with(COVERAGE, GrassCoverage.CORNER)
-                                            .with(FACING, Direction.NORTH));
+                            world.setBlockAndUpdate(pos,
+                                    state.setValue(COVERAGE, GrassCoverage.CORNER)
+                                            .setValue(FACING, Direction.NORTH));
                             return;
                         }
                         return;
                     case 2:
-                        world.setBlockState(pos,
-                                state.with(COVERAGE, GrassCoverage.OPPOSITES)
-                                        .with(FACING, Direction.NORTH));
+                        world.setBlockAndUpdate(pos,
+                                state.setValue(COVERAGE, GrassCoverage.OPPOSITES)
+                                        .setValue(FACING, Direction.NORTH));
                         return;
                 }
                 return;
@@ -185,19 +185,19 @@ public interface GrassCoverable extends BSP {
                 List<Direction> horizontalAll = Lists
                         .newArrayList(Direction.Plane.HORIZONTAL);
                 horizontalAll.removeAll(surroundingBlocks);
-                world.setBlockState(pos,
-                        state.with(COVERAGE, GrassCoverage.SIDE).with(FACING,
+                world.setBlockAndUpdate(pos,
+                        state.setValue(COVERAGE, GrassCoverage.SIDE).setValue(FACING,
                                 horizontalAll.get(0)));
                 return;
             case 4:
-                world.setBlockState(pos,
-                        state.with(COVERAGE, GrassCoverage.TOP));
+                world.setBlockAndUpdate(pos,
+                        state.setValue(COVERAGE, GrassCoverage.TOP));
                 return;
         }
     }
 
     static boolean allowsCoverage(ServerWorld world, BlockPos pos) {
-        return world.isAirBlock(pos) && world.getBlockState(pos.down())
+        return world.isEmptyBlock(pos) && world.getBlockState(pos.below())
                 .getBlock() instanceof GrassCoverable;
     }
 }

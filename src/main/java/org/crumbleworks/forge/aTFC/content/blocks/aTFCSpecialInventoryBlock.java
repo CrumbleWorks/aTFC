@@ -57,12 +57,12 @@ public class aTFCSpecialInventoryBlock extends aTFCBaseBlock {
      *             possible. Implementing/overriding is fine.
      */
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
+    public BlockRenderType getRenderShape(BlockState state) {
         return BlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
-    public VoxelShape getRenderShape(BlockState state, IBlockReader worldIn,
+    public VoxelShape getOcclusionShape(BlockState state, IBlockReader worldIn,
             BlockPos pos) {
         return VoxelShapes.empty();
     }
@@ -78,30 +78,30 @@ public class aTFCSpecialInventoryBlock extends aTFCBaseBlock {
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn,
+    public ActionResultType use(BlockState state, World worldIn,
             BlockPos pos, PlayerEntity player, Hand handIn,
             BlockRayTraceResult hit) {
-        if(worldIn.isRemote()) {
+        if(worldIn.isClientSide()) {
             return ActionResultType.SUCCESS;
         }
 
-        TileEntity tileEntity = worldIn.getTileEntity(pos);
+        TileEntity tileEntity = worldIn.getBlockEntity(pos);
         if(! (limiterClass.isInstance(tileEntity))) {
             return ActionResultType.PASS;
         }
 
         aTFCSpecialInventoryTE te = (aTFCSpecialInventoryTE)tileEntity;
-        ItemStack itemstack = player.getHeldItem(handIn);
+        ItemStack itemstack = player.getItemInHand(handIn);
         int targetSlot = Util.gridSlot2x2XZ(hit);
         if(itemstack.isEmpty()) { // holding nothing
-            player.setHeldItem(handIn, te.extractItem(targetSlot));
+            player.setItemInHand(handIn, te.extractItem(targetSlot));
             return ActionResultType.CONSUME;
         }
 
         if(player.isCreative()) {
             te.insertItem(targetSlot, itemstack.copy());
         } else {
-            player.setHeldItem(handIn,
+            player.setItemInHand(handIn,
                     te.insertItem(targetSlot, itemstack));
         }
 
@@ -116,7 +116,7 @@ public class aTFCSpecialInventoryBlock extends aTFCBaseBlock {
         }
 
         PlayerEntity player = event.getPlayer();
-        if(!player.isSneaking()) {
+        if(!player.isShiftKeyDown()) {
             return;
         }
 
@@ -134,15 +134,15 @@ public class aTFCSpecialInventoryBlock extends aTFCBaseBlock {
             return;
         }
 
-        if(!event.getWorld().getBlockState(event.getPos()).isSolidSide(
+        if(!event.getWorld().getBlockState(event.getPos()).isFaceSturdy(
                 event.getWorld(), event.getPos(), Direction.UP)) {
             return;
         }
 
-        BlockPos placementPos = event.getPos().up();
-        event.getWorld().setBlockState(placementPos,
-                createdBlock.getDefaultState());
-        TileEntity te = event.getWorld().getTileEntity(placementPos);
+        BlockPos placementPos = event.getPos().above();
+        event.getWorld().setBlockAndUpdate(placementPos,
+                createdBlock.defaultBlockState());
+        TileEntity te = event.getWorld().getBlockEntity(placementPos);
         if(! (te instanceof aTFCSpecialInventoryTE)) {
             return;
         }
@@ -152,7 +152,7 @@ public class aTFCSpecialInventoryBlock extends aTFCBaseBlock {
         if(player.isCreative()) {
             specTe.insertItem(targetSlot, itemstack.copy());
         } else {
-            player.setHeldItem(event.getHand(),
+            player.setItemInHand(event.getHand(),
                     specTe.insertItem(targetSlot, itemstack));
         }
 
@@ -160,16 +160,16 @@ public class aTFCSpecialInventoryBlock extends aTFCBaseBlock {
     }
 
     @Override
-    public void onReplaced(BlockState state, World worldIn, BlockPos pos,
+    public void onRemove(BlockState state, World worldIn, BlockPos pos,
             BlockState newState, boolean isMoving) {
-        TileEntity tileEntity = worldIn.getTileEntity(pos);
+        TileEntity tileEntity = worldIn.getBlockEntity(pos);
         if(limiterClass.isInstance(tileEntity)) {
             aTFCInventoryHelper.dropInventoryItems(worldIn, pos,
                     ((aTFCSpecialInventoryTE)tileEntity).inventory.resolve()
                             .get());
         }
 
-        super.onReplaced(state, worldIn, pos, newState, isMoving);
+        super.onRemove(state, worldIn, pos, newState, isMoving);
     }
 
     @Override

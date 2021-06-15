@@ -43,7 +43,7 @@ public class atfcDimenstionType extends DimensionType {
     }
     
     @Override
-    public float getCelestrialAngleByTime(long dayTime) {
+    public float timeOfDay(long dayTime) {
         //TODO make sure dayTime goes up to 1 year of ticks
         // -> add some sort of buffer or similar to worlddata?
         // -> modify time command to take day-of-year too
@@ -77,7 +77,7 @@ public class atfcDimenstionType extends DimensionType {
         
         if(world instanceof ClientWorld) {
             PlayerEntity player = Minecraft.getInstance().player;
-            BlockPos playerPos = player.getPosition();
+            BlockPos playerPos = player.blockPosition();
             
             xPos = playerPos.getX();
             zPos = playerPos.getZ();

@@ -38,7 +38,7 @@ public class DryingImpl implements Drying {
         @Override
         public void readNBT(Capability<Drying> capability,
                 Drying instance, Direction side, INBT nbt) {
-            ((DryingImpl)instance).progress = ((FloatNBT)nbt).getFloat();
+            ((DryingImpl)instance).progress = ((FloatNBT)nbt).getAsFloat();
         }
     }
 

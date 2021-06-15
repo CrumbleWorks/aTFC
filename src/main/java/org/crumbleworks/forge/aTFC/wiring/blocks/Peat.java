@@ -76,22 +76,22 @@ public class Peat extends GrassCoverableBlock {
     public static final RegistryObject<Block> PEAT_BLOCK = BLOCKS
             .register(name_peat_block,
                     () -> new BogBlock(AbstractBlock.Properties
-                            .create(Materials.PEAT)
-                            .hardnessAndResistance(0.6F)
+                            .of(Materials.PEAT)
+                            .strength(0.6F)
                             .sound(SoundType.SOUL_SAND)
                             .harvestTool(ToolType.SHOVEL)));
     public static final RegistryObject<Item> PEAT_ITEM = ITEMS.register(
             name_peat_block, () -> new aTFCBlockItem(PEAT_BLOCK.get(),
-                    new Item.Properties().group(ItemGroups.BLOCKS)));
+                    new Item.Properties().tab(ItemGroups.BLOCKS)));
 
     public static final RegistryObject<Item> PEAT_CLOD_ITEM = ITEMS.register(
             name_peat_clod,
             () -> new aTFCBaseItem(Bulk.SMALL, Weighty.TWO_POUND,
-                    new Item.Properties().group(ItemGroups.MATERIALS)));
+                    new Item.Properties().tab(ItemGroups.MATERIALS)));
     public static final RegistryObject<Item> PEAT_BRICK_ITEM = ITEMS.register(
             name_peat_brick,
             () -> new CurableBrickItem(Bulk.MEDIUM, Weighty.TWENTY_POUND,
-                    new Item.Properties().group(ItemGroups.MATERIALS),
+                    new Item.Properties().tab(ItemGroups.MATERIALS),
                     hoursUntilDriedInSun, brick_3D, brick_dry_3D,
                     dryingThreshold, 0.5f));
 
@@ -146,7 +146,7 @@ public class Peat extends GrassCoverableBlock {
 
     @Override
     public void registerItemProperties() {
-        ItemModelsProperties.registerProperty(PEAT_BRICK_ITEM.get(),
+        ItemModelsProperties.register(PEAT_BRICK_ITEM.get(),
                 new ResourceLocation(Main.MOD_ID, "drying"),
                 (stack, world, living) -> {
                     return stack.getCapability(
@@ -157,39 +157,39 @@ public class Peat extends GrassCoverableBlock {
 
     @Override
     public void generateLootTables(LootTables lt) {
-        lt.addBlock(name_peat_brick, LootTable.builder()
-                .addLootPool(LootPool.builder().name(name_peat_brick)
-                        .rolls(RandomValueRange.of(
+        lt.addBlock(name_peat_brick, LootTable.lootTable()
+                .withPool(LootPool.lootPool().name(name_peat_brick)
+                        .setRolls(RandomValueRange.between(
                                 minPeatAmountWithShovel,
                                 maxPeatAmountWithShovel))
-                        .addEntry(ItemLootEntry
-                                .builder(PEAT_BRICK_ITEM.get()))));
+                        .add(ItemLootEntry
+                                .lootTableItem(PEAT_BRICK_ITEM.get()))));
 
-        lt.addBlock(name_peat_clod, LootTable.builder()
-                .addLootPool(LootPool.builder().name(name_peat_clod)
-                        .rolls(RandomValueRange.of(
+        lt.addBlock(name_peat_clod, LootTable.lootTable()
+                .withPool(LootPool.lootPool().name(name_peat_clod)
+                        .setRolls(RandomValueRange.between(
                                 minPeatClods,
                                 maxPeatClods))
-                        .addEntry(ItemLootEntry
-                                .builder(PEAT_CLOD_ITEM.get()))));
+                        .add(ItemLootEntry
+                                .lootTableItem(PEAT_CLOD_ITEM.get()))));
 
-        lt.addBlock(name_peat_block, LootTable.builder()
-                .addLootPool(LootPool.builder().name(name_peat_block)
-                        .rolls(ConstantRange.of(1))
-                        .addEntry(AlternativesLootEntry.builder(
+        lt.addBlock(name_peat_block, LootTable.lootTable()
+                .withPool(LootPool.lootPool().name(name_peat_block)
+                        .setRolls(ConstantRange.exactly(1))
+                        .add(AlternativesLootEntry.alternatives(
                                 new LootEntry.Builder<?>[] {
                                         TableLootEntry
-                                                .builder(new ResourceLocation(
+                                                .lootTableReference(new ResourceLocation(
                                                         Main.MOD_ID,
                                                         "blocks/"
                                                                 + name_peat_brick))
-                                                .acceptCondition(
-                                                        MatchTool.builder(
+                                                .when(
+                                                        MatchTool.toolMatches(
                                                                 ItemPredicate.Builder
-                                                                        .create()
-                                                                        .tag(Tags.Items.SHOVELS))),
+                                                                        .item()
+                                                                        .of(Tags.Items.SHOVELS))),
                                         TableLootEntry
-                                                .builder(new ResourceLocation(
+                                                .lootTableReference(new ResourceLocation(
                                                         Main.MOD_ID,
                                                         "blocks/"
                                                                 + name_peat_clod))
@@ -214,14 +214,14 @@ public class Peat extends GrassCoverableBlock {
     public void registerRecipes(Recipes re,
             Consumer<IFinishedRecipe> consumer) {
         re.shapelessRecipe(PEAT_BRICK_ITEM.get())
-                .addIngredient(PEAT_CLOD_ITEM.get(), peatClodsPerBrick)
-                .addCriterion("has_peat_clod",
+                .requires(PEAT_CLOD_ITEM.get(), peatClodsPerBrick)
+                .unlockedBy("has_peat_clod",
                         re.triggerWhenHasItem(PEAT_CLOD_ITEM.get()))
-                .build(consumer);
+                .save(consumer);
         re.shapelessRecipe(PEAT_CLOD_ITEM.get(), peatClodsPerBrick)
-                .addIngredient(PEAT_BRICK_ITEM.get())
-                .addCriterion("has_fresh_peat",
+                .requires(PEAT_BRICK_ITEM.get())
+                .unlockedBy("has_fresh_peat",
                         re.triggerWhenHasItem(PEAT_BRICK_ITEM.get()))
-                .build(consumer);
+                .save(consumer);
     }
 }

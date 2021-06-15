@@ -23,7 +23,7 @@ public class Flint implements Wireable {
 
     public static final RegistryObject<Item> FLINT_ITEM = ITEMS.register(name,
             () -> new aTFCBaseItem(Bulk.VERY_SMALL, Weighty.POUND,
-                    new Item.Properties().group(ItemGroups.MATERIALS)));
+                    new Item.Properties().tab(ItemGroups.MATERIALS)));
 
     @Override
     public void generateItemModels(ItemModels im) {

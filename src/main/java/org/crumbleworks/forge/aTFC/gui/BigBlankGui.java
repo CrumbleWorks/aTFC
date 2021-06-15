@@ -62,7 +62,7 @@ public abstract class BigBlankGui extends Screen {
         int j = this.guiTop;
 
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.minecraft.getTextureManager().bindTexture(this.GUI_TEXTURE);
+        this.minecraft.getTextureManager().bind(this.GUI_TEXTURE);
         this.blit(matrixStack, i, j, 0, 0, this.xSize, this.ySize);
 
         RenderSystem.disableRescaleNormal();
@@ -75,7 +75,7 @@ public abstract class BigBlankGui extends Screen {
         RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-        this.font.drawText(matrixStack, this.title, (float)this.titleX,
+        this.font.draw(matrixStack, this.title, (float)this.titleX,
                 (float)this.titleY, Colors.GUI_DARK);
         this.drawGuiForegroundLayer(matrixStack, mouseX - i, mouseY - j);
 
@@ -88,18 +88,18 @@ public abstract class BigBlankGui extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        InputMappings.Input mouseKey = InputMappings.getInputByCode(keyCode,
+        InputMappings.Input mouseKey = InputMappings.getKey(keyCode,
                 scanCode);
         if(activeGuiBinding.isActiveAndMatches(mouseKey)) {
-            this.closeScreen();
+            this.onClose();
             return true;
         }
 
         for(int i = 0 ; i < otherGuisBindings.length ; i++) {
             if(otherGuisBindings[i].isActiveAndMatches(mouseKey)) {
-                this.closeScreen();
+                this.onClose();
                 Minecraft.getInstance()
-                        .displayGuiScreen(otherGuisWindows[i].get());
+                        .setScreen(otherGuisWindows[i].get());
                 return true;
             }
         }

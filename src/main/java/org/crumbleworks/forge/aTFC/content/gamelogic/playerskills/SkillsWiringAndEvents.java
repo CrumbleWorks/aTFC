@@ -42,9 +42,9 @@ public class SkillsWiringAndEvents implements Wireable {
 
         @SubscribeEvent
         public static void handleKeyBindings(ClientTickEvent event) {
-            if(SKILLS_KEY.isPressed()
-                    && Minecraft.getInstance().currentScreen == null) {
-                Minecraft.getInstance().displayGuiScreen(new SkillsScreen());
+            if(SKILLS_KEY.consumeClick()
+                    && Minecraft.getInstance().screen == null) {
+                Minecraft.getInstance().setScreen(new SkillsScreen());
             }
         }
     }

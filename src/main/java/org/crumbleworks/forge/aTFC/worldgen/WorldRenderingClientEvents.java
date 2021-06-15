@@ -25,10 +25,10 @@ public class WorldRenderingClientEvents {
             return;
         }
 
-        ((ClientWorld)event.getWorld()).dimensionRenderInfo
+        ((ClientWorld)event.getWorld()).effects
                 .setCloudRenderHandler(new ContinentalCloudRenderHandler(
                         ContinentalWorldType.CLOUD_LEVEL));
-        ((ClientWorld)event.getWorld()).dimensionRenderInfo
+        ((ClientWorld)event.getWorld()).effects
                 .setSkyRenderHandler(new ContinentalSkyRenderHandler());
     }
 }

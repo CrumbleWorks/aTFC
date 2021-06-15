@@ -18,7 +18,7 @@ import net.minecraft.world.gen.layer.Layer;
 public class ContinentalLayerUtil {
 
     public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> createAreaFactories(LongFunction<C> contextFactory) {
-        return IslandLayer.INSTANCE.apply(contextFactory.apply(1L)); //FIXME this is sorta abbreviated minecraft stuff
+        return IslandLayer.INSTANCE.run(contextFactory.apply(1L)); //FIXME this is sorta abbreviated minecraft stuff
     }
     
     public static Layer createGenLayers(long seed) {

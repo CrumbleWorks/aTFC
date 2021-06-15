@@ -42,9 +42,9 @@ public class CharacterWiringAndEvents implements Wireable {
 
         @SubscribeEvent
         public static void handleKeyBindings(ClientTickEvent event) {
-            if(CHARACTER_KEY.isPressed()
-                    && Minecraft.getInstance().currentScreen == null) {
-                Minecraft.getInstance().displayGuiScreen(new CharacterScreen());
+            if(CHARACTER_KEY.consumeClick()
+                    && Minecraft.getInstance().screen == null) {
+                Minecraft.getInstance().setScreen(new CharacterScreen());
             }
         }
     }

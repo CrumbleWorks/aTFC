@@ -24,17 +24,17 @@ public class GrasscoverableBlock extends aTFCBaseBlock
     public GrasscoverableBlock(AbstractBlock.Properties properties) {
         super(properties);
 
-        setDefaultState(stateContainer.getBaseState().with(COVERAGE,
+        registerDefaultState(stateDefinition.any().setValue(COVERAGE,
                 GrassCoverage.NONE));
     }
 
     @Override
-    protected void fillStateContainer(Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
         builder.add(PROPSET_GRASS_COVERABLE);
     }
 
     @Override
-    public boolean ticksRandomly(BlockState state) {
+    public boolean isRandomlyTicking(BlockState state) {
         return true;
     }
 
@@ -48,8 +48,8 @@ public class GrasscoverableBlock extends aTFCBaseBlock
     public SoundType getSoundType(BlockState state, IWorldReader world,
             BlockPos pos, Entity entity) {
         //if grass grows on the block
-        if(state != this.getBlock().getDefaultState()) {
-            return SoundType.PLANT;
+        if(state != this.getBlock().defaultBlockState()) {
+            return SoundType.GRASS;
         }
 
         return super.getSoundType(state, world, pos, entity);

@@ -41,9 +41,9 @@ public abstract class UnstableBlock extends aTFCBaseBlock {
     }
 
     @Override
-    public void onBlockAdded(BlockState state, World worldIn, BlockPos pos,
+    public void onPlace(BlockState state, World worldIn, BlockPos pos,
             BlockState oldState, boolean isMoving) {
-        worldIn.getPendingBlockTicks().scheduleTick(pos, this,
+        worldIn.getBlockTicks().scheduleTick(pos, this,
                 this.getFallDelay());
     }
 
@@ -57,12 +57,12 @@ public abstract class UnstableBlock extends aTFCBaseBlock {
      * passed in.
      */
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn,
+    public BlockState updateShape(BlockState stateIn,
             Direction facing, BlockState facingState, IWorld worldIn,
             BlockPos currentPos, BlockPos facingPos) {
-        worldIn.getPendingBlockTicks().scheduleTick(currentPos, this,
+        worldIn.getBlockTicks().scheduleTick(currentPos, this,
                 this.getFallDelay());
-        return super.updatePostPlacement(stateIn, facing, facingState,
+        return super.updateShape(stateIn, facing, facingState,
                 worldIn, currentPos, facingPos);
     }
 
@@ -81,7 +81,7 @@ public abstract class UnstableBlock extends aTFCBaseBlock {
 
             this.onStartFalling(fallingblockentity);
 
-            worldIn.addEntity(fallingblockentity);
+            worldIn.addFreshEntity(fallingblockentity);
         }
     }
 
@@ -110,9 +110,9 @@ public abstract class UnstableBlock extends aTFCBaseBlock {
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos,
             Random rand) {
         if(rand.nextInt(16) == 0) {
-            BlockPos blockpos = pos.down();
-            if(worldIn.isAirBlock(blockpos)
-                    || FallingBlock.canFallThrough(
+            BlockPos blockpos = pos.below();
+            if(worldIn.isEmptyBlock(blockpos)
+                    || FallingBlock.isFree(
                             worldIn.getBlockState(blockpos))) {
                 double d0 = (double)pos.getX() + rand.nextDouble();
                 double d1 = (double)pos.getY() - 0.05D;
@@ -135,7 +135,7 @@ public abstract class UnstableBlock extends aTFCBaseBlock {
     private BlockPos determineFallDirection(World worldIn, BlockPos pos,
             Random rand) {
         // Always drop down if possible
-        if(!isBlockSolid(worldIn, pos.down())) {
+        if(!isBlockSolid(worldIn, pos.below())) {
             return pos;
         }
 
@@ -147,22 +147,22 @@ public abstract class UnstableBlock extends aTFCBaseBlock {
 
             if(i == 0 && !isSupportingBlock(worldIn, pos.north())
                     && canFallTowards(worldIn, pos.north())) {
-                return pos.add(0, 0, -1);
+                return pos.offset(0, 0, -1);
             }
 
             if(i == 1 && !isSupportingBlock(worldIn, pos.east())
                     && canFallTowards(worldIn, pos.east())) {
-                return pos.add(1, 0, 0);
+                return pos.offset(1, 0, 0);
             }
 
             if(i == 2 && !isSupportingBlock(worldIn, pos.south())
                     && canFallTowards(worldIn, pos.south())) {
-                return pos.add(0, 0, 1);
+                return pos.offset(0, 0, 1);
             }
 
             if(i == 3 && !isSupportingBlock(worldIn, pos.west())
                     && canFallTowards(worldIn, pos.west())) {
-                return pos.add(-1, 0, 0);
+                return pos.offset(-1, 0, 0);
             }
         }
 
@@ -172,10 +172,10 @@ public abstract class UnstableBlock extends aTFCBaseBlock {
     private boolean canFallTowards(World worldIn, BlockPos pos) {
         AxisAlignedBB bb = new AxisAlignedBB(pos);
         return !isBlockSolid(worldIn, pos) && worldIn
-                .getEntitiesWithinAABB(EntityType.FALLING_BLOCK, bb, (e) -> {
+                .getEntities(EntityType.FALLING_BLOCK, bb, (e) -> {
                     return true;
                 }).isEmpty()
-                && !isBlockSolid(worldIn, pos.down());
+                && !isBlockSolid(worldIn, pos.below());
     }
 
     private boolean isSupportingBlock(World worldIn, BlockPos pos) {
@@ -183,14 +183,14 @@ public abstract class UnstableBlock extends aTFCBaseBlock {
         Material material = state.getMaterial();
         // Water is able to lend support to blocks (making sure coasts don't
         // errode)
-        return !worldIn.isAirBlock(pos)
-                && !state.isIn(BlockTags.FIRE)
+        return !worldIn.isEmptyBlock(pos)
+                && !state.is(BlockTags.FIRE)
                 && !material.isReplaceable();
     }
 
     private boolean isBlockSolid(World worldIn, BlockPos pos) {
-        return !worldIn.isAirBlock(pos)
-                && !FallingBlock.canFallThrough(worldIn.getBlockState(pos));
+        return !worldIn.isEmptyBlock(pos)
+                && !FallingBlock.isFree(worldIn.getBlockState(pos));
     }
 
     private boolean isBlockSupported(World worldIn, BlockPos pos) {
@@ -198,7 +198,7 @@ public abstract class UnstableBlock extends aTFCBaseBlock {
         // TODO https://github.com/CrumbleWorks/aTFC/issues/3
 
         // If below block is not solid, it cannot be supporting
-        if(!isBlockSolid(worldIn, pos.down())) {
+        if(!isBlockSolid(worldIn, pos.below())) {
             return false;
         }
 

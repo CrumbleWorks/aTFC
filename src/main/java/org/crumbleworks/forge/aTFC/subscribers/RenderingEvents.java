@@ -34,7 +34,7 @@ public final class RenderingEvents {
         // Multilayer blocks
         Set<Block> blocks = Util.getBlocks(Multilayered.class);
         for(Block block : blocks) {
-            RenderTypeLookup.setRenderLayer(block, RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(block, RenderType.cutout());
         }
     }
 

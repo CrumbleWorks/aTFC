@@ -34,7 +34,7 @@ public class BrickDryPlacerTER extends TileEntityRenderer<BrickDryPlacerTE> {
             MatrixStack matrixStack, IRenderTypeBuffer buffer,
             int combinedLight, int combinedOverlay) {
 
-        matrixStack.push();
+        matrixStack.pushPose();
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         IItemHandler inventory = tileEntity.inventory.resolve().get();
@@ -44,7 +44,7 @@ public class BrickDryPlacerTER extends TileEntityRenderer<BrickDryPlacerTE> {
                 continue;
             }
 
-            matrixStack.push();
+            matrixStack.pushPose();
 
             float xTrans = 0.75f;
             if(i % 2 == 1) {
@@ -67,14 +67,14 @@ public class BrickDryPlacerTER extends TileEntityRenderer<BrickDryPlacerTE> {
                     .getModel(dryingProgress < item.dryingThreshold()
                             ? item.uncuredBrickModel()
                             : item.curedBrickModel());
-            itemRenderer.renderItem(stack,
+            itemRenderer.render(stack,
                     ItemCameraTransforms.TransformType.FIXED, true,
                     matrixStack, buffer, combinedLight, combinedOverlay,
                     bakedModel);
 
-            matrixStack.pop();
+            matrixStack.popPose();
         }
 
-        matrixStack.pop();
+        matrixStack.popPose();
     }
 }

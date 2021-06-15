@@ -26,8 +26,8 @@ public class WorldSetupEventsMod {
     @SubscribeEvent
     public static void registerCodecs(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            Registry.register(Registry.BIOME_PROVIDER_CODEC, Main.MOD_ID + ":" + ContinentalWorldType.IDENTIFIER + "_biomeprovider", ContinentalBiomeProvider.CODEC);
-            Registry.register(Registry.CHUNK_GENERATOR_CODEC, Main.MOD_ID + ":" + ContinentalWorldType.IDENTIFIER + "_chunkgenerator", ContinentalChunkGenerator.CODEC);
+            Registry.register(Registry.BIOME_SOURCE, Main.MOD_ID + ":" + ContinentalWorldType.IDENTIFIER + "_biomeprovider", ContinentalBiomeProvider.CODEC);
+            Registry.register(Registry.CHUNK_GENERATOR, Main.MOD_ID + ":" + ContinentalWorldType.IDENTIFIER + "_chunkgenerator", ContinentalChunkGenerator.CODEC);
         });
     }
     

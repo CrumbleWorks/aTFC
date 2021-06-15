@@ -39,8 +39,8 @@ public abstract class aTFCSpecialInventoryTE extends TileEntity {
         ItemStack resultStack = inventory.resolve().get().insertItem(slot,
                 item, false);
 
-        markDirty();
-        world.notifyBlockUpdate(pos, getBlockState(), getBlockState(),
+        setChanged();
+        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(),
                 Constants.BlockFlags.DEFAULT);
         return resultStack;
     }
@@ -50,13 +50,13 @@ public abstract class aTFCSpecialInventoryTE extends TileEntity {
                 .get();
         ItemStack stack = _inventory.extractItem(slot, 1, false);
 
-        markDirty();
+        setChanged();
         if(_inventory.isEmpty()) {
-            world.setBlockState(pos, Blocks.AIR.getDefaultState(),
+            level.setBlock(worldPosition, Blocks.AIR.defaultBlockState(),
                     Constants.BlockFlags.DEFAULT);
         }
 
-        world.notifyBlockUpdate(pos, getBlockState(), getBlockState(),
+        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(),
                 Constants.BlockFlags.DEFAULT);
         return stack;
     }
@@ -65,40 +65,40 @@ public abstract class aTFCSpecialInventoryTE extends TileEntity {
 
     @Override
     public SUpdateTileEntityPacket getUpdatePacket() {
-        return new SUpdateTileEntityPacket(getPos(), -1, getUpdateTag());
+        return new SUpdateTileEntityPacket(getBlockPos(), -1, getUpdateTag());
     }
 
     @Override
     public void onDataPacket(NetworkManager net,
             SUpdateTileEntityPacket pkt) {
-        handleUpdateTag(getBlockState(), pkt.getNbtCompound());
+        handleUpdateTag(getBlockState(), pkt.getTag());
     }
 
     /* CHUNK LOAD SYNCH */
 
     @Override
     public CompoundNBT getUpdateTag() {
-        return write(new CompoundNBT());
+        return save(new CompoundNBT());
     }
 
     @Override
     public void handleUpdateTag(BlockState state, CompoundNBT tag) {
-        read(state, tag);
+        load(state, tag);
     }
 
     /* STORAGE AND CAPABILITY STUFF */
 
     @Override
-    public CompoundNBT write(CompoundNBT nbt) {
-        super.write(nbt);
+    public CompoundNBT save(CompoundNBT nbt) {
+        super.save(nbt);
         inventory.ifPresent(
                 handler -> nbt.put(storageKey, handler.serializeNBT()));
         return nbt;
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT nbt) {
-        super.read(state, nbt);
+    public void load(BlockState state, CompoundNBT nbt) {
+        super.load(state, nbt);
         inventory.ifPresent(handler -> handler
                 .deserializeNBT(nbt.getCompound(storageKey)));
     }

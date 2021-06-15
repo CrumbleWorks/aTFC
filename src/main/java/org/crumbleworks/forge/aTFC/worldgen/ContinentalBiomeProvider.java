@@ -23,7 +23,7 @@ public class ContinentalBiomeProvider extends BiomeProvider {
     public static final Codec<ContinentalBiomeProvider> CODEC = RecordCodecBuilder.create(instance ->
         instance.group(
                 Codec.LONG.fieldOf("seed").stable().forGetter(cbp -> cbp.seed),
-                RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).forGetter(cbp -> cbp.biomes)
+                RegistryLookupCodec.create(Registry.BIOME_REGISTRY).forGetter(cbp -> cbp.biomes)
             ).apply(instance, instance.stable(ContinentalBiomeProvider::new))
     );
     
@@ -41,16 +41,16 @@ public class ContinentalBiomeProvider extends BiomeProvider {
     @Override
     public Biome getNoiseBiome(int x, int y, int z) {
         //FIXME why do we drop y?! Might be because we assume biomes to be all over the place...
-        return noiseBiomelayer.func_242936_a(biomes, x, z);
+        return noiseBiomelayer.get(biomes, x, z);
     }
 
     @Override
-    protected Codec<? extends BiomeProvider> getBiomeProviderCodec() {
+    protected Codec<? extends BiomeProvider> codec() {
         return CODEC;
     }
 
     @Override
-    public BiomeProvider getBiomeProvider(long seed) {
+    public BiomeProvider withSeed(long seed) {
         return new ContinentalBiomeProvider(seed, biomes);
     }
 }

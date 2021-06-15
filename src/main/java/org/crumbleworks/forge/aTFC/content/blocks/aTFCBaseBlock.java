@@ -31,17 +31,17 @@ public class aTFCBaseBlock extends Block {
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos,
             Block blockIn, BlockPos fromPos, boolean isMoving) {
         //is the neighborChanged source about a connected block being removed?
-        if(!worldIn.getBlockState(fromPos).isSolid()) {
+        if(!worldIn.getBlockState(fromPos).canOcclude()) {
             Set<BlockPos> unsupportedBlocks = new HashSet<>();
             if(areBlocksUnsupported(worldIn, pos, 0, unsupportedBlocks)) {
                 for(BlockPos delPos : unsupportedBlocks) {
                     
-                    if(!worldIn.getBlockState(delPos).isSolid()) {
+                    if(!worldIn.getBlockState(delPos).canOcclude()) {
                         continue;
                     }
                     
                     worldIn.destroyBlock(delPos, false);
-                    Block.spawnAsEntity(worldIn, delPos, new ItemStack(Item.getItemFromBlock(getSelf())));
+                    Block.popResource(worldIn, delPos, new ItemStack(Item.byBlock(asBlock())));
                 }
             }
         }
@@ -55,8 +55,8 @@ public class aTFCBaseBlock extends Block {
         
         int supportedSides = 0;
         for(Direction dir : Direction.values()) {
-            BlockPos testPos = pos.offset(dir);
-            if(unsupportedBlocks.contains(testPos) || !world.getBlockState(testPos).isSolid()) {
+            BlockPos testPos = pos.relative(dir);
+            if(unsupportedBlocks.contains(testPos) || !world.getBlockState(testPos).canOcclude()) {
                 continue;
             }
             

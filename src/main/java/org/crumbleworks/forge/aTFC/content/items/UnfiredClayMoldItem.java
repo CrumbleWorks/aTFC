@@ -18,7 +18,7 @@ public class UnfiredClayMoldItem extends aTFCBaseItem
 
     public UnfiredClayMoldItem() {
         super(Bulk.MEDIUM, Weighty.TEN_POUND, new Item.Properties()
-                .group(ItemGroups.MOLDS).isImmuneToFire());
+                .tab(ItemGroups.MOLDS).fireResistant());
     }
 
     @Override

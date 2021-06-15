@@ -54,7 +54,7 @@ public class GuiHelper {
     public static final void writeText(MatrixStack matrixStack,
             FontRenderer font, ITextComponent text, int x, int y,
             int color) {
-        font.drawText(matrixStack, text, x, y, color);
+        font.draw(matrixStack, text, x, y, color);
     }
 
     public static final void writeTextSmall(MatrixStack matrixStack,
@@ -63,21 +63,21 @@ public class GuiHelper {
         RenderSystem.pushMatrix();
         RenderSystem.translatef(x, y, 0.0f);
         RenderSystem.scalef(0.5f, 0.5f, 0.0f);
-        font.drawText(matrixStack, text, 0.0f, 0.0f, color);
+        font.draw(matrixStack, text, 0.0f, 0.0f, color);
         RenderSystem.popMatrix();
     }
 
     public static final void fillGradientTopToBottom(MatrixStack matrixStack,
             int minX, int minY, int maxX, int maxY, int startColor,
             int endColor) {
-        GuiUtils.drawGradientRect(matrixStack.getLast().getMatrix(), 0,
+        GuiUtils.drawGradientRect(matrixStack.last().pose(), 0,
                 minX, minY, maxX, maxY, startColor, endColor);
     }
 
     public static final void fillGradientLeftToRight(MatrixStack matrixStack,
             int minX, int minY, int maxX, int maxY, int startColor,
             int endColor) {
-        Matrix4f mat = matrixStack.getLast().getMatrix();
+        Matrix4f mat = matrixStack.last().pose();
         int zLevel = 0;
 
         float startAlpha = (float) (startColor >> 24 & 255) / 255.0F;
@@ -96,19 +96,19 @@ public class GuiHelper {
         RenderSystem.shadeModel(GL11.GL_SMOOTH);
 
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBuffer();
+        BufferBuilder buffer = tessellator.getBuilder();
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
-        buffer.pos(mat, maxX, minY, zLevel)
+        buffer.vertex(mat, maxX, minY, zLevel)
                 .color(endRed, endGreen, endBlue, endAlpha).endVertex();
-        buffer.pos(mat, minX, minY, zLevel)
+        buffer.vertex(mat, minX, minY, zLevel)
                 .color(startRed, startGreen, startBlue, startAlpha)
                 .endVertex();
-        buffer.pos(mat, minX, maxY, zLevel)
+        buffer.vertex(mat, minX, maxY, zLevel)
                 .color(startRed, startGreen, startBlue, startAlpha)
                 .endVertex();
-        buffer.pos(mat, maxX, maxY, zLevel)
+        buffer.vertex(mat, maxX, maxY, zLevel)
                 .color(endRed, endGreen, endBlue, endAlpha).endVertex();
-        tessellator.draw();
+        tessellator.end();
 
         RenderSystem.shadeModel(GL11.GL_FLAT);
         RenderSystem.disableBlend();

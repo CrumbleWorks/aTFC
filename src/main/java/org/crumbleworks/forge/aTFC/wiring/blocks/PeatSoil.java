@@ -34,13 +34,13 @@ public class PeatSoil extends GrassCoverableBlock {
     public static final RegistryObject<Block> PEATSOIL_BLOCK = BLOCKS
             .register(name,
                     () -> new BogBlock(AbstractBlock.Properties
-                            .create(Materials.PEAT)
-                            .hardnessAndResistance(0.6F)
+                            .of(Materials.PEAT)
+                            .strength(0.6F)
                             .sound(SoundType.SOUL_SOIL)
                             .harvestTool(ToolType.SHOVEL)));
     public static final RegistryObject<Item> PEATSOIL_ITEM = ITEMS.register(
             name, () -> new TintableBlockItem(PEATSOIL_BLOCK.get(),
-                    new Item.Properties().group(ItemGroups.BLOCKS)));
+                    new Item.Properties().tab(ItemGroups.BLOCKS)));
 
     public PeatSoil() {
         super(name, PEATSOIL_BLOCK);
@@ -59,14 +59,14 @@ public class PeatSoil extends GrassCoverableBlock {
     @Override
     public void generateLootTables(LootTables lt) {
         lt.addBlock(name,
-                LootTable.builder().addLootPool(LootPool.builder()
+                LootTable.lootTable().withPool(LootPool.lootPool()
                         .name(name)
-                        .rolls(ConstantRange.of(1))
-                        .addEntry(ItemLootEntry.builder(Soil.SOIL_ITEM.get())
-                                .weight(soilWeight))
-                        .addEntry(ItemLootEntry
-                                .builder(Peat.PEAT_CLOD_ITEM.get())
-                                .weight(peatClodWeight))));
+                        .setRolls(ConstantRange.exactly(1))
+                        .add(ItemLootEntry.lootTableItem(Soil.SOIL_ITEM.get())
+                                .setWeight(soilWeight))
+                        .add(ItemLootEntry
+                                .lootTableItem(Peat.PEAT_CLOD_ITEM.get())
+                                .setWeight(peatClodWeight))));
     }
 
     @Override

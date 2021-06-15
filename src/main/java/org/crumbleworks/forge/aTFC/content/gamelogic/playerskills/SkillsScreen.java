@@ -103,9 +103,9 @@ public class SkillsScreen extends BigBlankGui {
     }
 
     @Override
-    public void onClose() {
+    public void removed() {
         playerData = null;
-        super.onClose();
+        super.removed();
     }
 
     protected void drawGuiForegroundLayer(MatrixStack matrixStack, int mouseX,
@@ -118,7 +118,7 @@ public class SkillsScreen extends BigBlankGui {
         }
 
         for(int i = 0 ; i < yCoords.length ; i++) {
-            if( (mouseY >= (yCoords[i] + font.FONT_HEIGHT)
+            if( (mouseY >= (yCoords[i] + font.lineHeight)
                     && mouseY <= yCoords[i] + 18)
                     && (mouseX >= progBarXOffset
                             && mouseX <= (xSize - progBarXOffset))) {
@@ -135,12 +135,12 @@ public class SkillsScreen extends BigBlankGui {
 
     private void drawSkill(MatrixStack matrixStack, ITextComponent text,
             int y, int level, int experience) {
-        int labelWidth = font.getStringWidth(text.getString());
+        int labelWidth = font.width(text.getString());
         GuiHelper.writeText(matrixStack, font, text, xSize - labelWidth - 7,
                 y, Colors.GUI_DARK);
 
-        drawSkillBar(matrixStack, y + font.FONT_HEIGHT);
-        fillSkillBar(matrixStack, y + font.FONT_HEIGHT, level, experience);
+        drawSkillBar(matrixStack, y + font.lineHeight);
+        fillSkillBar(matrixStack, y + font.lineHeight, level, experience);
     }
 
     private void drawSkillBar(MatrixStack matrixStack, int y) {
@@ -178,7 +178,7 @@ public class SkillsScreen extends BigBlankGui {
                     new StringTextComponent(
                             String.format("LVL %1s @ %4s / %4s Exp", level,
                                     experience, Skills.EXPERIENCE_PER_LEVEL)),
-                    progBarXOffset + 1, y - 1 - (font.FONT_HEIGHT / 2),
+                    progBarXOffset + 1, y - 1 - (font.lineHeight / 2),
                     Colors.WHITE);
         }
     }

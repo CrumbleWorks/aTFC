@@ -25,10 +25,10 @@ public class WorldSetupEventsForge {
             return;
         }
 
-        ((ClientWorld)event.getWorld()).dimensionRenderInfo
+        ((ClientWorld)event.getWorld()).effects
                 .setCloudRenderHandler(new ContinentalCloudRenderHandler(
                         ContinentalWorldType.CLOUD_LEVEL));
-        ((ClientWorld)event.getWorld()).dimensionRenderInfo
+        ((ClientWorld)event.getWorld()).effects
                 .setSkyRenderHandler(new ContinentalSkyRenderHandler());
     }
 
@@ -38,12 +38,12 @@ public class WorldSetupEventsForge {
 
         ((World)event.getWorld()).dimensionType = new atfcDimenstionType(
                 old.fixedTime, old.hasSkyLight(),
-                old.getHasCeiling(), old.isUltrawarm(), old.isNatural(),
-                old.getCoordinateScale(), old.doesHasDragonFight(),
-                old.isPiglinSafe(), old.doesBedWork(),
-                old.doesRespawnAnchorWorks(),
-                old.isHasRaids(), old.getLogicalHeight(), old.getMagnifier(),
-                old.infiniburn, old.getEffects(),
+                old.hasCeiling(), old.ultraWarm(), old.natural(),
+                old.coordinateScale(), old.createDragonFight(),
+                old.piglinSafe(), old.bedWorks(),
+                old.respawnAnchorWorks(),
+                old.hasRaids(), old.logicalHeight(), old.getBiomeZoomer(),
+                old.infiniburn, old.effectsLocation(),
                 old.ambientLight,
                 event.getWorld());
     }

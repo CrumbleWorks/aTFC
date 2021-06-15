@@ -35,6 +35,6 @@ public class CharacterCheckMessage implements Message<CharacterCheckMessage> {
     public void consumeServerSide(CharacterCheckMessage msg,
             Supplier<Context> ctx) {
         PlayerEntity player = ctx.get().getSender();
-        player.addStat(CharacterWiringAndEvents.OPENED_CHARACTER);
+        player.awardStat(CharacterWiringAndEvents.OPENED_CHARACTER);
     }
 }
