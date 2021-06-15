@@ -47,7 +47,7 @@ public class BrickDryingWiringAndEvents implements Wireable {
         @SubscribeEvent
         public static void createPlacementStorage(
                 PlayerInteractEvent.RightClickBlock event) {
-            aTFCSpecialInventoryBlock.firstItemCreationLogic(event,
+            aTFCSpecialInventoryBlock.rightClickLogic(event,
                     BRICKDRYING_BLOCK.get(), DryableBrick.class);
         }
     }

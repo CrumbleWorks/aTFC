@@ -50,7 +50,7 @@ public class NonBlockPlacementWiringAndEvents implements Wireable {
         @SubscribeEvent
         public static void createPlacementStorage(
                 PlayerInteractEvent.RightClickBlock event) {
-            aTFCSpecialInventoryBlock.firstItemCreationLogic(event,
+            aTFCSpecialInventoryBlock.rightClickLogic(event,
                     NONBLOCKPLACEMENT_BLOCK.get(), WorldPlaceable.class);
         }
     }

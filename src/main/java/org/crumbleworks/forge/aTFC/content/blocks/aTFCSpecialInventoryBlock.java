@@ -25,10 +25,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 /**
- * TODO
+ * Baseblock for storing items in the world
  *
  * @author Michael Stocker
  * @since CURRENT_VERSION
@@ -62,7 +60,8 @@ public class aTFCSpecialInventoryBlock extends aTFCBaseBlock {
     }
 
     @Override
-    public VoxelShape getOcclusionShape(BlockState state, IBlockReader worldIn,
+    public VoxelShape getOcclusionShape(BlockState state,
+            IBlockReader worldIn,
             BlockPos pos) {
         return VoxelShapes.empty();
     }
@@ -92,7 +91,24 @@ public class aTFCSpecialInventoryBlock extends aTFCBaseBlock {
 
         aTFCSpecialInventoryTE te = (aTFCSpecialInventoryTE)tileEntity;
         ItemStack itemstack = player.getItemInHand(handIn);
-        int targetSlot = Util.gridSlot2x2XZ(hit);
+
+        // TODO see if instead we can get a hit-vector for the underlying
+        // block and thus always allow for using the up-case
+        int targetSlot;
+        if(hit.getDirection() == Direction.UP) {
+            targetSlot = Util.gridSlot2x2up(hit);
+        } else if(hit.getDirection() == Direction.NORTH) {
+            targetSlot = Util.gridSlot2x2north(hit);
+        } else if(hit.getDirection() == Direction.SOUTH) {
+            // FIXME beide achsen vertauscht
+            targetSlot = Util.gridSlot2x2south(hit);
+        } else if(hit.getDirection() == Direction.EAST) {
+            // FIXME x-achse vertauscht
+            targetSlot = Util.gridSlot2x2east(hit);
+        } else { // WEST
+            targetSlot = Util.gridSlot2x2west(hit);
+        }
+
         if(itemstack.isEmpty()) { // holding nothing
             player.setItemInHand(handIn, te.extractItem(targetSlot));
             return ActionResultType.CONSUME;
@@ -108,13 +124,29 @@ public class aTFCSpecialInventoryBlock extends aTFCBaseBlock {
         return ActionResultType.CONSUME;
     }
 
-    public static void firstItemCreationLogic(
+    public static void rightClickLogic(
             PlayerInteractEvent.RightClickBlock event, Block createdBlock,
             Class<?> itemMarker) {
         if(!Util.isServerWorld(event.getWorld())) {
             return;
         }
 
+        BlockState targetBlock = event.getWorld()
+                .getBlockState(event.getPos());
+        if(targetBlock.getBlock() == createdBlock) {
+            // Add to existing TileEntity
+            ActionResultType result = createdBlock.use(targetBlock,
+                    event.getWorld(), event.getPos(), event.getPlayer(),
+                    event.getHand(), event.getHitVec());
+
+            if(result.consumesAction()) {
+                event.setCanceled(true);
+            }
+
+            return;
+        }
+
+        // Place new TileEntity
         PlayerEntity player = event.getPlayer();
         if(!player.isShiftKeyDown()) {
             return;
@@ -148,7 +180,7 @@ public class aTFCSpecialInventoryBlock extends aTFCBaseBlock {
         }
 
         aTFCSpecialInventoryTE specTe = (aTFCSpecialInventoryTE)te;
-        int targetSlot = Util.gridSlot2x2XZ(event.getHitVec());
+        int targetSlot = Util.gridSlot2x2up(event.getHitVec());
         if(player.isCreative()) {
             specTe.insertItem(targetSlot, itemstack.copy());
         } else {

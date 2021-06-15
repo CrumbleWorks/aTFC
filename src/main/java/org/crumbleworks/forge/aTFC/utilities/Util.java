@@ -73,16 +73,24 @@ public class Util {
                 .collect(Collectors.toSet());
     }
 
-    public static final int gridSlot2x2XZ(RayTraceResult rtr) {
+    public static final int gridSlot2x2up(RayTraceResult rtr) {
         return gridSlot2X2(rtr.getLocation().x, rtr.getLocation().z);
     }
-
-    public static final int gridSlot2x2XY(RayTraceResult rtr) {
+    
+    public static final int gridSlot2x2north(RayTraceResult rtr) {
         return gridSlot2X2(rtr.getLocation().x, rtr.getLocation().y);
     }
-
-    public static final int gridSlot2x2ZY(RayTraceResult rtr) {
-        return gridSlot2X2(rtr.getLocation().z, rtr.getLocation().y);
+    
+    public static final int gridSlot2x2east(RayTraceResult rtr) {
+        return gridSlot2X2(-rtr.getLocation().y, rtr.getLocation().z);
+    }
+    
+    public static final int gridSlot2x2south(RayTraceResult rtr) {
+        return gridSlot2X2(rtr.getLocation().x, -rtr.getLocation().y);
+    }
+    
+    public static final int gridSlot2x2west(RayTraceResult rtr) {
+        return gridSlot2X2(rtr.getLocation().y, rtr.getLocation().z);
     }
 
     /**
