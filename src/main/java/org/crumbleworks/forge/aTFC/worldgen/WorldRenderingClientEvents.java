@@ -1,9 +1,6 @@
-package org.crumbleworks.forge.aTFC.subscribers;
+package org.crumbleworks.forge.aTFC.worldgen;
 
 import org.crumbleworks.forge.aTFC.Main;
-import org.crumbleworks.forge.aTFC.worldgen.ContinentalCloudRenderHandler;
-import org.crumbleworks.forge.aTFC.worldgen.ContinentalSkyRenderHandler;
-import org.crumbleworks.forge.aTFC.worldgen.ContinentalWorldType;
 
 import net.minecraft.client.world.ClientWorld;
 import net.minecraftforge.api.distmarker.Dist;

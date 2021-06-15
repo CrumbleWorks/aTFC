@@ -27,7 +27,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
  */
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Main.MOD_ID,
         bus = Bus.MOD)
-public final class RenderingClientEvents {
+public final class RenderingEvents {
 
     @SubscribeEvent
     public static void registerTranslucency(FMLClientSetupEvent event) {
