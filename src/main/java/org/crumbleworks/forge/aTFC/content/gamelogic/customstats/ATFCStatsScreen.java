@@ -148,20 +148,20 @@ public class ATFCStatsScreen extends StatsScreen {
                         StatsScreen.func_238672_b_(stat));
             }
 
-            public void render(MatrixStack matStack, int p_230432_2_,
-                    int p_230432_3_, int p_230432_4_, int unusedInt,
+            public void render(MatrixStack matStack, int index,
+                    int top, int left, int unusedInt,
                     int unusedIntTwo, int unusedIntThree, int unusedIntFour,
                     boolean unusedBool, float unusedFloat) {
                 AbstractGui.drawString(matStack, ATFCStatsScreen.this.font,
-                        this.displayText, p_230432_4_ + 2, p_230432_3_ + 1,
-                        p_230432_2_ % 2 == 0 ? 16777215 : 9474192);
+                        this.displayText, left + 2, top + 1,
+                        index % 2 == 0 ? 16777215 : 9474192);
                 String s = this.stat.format(
                         ATFCStatsScreen.this.stats.getValue(this.stat));
                 AbstractGui.drawString(matStack, ATFCStatsScreen.this.font, s,
-                        p_230432_4_ + 2 + 213
+                        left + 2 + 213
                                 - ATFCStatsScreen.this.font.getStringWidth(s),
-                        p_230432_3_ + 1,
-                        p_230432_2_ % 2 == 0 ? 16777215 : 9474192);
+                        top + 1,
+                        index % 2 == 0 ? 16777215 : 9474192);
             }
         }
     }

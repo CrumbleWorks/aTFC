@@ -41,27 +41,27 @@ public class UnstableBlockEntity extends FallingBlockEntity {
     private boolean isThisOrNeighbouringBlockOriginal(BlockPos blockpos,
             Block block) {
 
-        if(this.world.getBlockState(blockpos).isIn(block)) {
+        if(this.world.getBlockState(blockpos).matchesBlock(block)) {
             this.world.removeBlock(blockpos, false);
             return true;
         }
 
-        if(this.world.getBlockState(blockpos.north()).isIn(block)) {
+        if(this.world.getBlockState(blockpos.north()).matchesBlock(block)) {
             this.world.removeBlock(blockpos.north(), false);
             return true;
         }
 
-        if(this.world.getBlockState(blockpos.east()).isIn(block)) {
+        if(this.world.getBlockState(blockpos.east()).matchesBlock(block)) {
             this.world.removeBlock(blockpos.east(), false);
             return true;
         }
 
-        if(this.world.getBlockState(blockpos.south()).isIn(block)) {
+        if(this.world.getBlockState(blockpos.south()).matchesBlock(block)) {
             this.world.removeBlock(blockpos.south(), false);
             return true;
         }
 
-        if(this.world.getBlockState(blockpos.west()).isIn(block)) {
+        if(this.world.getBlockState(blockpos.west()).matchesBlock(block)) {
             this.world.removeBlock(blockpos.west(), false);
             return true;
         }
@@ -135,7 +135,7 @@ public class UnstableBlockEntity extends FallingBlockEntity {
                     BlockState blockstate = this.world
                             .getBlockState(blockpos1);
                     this.setMotion(this.getMotion().mul(0.7D, -0.5D, 0.7D));
-                    if(!blockstate.isIn(Blocks.MOVING_PISTON)) {
+                    if(!blockstate.matchesBlock(Blocks.MOVING_PISTON)) {
                         this.remove();
                         if(!this.dontSetBlock) {
                             boolean flag2 = blockstate.isReplaceable(

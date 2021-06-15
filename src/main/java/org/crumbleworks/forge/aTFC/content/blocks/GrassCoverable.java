@@ -18,6 +18,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LightType;
 import net.minecraft.world.server.ServerWorld;
 
+import org.crumbleworks.forge.aTFC.content.blocks.BSP.GrassCoverage;
+
 /**
  * Marker and methods for blocks that can have grass growing on them (changing
  * their {@link BlockState}). Don't forget to call these methods from your

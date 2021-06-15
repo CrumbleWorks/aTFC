@@ -54,7 +54,7 @@ public class GuiHelper {
     public static final void writeText(MatrixStack matrixStack,
             FontRenderer font, ITextComponent text, int x, int y,
             int color) {
-        font.func_243248_b(matrixStack, text, x, y, color);
+        font.drawText(matrixStack, text, x, y, color);
     }
 
     public static final void writeTextSmall(MatrixStack matrixStack,
@@ -63,7 +63,7 @@ public class GuiHelper {
         RenderSystem.pushMatrix();
         RenderSystem.translatef(x, y, 0.0f);
         RenderSystem.scalef(0.5f, 0.5f, 0.0f);
-        font.func_243248_b(matrixStack, text, 0.0f, 0.0f, color);
+        font.drawText(matrixStack, text, 0.0f, 0.0f, color);
         RenderSystem.popMatrix();
     }
 

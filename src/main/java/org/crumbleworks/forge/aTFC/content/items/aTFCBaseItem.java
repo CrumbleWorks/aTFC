@@ -3,6 +3,9 @@ package org.crumbleworks.forge.aTFC.content.items;
 import net.minecraft.item.Item;
 
 
+import net.minecraft.item.Item.Properties;
+import org.crumbleworks.forge.aTFC.content.items.Bulky.Bulk;
+
 /**
  * TODO
  *

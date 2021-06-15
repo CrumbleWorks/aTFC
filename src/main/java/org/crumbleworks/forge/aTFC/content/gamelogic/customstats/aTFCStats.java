@@ -38,7 +38,7 @@ public class aTFCStats {
             RegistryKey<? extends Registry<T>> registryKey, R instance,
             Supplier<T> objectSupplier, Lifecycle lifecycle) {
         ResourceLocation resourcelocation = registryKey.getLocation();
-        Registry.LOCATION_TO_SUPPLIER.put(resourcelocation, objectSupplier);
+        Registry.REGISTRY_NAME_TO_DEFAULT.put(resourcelocation, objectSupplier);
         MutableRegistry<R> mutableregistry = (MutableRegistry<R>)Registry.ROOT_REGISTRY;
         return (R)mutableregistry.register((RegistryKey)registryKey, instance,
                 lifecycle);

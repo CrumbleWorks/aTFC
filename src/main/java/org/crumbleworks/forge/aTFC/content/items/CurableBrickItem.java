@@ -4,6 +4,9 @@ import org.crumbleworks.forge.aTFC.content.gamelogic.drying.bricks.DryableBrick;
 
 import net.minecraft.util.ResourceLocation;
 
+import net.minecraft.item.Item.Properties;
+import org.crumbleworks.forge.aTFC.content.items.Bulky.Bulk;
+
 /**
  * TODO
  *

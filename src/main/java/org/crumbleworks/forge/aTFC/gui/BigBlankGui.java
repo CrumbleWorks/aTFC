@@ -75,7 +75,7 @@ public abstract class BigBlankGui extends Screen {
         RenderSystem.glMultiTexCoord2f(33986, 240.0F, 240.0F);
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-        this.font.func_243248_b(matrixStack, this.title, (float)this.titleX,
+        this.font.drawText(matrixStack, this.title, (float)this.titleX,
                 (float)this.titleY, Colors.GUI_DARK);
         this.drawGuiForegroundLayer(matrixStack, mouseX - i, mouseY - j);
 

@@ -4,6 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 
 
+import net.minecraft.item.Item.Properties;
+import org.crumbleworks.forge.aTFC.content.items.Bulky.Bulk;
+
 /**
  * TODO
  *

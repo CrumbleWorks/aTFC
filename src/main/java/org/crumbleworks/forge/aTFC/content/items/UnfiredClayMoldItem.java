@@ -5,6 +5,8 @@ import org.crumbleworks.forge.aTFC.content.itemgroups.ItemGroups;
 
 import net.minecraft.item.Item;
 
+import org.crumbleworks.forge.aTFC.content.items.Bulky.Bulk;
+
 /**
  * TODO
  *

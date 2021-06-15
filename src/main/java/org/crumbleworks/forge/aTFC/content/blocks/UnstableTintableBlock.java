@@ -1,4 +1,6 @@
 package org.crumbleworks.forge.aTFC.content.blocks;
+import net.minecraft.block.AbstractBlock.Properties;
+
 
 
 /**

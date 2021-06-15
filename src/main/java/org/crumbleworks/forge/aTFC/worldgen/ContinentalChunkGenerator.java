@@ -65,7 +65,7 @@ public class ContinentalChunkGenerator extends ChunkGenerator {
         instance.group(
                 BiomeProvider.CODEC.fieldOf("biome_source").forGetter(ccg -> ccg.biomeProvider),
                 Codec.LONG.fieldOf("seed").stable().forGetter(ccg -> ccg.seed),
-                DimensionSettings.field_236098_b_.fieldOf("settings").forGetter(ccg -> ccg.dimSettingsSupplier)
+                DimensionSettings.DIMENSION_SETTINGS_CODEC.fieldOf("settings").forGetter(ccg -> ccg.dimSettingsSupplier)
         ).apply(instance, instance.stable(ContinentalChunkGenerator::new)));
     
     private final int verticalNoiseGranularity;

@@ -5,6 +5,8 @@ import org.crumbleworks.forge.aTFC.content.blocks.Tintable;
 import net.minecraft.block.Block;
 
 
+import net.minecraft.item.Item.Properties;
+
 /**
  * TODO
  *

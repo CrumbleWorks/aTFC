@@ -44,7 +44,7 @@ public class ContinentalWorldType extends ForgeWorldType {
     @Override
     public ChunkGenerator createChunkGenerator(Registry<Biome> biomes, Registry<DimensionSettings> dimensionSettings, long seed, String settings) {
         BiomeProvider bp = new ContinentalBiomeProvider(seed, biomes);
-        return new ContinentalChunkGenerator(bp, seed, () -> dimensionSettings.getOrThrow(DimensionSettings.field_242734_c));
+        return new ContinentalChunkGenerator(bp, seed, () -> dimensionSettings.getOrThrow(DimensionSettings.OVERWORLD));
     }
     
     public static SimpleRegistry<Dimension> dimensions(Registry<Biome> biomeRegistry, Registry<DimensionSettings> dimensionSettingsRegistry, long seed) {

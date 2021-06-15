@@ -18,6 +18,8 @@ import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.fml.RegistryObject;
 
 
+import net.minecraftforge.client.model.generators.ModelBuilder;
+
 /**
  * TODO
  *

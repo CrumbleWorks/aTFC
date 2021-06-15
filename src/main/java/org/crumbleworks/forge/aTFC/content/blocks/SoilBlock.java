@@ -15,6 +15,8 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 
+import org.crumbleworks.forge.aTFC.content.blocks.BSP.GrassCoverage;
+
 /**
  * @author Michael Stocker
  * @since CURRENT_VERSION

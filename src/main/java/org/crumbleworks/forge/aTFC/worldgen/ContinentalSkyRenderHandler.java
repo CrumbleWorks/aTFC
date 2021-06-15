@@ -179,7 +179,7 @@ public class ContinentalSkyRenderHandler implements ISkyRenderHandler {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         
-        float[] afloat = world.func_239132_a_().func_230492_a_(world.func_242415_f(partialTicks), partialTicks);
+        float[] afloat = world.getDimensionRenderInfo().func_230492_a_(world.func_242415_f(partialTicks), partialTicks);
         if (afloat != null) {
             RenderSystem.disableTexture();
             RenderSystem.shadeModel(7425);
@@ -277,7 +277,7 @@ public class ContinentalSkyRenderHandler implements ISkyRenderHandler {
             matrixStack.pop();
         }
         
-        if (world.func_239132_a_().func_239216_b_()) {
+        if (world.getDimensionRenderInfo().func_239216_b_()) {
             RenderSystem.color3f(skyColorR * 0.2F + 0.04F, skyColorG * 0.2F + 0.04F, skyColorB * 0.6F + 0.1F);
         } else {
             RenderSystem.color3f(skyColorR, skyColorG, skyColorB);

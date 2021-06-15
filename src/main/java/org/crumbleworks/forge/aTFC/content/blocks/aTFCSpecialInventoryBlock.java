@@ -25,6 +25,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 /**
  * TODO
  *
